@@ -1,3 +1,4 @@
+.PHONY: all bin dotfiles 
 
 all: bin dotfiles
 

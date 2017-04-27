@@ -26,3 +26,8 @@ alias ~="cd ~" # `cd` is probably faster to type though
 # Shortcuts
 alias g="git"
 alias h="history"
+alias ll="ls -al"
+alias hosts='sudo vi /etc/hosts'
+
+# Pretty print the path
+alias path='echo $PATH | tr -s ":" "\n"'
