@@ -1,5 +1,12 @@
 
-all: dotfiles 
+all: bin dotfiles
+
+bin:
+	# add aliases for things in bin
+	for file in $(shell find $(CURDIR)/bin -type f -not -name "*-backlight"); do \
+		f=$$(basename $$file); \
+		sudo ln -sf $$file /usr/local/bin/$$f; \
+	done
 
 dotfiles:
 	# add aliases for dotfiles
