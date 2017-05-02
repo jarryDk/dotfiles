@@ -1,0 +1,57 @@
+#!/bin/bash
+# Bash wrappers for wildfly run commands
+# http://stackoverflow.com/questions/192249/how-do-i-parse-command-line-arguments-in-bash#14203146
+
+wildfly() {
+
+  local TYPE="full"
+
+  if [ "X" == "X$WILDFLY_HOME" ] ; then
+    WILDFLY_HOME=/opt/wildfly
+    echo "WILDFLY_HOME (default) : $WILDFLY_HOME"
+  fi
+
+  while [[ $# -gt 1 ]]
+  do
+  key="$1"
+
+  case $key in
+      -t|--type)
+      TYPE="$2"
+      shift # past argument
+      ;;
+      -l|--log)
+      LOG_FILE="$2"
+      shift # past argument
+      ;;
+      -j|--jvm)
+      JAVA_JVM="$2"
+      shift # past argument
+      ;;
+      --default)
+      DEFAULT=YES
+      ;;
+      *)
+              # unknown option
+      ;;
+  esac
+  shift # past argument or value
+  done
+
+  if [ "X" != "X$LOG_FILE" ]; then
+
+    # Show logfil via tail
+    COMMAND="tail -f $WILDFLY_HOME/standalone/log/$LOG_FILE.log"
+
+  else
+
+    COMMAND="$WILDFLY_HOME/bin/standalone.sh"
+    if [ "Xfull" == "$TYPE"  ] ; then
+      COMMAND="$COMMAND -c standalone-full.xml"
+    fi
+
+  fi
+
+  $COMMAND
+
+}
