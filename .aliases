@@ -29,5 +29,8 @@ alias h="history"
 alias ll="ls -al"
 alias hosts='sudo vi /etc/hosts'
 
+alias mci="mvn clean install"
+alias mcp="mvn clean package"
+
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
