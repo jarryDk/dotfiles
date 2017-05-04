@@ -46,11 +46,15 @@ wildfly() {
   else
 
     COMMAND="$WILDFLY_HOME/bin/standalone.sh"
-    if [ "Xfull" == "$TYPE"  ] ; then
+    if [ "Xfull" == "X$TYPE"  ] ; then
       COMMAND="$COMMAND -c standalone-full.xml"
     fi
 
   fi
+
+  echo "TYPE : $TYPE"
+  echo "COMMAND : $COMMAND"
+  echo ""
 
   $COMMAND
 
