@@ -28,6 +28,7 @@ alias g="git"
 alias h="history"
 alias ll="ls -al"
 alias hosts='sudo vi /etc/hosts'
+alias vi='vim'
 
 alias mci="mvn clean install"
 alias mcp="mvn clean package"
