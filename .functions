@@ -16,6 +16,11 @@ json() {
 	fi
 }
 
+# Display - interface - status : UNKNOWN|UU|DOWN - ip/range
+myIp(){
+	ip -br -4 addr show
+}
+
 # Get colors in manual pages
 man() {
 	env \
