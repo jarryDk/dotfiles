@@ -4,3 +4,5 @@
 
 [github]
 	user = jarryDk
+[cola]
+	spellcheck = false

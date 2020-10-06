@@ -2,6 +2,12 @@
 
 dotfiles I found handy.
 
+## requirement
+
+```console
+sudo dnf install python3-pygments
+```
+
 **To install:**
 
 ```console

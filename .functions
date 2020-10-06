@@ -17,7 +17,7 @@ json() {
 }
 
 # Display - interface - status : UNKNOWN|UU|DOWN - ip/range
-myIp(){
+myip(){
 	ip -br -4 addr show
 }
 
@@ -32,4 +32,15 @@ man() {
 		LESS_TERMCAP_ue="$(printf '\e[0m')" \
 		LESS_TERMCAP_us="$(printf '\e[1;32m')" \
 		man "$@"
+}
+
+# Ban ip from port 25 via iptables
+banport25(){
+	if [ "$#" -ne 1 ]; then
+    	echo "ERROR! You must provide one and only one argument!"
+		echo "Use: banport25 127.0.0.1"
+	else
+		echo "ban from port 25 : $1"
+		#sudo iptables -A INPUT -s $1 -p tcp --destination-port 25 -j DROP
+	fi
 }
