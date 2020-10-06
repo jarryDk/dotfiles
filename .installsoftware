@@ -1,0 +1,67 @@
+#!/bin/bash
+
+installkeycloak(){
+
+CURRENT_USER=$USER
+CURRENT_USER_HOME=$(eval echo ~$USER)
+
+SOFTWARE_FOLDER="$CURRENT_USER_HOME/software/"
+mkdir -p $SOFTWARE_FOLDER
+
+KEYCLOAK_VERSION=11.0.2
+KEYCLOAK_FILENAME=keycloak-$KEYCLOAK_VERSION
+KEYCLOAK_ARCHIVE_NAME=$KEYCLOAK_FILENAME.tar.gz
+KEYCLOAK_ARCHIVE_PATH=$SOFTWARE_FOLDER$KEYCLOAK_FILENAME.tar.gz
+KEYCLOAK_DOWNLOAD_ADDRESS=http://download.jboss.org/keycloak/$KEYCLOAK_VERSION/$KEYCLOAK_ARCHIVE_NAME
+KEYCLOAK_INSTALL_DIR="/opt/keycloak"
+
+echo "Downloading: $KEYCLOAK_DOWNLOAD_ADDRESS..."
+echo "Download location: $KEYCLOAK_ARCHIVE_PATH"
+[ -e "$KEYCLOAK_ARCHIVE_PATH" ] && echo 'Keycloak archive already exists.'
+if [ ! -e "$KEYCLOAK_ARCHIVE_PATH" ]; then
+  wget -q -P $SOFTWARE_FOLDER $KEYCLOAK_DOWNLOAD_ADDRESS
+  if [ $? -ne 0 ]; then
+    echo "Not possible to download Keycloak."
+    exit 1
+  fi
+fi
+
+sudo mkdir -p $KEYCLOAK_INSTALL_DIR
+sudo chown $CURRENT_USER:$CURRENT_USER -R $KEYCLOAK_INSTALL_DIR
+
+tar -xzf $KEYCLOAK_ARCHIVE_PATH -C $KEYCLOAK_INSTALL_DIR
+
+}
+
+installwildfly(){
+
+CURRENT_USER=$USER
+CURRENT_USER_HOME=$(eval echo ~$USER)
+
+SOFTWARE_FOLDER="$CURRENT_USER_HOME/software/"
+mkdir -p $SOFTWARE_FOLDER
+
+WILDFLY_VERSION=20.0.1.Final
+WILDFLY_FILENAME=wildfly-$WILDFLY_VERSION
+WILDFLY_ARCHIVE_NAME=$WILDFLY_FILENAME.tar.gz
+WILDFLY_ARCHIVE_PATH=$SOFTWARE_FOLDER$WILDFLY_FILENAME.tar.gz
+WILDFLY_DOWNLOAD_ADDRESS=http://download.jboss.org/wildfly/$WILDFLY_VERSION/$WILDFLY_ARCHIVE_NAME
+WILDFLY_INSTALL_DIR="/opt/wildfly"
+
+echo "Downloading: $WILDFLY_DOWNLOAD_ADDRESS..."
+echo "Download location: $WILDFLY_ARCHIVE_PATH"
+[ -e "$WILDFLY_ARCHIVE_PATH" ] && echo 'Wildfly archive already exists.'
+if [ ! -e "$WILDFLY_ARCHIVE_PATH" ]; then
+  wget -P $SOFTWARE_FOLDER $WILDFLY_DOWNLOAD_ADDRESS
+  if [ $? -ne 0 ]; then
+    echo "Not possible to download Wildfly."
+    exit 1
+  fi
+fi
+
+sudo mkdir -p $WILDFLY_INSTALL_DIR
+sudo chown $CURRENT_USER:$CURRENT_USER -R $WILDFLY_INSTALL_DIR
+
+tar -xzf $WILDFLY_ARCHIVE_PATH -C $WILDFLY_INSTALL_DIR
+
+}
