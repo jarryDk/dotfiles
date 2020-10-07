@@ -1,0 +1,49 @@
+#!/bin/bash
+
+JAVA_FOLDER="/opt/java"
+
+JAVA_SEVEN_HOME="$JAVA_FOLDER/jdk1.7.0_80"
+JAVA_EIGHT_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
+JAVA_ELEVEN_HOME="$JAVA_FOLDER/jdk-11.0.2"
+JAVA_FOURTEEN_HOME="$JAVA_FOLDER/jdk-14.0.1"
+JAVA_FIFTEEN_HOME="$JAVA_FOLDER/jdk-15"
+
+jdk8(){
+	export JAVA_HOME=$JAVA_EIGHT_HOME		
+	updateJdkAlternatives
+	echo "== Switching to Java 8 -> JAVA_HOME : $JAVA_HOME"
+}
+
+jdk11(){	
+	export JAVA_HOME=$JAVA_ELEVEN_HOME		
+	updateJdkAlternatives
+	echo "== Switching to Java 11 -> JAVA_HOME : $JAVA_HOME"
+}
+
+jdk14(){	
+	export JAVA_HOME=$JAVA_FOURTEEN_HOME		
+	updateJdkAlternatives
+	echo "== Switching to Java 14 -> JAVA_HOME : $JAVA_HOME"
+}
+
+jdk15(){	
+	export JAVA_HOME=$JAVA_FIFTEEN_HOME		
+	updateJdkAlternatives
+	echo "== Switching to Java 15 -> JAVA_HOME : $JAVA_HOME"
+}
+
+updateJdkAlternatives() {
+    ALTERNATIVES_NAME=alternatives
+    if [ -f /etc/redhat-release ]; then
+        ALTERNATIVES_NAME=alternatives
+    fi
+    if [ -f /etc/lsb-release ]; then
+	    ALTERNATIVES_NAME=update-alternatives
+    fi    
+    sudo $ALTERNATIVES_NAME --install "/usr/bin/java" "java" "$JAVA_HOME/bin/java" 1
+	sudo $ALTERNATIVES_NAME --install "/usr/bin/javac" "javac" "$JAVA_HOME/bin/javac" 1
+	sudo $ALTERNATIVES_NAME --install "/usr/bin/javadoc" "javadoc" "$JAVA_HOME/bin/javadoc" 1
+	sudo $ALTERNATIVES_NAME --set java "$JAVA_HOME/bin/java"
+	sudo $ALTERNATIVES_NAME --set javac "$JAVA_HOME/bin/javac"
+	sudo $ALTERNATIVES_NAME --set javadoc "$JAVA_HOME/bin/javadoc"
+}
