@@ -6,7 +6,8 @@ JAVA_SEVEN_HOME="$JAVA_FOLDER/jdk1.7.0_80"
 JAVA_EIGHT_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
 JAVA_ELEVEN_HOME="$JAVA_FOLDER/jdk-11.0.2"
 JAVA_FOURTEEN_HOME="$JAVA_FOLDER/jdk-14.0.1"
-JAVA_FIFTEEN_HOME="$JAVA_FOLDER/jdk-15"
+JAVA_FIFTEEN_HOME="$JAVA_FOLDER/jdk-15.0.2"
+JAVA_NEXT_HOME="$HOME/git/openjdk/jdk/build/linux-x86_64-server-release/jdk"
 
 jdk8(){
 	export JAVA_HOME=$JAVA_EIGHT_HOME		
@@ -30,6 +31,45 @@ jdk15(){
 	export JAVA_HOME=$JAVA_FIFTEEN_HOME		
 	updateJdkAlternatives
 	echo "== Switching to Java 15 -> JAVA_HOME : $JAVA_HOME"
+}
+
+jdkNext(){
+	export JAVA_HOME=$JAVA_NEXT_HOME
+	updateJdkAlternatives
+	echo "== Switching to Java Next -> JAVA_HOME : $JAVA_HOME"
+}
+
+jdkGetReadyToBuild(){
+	sudo dnf install freetype-devel \
+		cups-devel \
+		libXtst-devel \
+		libXt-devel \
+		libXrender-devel \
+		libXrandr-devel \
+		libXi-devel \
+		alsa-lib-devel \
+		libffi-devel \
+		autoconf \
+		gcc-c++ \
+		fontconfig-devel -y
+
+	OPENJDK_JDK=$HOME/git/openjdk/jdk
+
+	if [ -d $OPENJDK_JDK ]; then
+		echo "We have the folder$OPENJDK_JDK"
+		cd $OPENJDK_JDK
+		git pull
+	else
+		echo "We do not have the folder$OPENJDK_JDK"
+		mkdir -p $OPENJDK_JDK
+		git clone https://github.com/openjdk/jdk.git $OPENJDK_JDK
+		git config pull.rebase false
+		bash configure
+	fi
+
+	echo ""
+	echo "make clean | images"
+
 }
 
 updateJdkAlternatives() {
