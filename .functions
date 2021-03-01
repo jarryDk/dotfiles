@@ -21,6 +21,16 @@ myip(){
 	ip -br -4 addr show
 }
 
+# Display - Network infomation 
+mynetwork(){
+	nmcli -p device show
+}
+
+# Display - Network infomation - Only ips
+mynetworkLight(){
+	ifconfig -a | grep 'inet ' | grep broadcast | awk '{ print $2 }'
+}
+
 # Get colors in manual pages
 man() {
 	env \
