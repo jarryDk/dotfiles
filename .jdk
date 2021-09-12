@@ -60,15 +60,16 @@ jdkGetReadyToBuild(){
 		git pull
 	else
 		echo "We do not have the folder$OPENJDK_JDK"
-		mkdir -p $OPENJDK_JDK
+		mkdir -p $OPENJDK_JDK		
 		git clone https://github.com/openjdk/jdk.git $OPENJDK_JDK
+		cd $OPENJDK_JDK
 		git config pull.rebase false
-		bash configure --with-vendor-name JarryDk
 	fi
 
-	echo ""
-	echo "make clean | images"
+	bash configure --with-vendor-name=JarryDk
 
+	echo ""
+	echo "make clean images"
 }
 
 updateJdkAlternatives() {
