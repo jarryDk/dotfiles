@@ -66,7 +66,7 @@ jdkGetReadyToBuild(){
 		git config pull.rebase false
 	fi
 
-	bash configure --with-vendor-name=JarryDk
+	bash configure  --with-version-date=$(date +"%Y-%m-%d") --with-vendor-name=JarryDk
 
 	echo ""
 	echo "make clean images"
