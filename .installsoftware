@@ -1,25 +1,22 @@
 #!/bin/bash
 
-CURRENT_USER=$USER
-CURRENT_USER_HOME=$(eval echo ~$USER)
-SOFTWARE_FOLDER="$CURRENT_USER_HOME/software/"
+SOFTWARE_FOLDER="$HOME/software"
 
 createSoftwareFolder(){  
   mkdir -p $SOFTWARE_FOLDER
 }
 
-installkeycloak(){
+install-keycloak(){
 
   createSoftwareFolder
 
   KEYCLOAK_VERSION=17.0.0
   KEYCLOAK_FILENAME=keycloak-$KEYCLOAK_VERSION
   KEYCLOAK_ARCHIVE_NAME=$KEYCLOAK_FILENAME.tar.gz
-  KEYCLOAK_ARCHIVE_PATH=$SOFTWARE_FOLDER$KEYCLOAK_FILENAME.tar.gz
+  KEYCLOAK_ARCHIVE_PATH="$SOFTWARE_FOLDER/$KEYCLOAK_FILENAME.tar.gz"
   KEYCLOAK_DOWNLOAD_ADDRESS=https://github.com/keycloak/keycloak/releases/download/$KEYCLOAK_VERSION/$KEYCLOAK_ARCHIVE_NAME
   KEYCLOAK_INSTALL_DIR="/opt/keycloak"
-  
-  
+    
   if [ ! -e "$KEYCLOAK_ARCHIVE_PATH" ]; then
     echo "Downloading: $KEYCLOAK_DOWNLOAD_ADDRESS..."
     echo "Download location: $KEYCLOAK_ARCHIVE_PATH"
@@ -34,7 +31,7 @@ installkeycloak(){
 
   if [ ! -d "$KEYCLOAK_INSTALL_DIR" ]; then
     sudo mkdir -p $KEYCLOAK_INSTALL_DIR
-    sudo chown $CURRENT_USER:$CURRENT_USER -R $KEYCLOAK_INSTALL_DIR
+    sudo chown $LOGNAME:$LOGNAME -R $KEYCLOAK_INSTALL_DIR
   fi
 
   if [ ! -d "$KEYCLOAK_INSTALL_DIR/$KEYCLOAK_FILENAME" ]; then
@@ -57,14 +54,14 @@ installkeycloak(){
 
 }
 
-installwildfly(){
+install-wildfly(){
 
   createSoftwareFolder
 
   WILDFLY_VERSION=26.0.1.Final
   WILDFLY_FILENAME=wildfly-$WILDFLY_VERSION
   WILDFLY_ARCHIVE_NAME=$WILDFLY_FILENAME.tar.gz
-  WILDFLY_ARCHIVE_PATH=$SOFTWARE_FOLDER$WILDFLY_FILENAME.tar.gz
+  WILDFLY_ARCHIVE_PATH="$SOFTWARE_FOLDER/$WILDFLY_FILENAME.tar.gz"
   WILDFLY_DOWNLOAD_ADDRESS=https://github.com/wildfly/wildfly/releases/download/$WILDFLY_VERSION/$WILDFLY_ARCHIVE_NAME                           
   WILDFLY_INSTALL_DIR="/opt/wildfly"
     
@@ -82,7 +79,7 @@ installwildfly(){
 
   if [ ! -d "$WILDFLY_INSTALL_DIR" ]; then
     sudo mkdir -p $WILDFLY_INSTALL_DIR
-    sudo chown $CURRENT_USER:$CURRENT_USER -R $WILDFLY_INSTALL_DIR
+    sudo chown $LOGNAME:$LOGNAME -R $WILDFLY_INSTALL_DIR
   fi
 
   if [ ! -d "$WILDFLY_INSTALL_DIR/$WILDFLY_FILENAME" ]; then
@@ -103,4 +100,80 @@ installwildfly(){
   echo ""
   echo "---------------------------------------"
 
+}
+
+install-jdk(){
+
+  JDK_VERSION=$1
+
+  echo "JDK_VERSION : $JDK_VERSION"
+
+  case $JDK_VERSION in
+    17.0.2)
+      ADOPTIUM_TOP_VERSION=17
+      ADOPTIUM_SUB_VERSION=jdk-17.0.2%2B8
+      ADOPTIUM_FOLDER=jdk-17.0.2+8
+      ADOPTIUM_ARCHIVE_NAME=OpenJDK17U-jdk_x64_linux_hotspot_17.0.2_8.tar.gz
+    ;;
+    
+    11.0.14)
+      ADOPTIUM_TOP_VERSION=11
+      ADOPTIUM_SUB_VERSION=jdk-11.0.14.1%2B1
+      ADOPTIUM_FOLDER=jdk-11.0.14.1+1
+      ADOPTIUM_ARCHIVE_NAME=OpenJDK11U-jdk_x64_linux_hotspot_11.0.14.1_1.tar.gz
+    ;;
+
+    8u322b06)
+      ADOPTIUM_TOP_VERSION=8
+      ADOPTIUM_SUB_VERSION=jdk8u322-b06
+      ADOPTIUM_FOLDER=jdk8u322-b06
+      ADOPTIUM_ARCHIVE_NAME=OpenJDK8U-jdk_x64_linux_hotspot_8u322b06.tar.gz
+    ;;
+
+    *)
+      ADOPTIUM_TOP_VERSION=17
+      ADOPTIUM_SUB_VERSION=jdk-17.0.2%2B8
+      ADOPTIUM_FOLDER=jdk-17.0.2+8
+      ADOPTIUM_ARCHIVE_NAME=OpenJDK17U-jdk_x64_linux_hotspot_17.0.2_8.tar.gz
+    ;;
+  esac
+  
+  JAVA_INSTALL_DIR="/opt/java"
+  JDK_BASE_URL="https://github.com/adoptium/temurin"$ADOPTIUM_TOP_VERSION"-binaries/releases/download/$ADOPTIUM_SUB_VERSION/$ADOPTIUM_ARCHIVE_NAME"
+  
+  JDK_ARCHIVE_PATH="$SOFTWARE_FOLDER/$ADOPTIUM_ARCHIVE_NAME"
+  
+  echo "ADOPTIUM_ARCHIVE_NAME : $ADOPTIUM_ARCHIVE_NAME"
+  echo "JDK_ARCHIVE_PATH : $JDK_ARCHIVE_PATH"
+
+  if [ ! -f "$JDK_ARCHIVE_PATH" ]; then
+    wget -P $SOFTWARE_FOLDER $JDK_BASE_URL
+  fi
+
+  if [ ! -d "$JAVA_INSTALL_DIR" ]; then
+    sudo mkdir -p $JAVA_INSTALL_DIR
+    sudo chown $LOGNAME:$LOGNAME -R $JAVA_INSTALL_DIR
+  fi
+  
+  if [ ! -d "$JAVA_INSTALL_DIR/$ADOPTIUM_FOLDER" ]; then
+    tar -xzf $ADOPTIUM_FOLDER -C $JAVA_INSTALL_DIR
+  else
+    echo "$ADOPTIUM_FOLDER is already installed"
+  fi
+
+}
+
+install-jdk8(){
+  echo "Starting to install jdk8"
+  install-jdk 8u322b06
+}
+
+install-jdk11(){
+  echo "Starting to install jdk11"
+  install-jdk 11.0.14
+}
+
+install-jdk17(){
+  echo "Starting to install jdk17"
+  install-jdk 17.0.2
 }

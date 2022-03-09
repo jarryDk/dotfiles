@@ -4,7 +4,6 @@ JAVA_FOLDER="/opt/java"
 
 JAVA_EIGHT_HOME="$JAVA_FOLDER/jdk8u302-b08"
 JAVA_ELEVEN_HOME="$JAVA_FOLDER/jdk-11.0.13+8"
-JAVA_SIXTEEN_HOME="$JAVA_FOLDER/jdk-16.0.2+7"
 JAVA_SEVENTEEN_HOME="$JAVA_FOLDER/jdk-17"
 JAVA_NEXT_HOME="$HOME/git/openjdk/jdk/build/linux-x86_64-server-release/jdk"
 
@@ -18,12 +17,6 @@ jdk11(){
 	export JAVA_HOME=$JAVA_ELEVEN_HOME		
 	updateJdkAlternatives
 	echo "== Switching to Java 11 -> JAVA_HOME : $JAVA_HOME"
-}
-
-jdk16(){
-	export JAVA_HOME=$JAVA_SIXTEEN_HOME
-	updateJdkAlternatives
-	echo "== Switching to Java 16 -> JAVA_HOME : $JAVA_HOME"
 }
 
 jdk17(){
