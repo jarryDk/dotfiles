@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<!--
+https://superuser.com/questions/299903/clear-terminal-using-keyboard-shortcut
+ -->
+<head>
+    <title>Page Title</title>
+    <style>
+        .s-prose kbd {
+            display: inline-block;
+            margin: 0 0.1em;
+            padding: 0.1em 0.6em;
+            font-family: var(--ff-sans);
+            font-size: var(--fs-fine);
+            line-height: var(--s-prose-line-height);
+            color: var(--black-800);
+            text-shadow: 0 1px 0 var(--white);
+            background-color: var(--black-075);
+            border: 1px solid var(--black-300);
+            border-radius: var(--br-sm);
+            box-shadow: 0 1px 1px hsl(210deg 8% 5% / 15%), inset 0 1px 0 0 hsl(0deg 0% 100%);
+            overflow-wrap: break-word;
+        }
+
+        kbd {
+            display: inline-block;
+            margin: 0 0.1em;
+            padding: 0.1em 0.6em;
+            font-family: var(--theme-body-font-family);
+            font-size: var(--fs-fine);
+            line-height: 1.4;
+            color: var(--black-800);
+            text-shadow: 0 1px 0 var(--white);
+            background-color: var(--black-075);
+            border: 1px solid var(--black-300);
+            border-radius: 3px;
+            box-shadow: 0 1px 1px hsla(210, 8%, 5%, 0.15), inset 0 1px 0 0 var(--white);
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="s-prose js-post-body" itemprop="text">
+        <ul>
+            <li>
+                <p><kbd>CTRL</kbd>+<kbd>u</kbd> clears from cursor to beginning of line</p>
+            </li>
+            <li>
+                <p><kbd>CTRL</kbd>+<kbd>k</kbd> clears from cursor to end of line</p>
+            </li>
+            <li>
+                <p><kbd>CTRL</kbd>+<kbd>d</kbd> clears one character to the right of the cursor</p>
+            </li>
+            <li>
+                <p><kbd>Esc</kbd>+<kbd>Backspace</kbd> clears one word to the left of the cursor</p>
+            </li>
+            <li>
+                <p><kbd>Esc</kbd>+<kbd>d</kbd> clears one word to the right of the cursor</p>
+            </li>
+            <li>
+                <p><kbd>Alt</kbd>+<kbd>left/right</kbd> jumps to the beginning of the previous/next word</p>
+            </li>
+            <li>
+                <p><kbd>Ctr</kbd>+<kbd>a</kbd> jumps to start of line</p>
+            </li>
+            <li>
+                <p><kbd>Ctr</kbd>+<kbd>e</kbd> jumps to end of line</p>
+            </li>
+        </ul>
+        <p>To clear the entire screen add the following alias to your <code>~/.bashrc</code> file:</p>
+        <pre><code>alias cls="echo -ne '\033c'"
+        </code></pre>
+        <p>Now, in a <em>new</em> terminal typing <code>cls</code> will clear everything including the scroll buffer. It
+            works much faster than <code>reset</code> since it does not reset anything.</p>
+        <p>In fact <code>reset</code> is only needed when you want to fix a broken terminal, e.g. after running
+            <code>cat</code> on a binary file.
+        </p>
+        <p>If you are on OSX, then Command (<kbd>⌘</kbd>)+<kbd>k</kbd> will clear the terminal <sub>(<em>also works in
+                    the chrome devtools console</em>)</sub>.</p>
+    </div>
+
+</body>
+
+</html>
