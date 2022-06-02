@@ -32,6 +32,7 @@ alias vi='vim'
 
 alias mci="mvn clean install"
 alias mcp="mvn clean package"
+alias mversion="mvn versions:display-dependency-updates"
 
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
