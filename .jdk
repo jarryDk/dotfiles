@@ -1,20 +1,13 @@
 #!/bin/bash
 
-JAVA_FOLDER="/opt/java"
-
-JAVA_EIGHT_HOME="$JAVA_FOLDER/jdk8u302-b08"
-JAVA_ELEVEN_HOME="$JAVA_FOLDER/jdk-11.0.13+8"
-JAVA_SEVENTEEN_HOME="$JAVA_FOLDER/jdk-17"
-JAVA_NEXT_HOME="$HOME/git/openjdk/jdk/build/linux-x86_64-server-release/jdk"
-
 jdk8(){
-	export JAVA_HOME=$JAVA_EIGHT_HOME		
+	export JAVA_HOME=$JAVA_EIGHT_HOME
 	updateJdkAlternatives
 	echo "== Switching to Java 8 -> JAVA_HOME : $JAVA_HOME"
 }
 
-jdk11(){	
-	export JAVA_HOME=$JAVA_ELEVEN_HOME		
+jdk11(){
+	export JAVA_HOME=$JAVA_ELEVEN_HOME
 	updateJdkAlternatives
 	echo "== Switching to Java 11 -> JAVA_HOME : $JAVA_HOME"
 }
@@ -53,7 +46,7 @@ jdkGetReadyToBuild(){
 		git pull
 	else
 		echo "We do not have the folder$OPENJDK_JDK"
-		mkdir -p $OPENJDK_JDK		
+		mkdir -p $OPENJDK_JDK
 		git clone https://github.com/openjdk/jdk.git $OPENJDK_JDK
 		cd $OPENJDK_JDK
 		git config pull.rebase false
@@ -66,17 +59,27 @@ jdkGetReadyToBuild(){
 }
 
 updateJdkAlternatives() {
+
     ALTERNATIVES_NAME=alternatives
     if [ -f /etc/redhat-release ]; then
         ALTERNATIVES_NAME=alternatives
     fi
     if [ -f /etc/lsb-release ]; then
 	    ALTERNATIVES_NAME=update-alternatives
-    fi    
+    fi
+
+	echo "JAVA_HOME: $JAVA_HOME"
+
     sudo $ALTERNATIVES_NAME --install "/usr/bin/java" "java" "$JAVA_HOME/bin/java" 1
-	sudo $ALTERNATIVES_NAME --install "/usr/bin/javac" "javac" "$JAVA_HOME/bin/javac" 1
-	sudo $ALTERNATIVES_NAME --install "/usr/bin/javadoc" "javadoc" "$JAVA_HOME/bin/javadoc" 1
 	sudo $ALTERNATIVES_NAME --set java "$JAVA_HOME/bin/java"
-	sudo $ALTERNATIVES_NAME --set javac "$JAVA_HOME/bin/javac"
-	sudo $ALTERNATIVES_NAME --set javadoc "$JAVA_HOME/bin/javadoc"
+
+	if [ -f "$JAVA_HOME/bin/javac" ]; then
+		sudo $ALTERNATIVES_NAME --install "/usr/bin/javac" "javac" "$JAVA_HOME/bin/javac" 1
+		sudo $ALTERNATIVES_NAME --set javac "$JAVA_HOME/bin/javac"
+	fi
+
+	if [ -f "$JAVA_HOME/bin/javadoc" ]; then
+		sudo $ALTERNATIVES_NAME --install "/usr/bin/javadoc" "javadoc" "$JAVA_HOME/bin/javadoc" 1
+		sudo $ALTERNATIVES_NAME --set javadoc "$JAVA_HOME/bin/javadoc"
+	fi
 }

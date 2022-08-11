@@ -1,22 +1,84 @@
 #!/bin/bash
 
+source ~/.functions
+
 SOFTWARE_FOLDER="$HOME/software"
 
-createSoftwareFolder(){  
+createSoftwareFolder(){
   mkdir -p $SOFTWARE_FOLDER
+}
+
+install-kafka(){
+
+  # https://kafka.apache.org/downloads
+
+  createSoftwareFolder
+
+  KAFKA_FILENAME="kafka_"$VERSION_KAFKA_SCALA"-$VERSION_KAFKA"
+  KAFKA_ARCHIVE_NAME="$KAFKA_FILENAME.tgz"
+  KAFKA_ARCHIVE_PATH="$SOFTWARE_FOLDER/$KAFKA_ARCHIVE_NAME"
+  KAFKA_DOWNLOAD_ADDRESS=https://downloads.apache.org/kafka/$VERSION_KAFKA/$KAFKA_ARCHIVE_NAME
+
+  if [ ! -e "$KAFKA_ARCHIVE_PATH" ]; then
+    echo "Downloading: $KAFKA_DOWNLOAD_ADDRESS..."
+    echo "Download location: $KAFKA_ARCHIVE_PATH"
+    wget -q -P $SOFTWARE_FOLDER $KAFKA_DOWNLOAD_ADDRESS
+    if [ $? -ne 0 ]; then
+      echo "Not possible to download Kafka."
+      exit 1
+    fi
+  else
+    echo "Kafka archive already exists."
+  fi
+
+  if [ ! -d "$KAFKA_INSTALL_DIR" ]; then
+    sudo mkdir -p $KAFKA_INSTALL_DIR
+    sudo chown $LOGNAME:$LOGNAME -R $KAFKA_INSTALL_DIR
+  fi
+
+  if [ ! -d "$KAFKA_INSTALL_DIR/$KAFKA_FILENAME" ]; then
+    tar -xzf $KAFKA_ARCHIVE_PATH -C $KAFKA_INSTALL_DIR
+  else
+    echo "$KAFKA_FILENAME is already installed"
+  fi
+
+  echo ""
+  echo "---------------------------------------"
+  printf "\033[32mKafka $VERSION_KAFKA installed\033[39m\n"
+  echo ""
+  echo "To start Kafka please use :"
+  echo ""
+  echo "Start the ZooKeeper service"
+  echo " cd $KAFKA_HOME"
+  echo " bin/zookeeper-server-start.sh config/zookeeper.properties"
+  echo " or"
+  echo " $KAFKA_HOME/bin/zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.properties"
+  echo ""
+  echo "Start the Kafka broker service"
+  echo " cd $KAFKA_HOME"
+  echo " bin/kafka-server-start.sh config/server.properties"
+  echo " or"
+  echo " $KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties"
+  echo ""
+  echo "https://kafka.apache.org/quickstart"
+  echo ""
+  echo "---------------------------------------"
+
 }
 
 install-keycloak(){
 
+  # https://github.com/keycloak/keycloak/releases
+
   createSoftwareFolder
 
-  KEYCLOAK_VERSION=17.0.0
+  KEYCLOAK_VERSION=19.0.1
   KEYCLOAK_FILENAME=keycloak-$KEYCLOAK_VERSION
   KEYCLOAK_ARCHIVE_NAME=$KEYCLOAK_FILENAME.tar.gz
   KEYCLOAK_ARCHIVE_PATH="$SOFTWARE_FOLDER/$KEYCLOAK_FILENAME.tar.gz"
   KEYCLOAK_DOWNLOAD_ADDRESS=https://github.com/keycloak/keycloak/releases/download/$KEYCLOAK_VERSION/$KEYCLOAK_ARCHIVE_NAME
   KEYCLOAK_INSTALL_DIR="/opt/keycloak"
-    
+
   if [ ! -e "$KEYCLOAK_ARCHIVE_PATH" ]; then
     echo "Downloading: $KEYCLOAK_DOWNLOAD_ADDRESS..."
     echo "Download location: $KEYCLOAK_ARCHIVE_PATH"
@@ -26,7 +88,7 @@ install-keycloak(){
       exit 1
     fi
   else
-    echo "Keycloak archive already exists."  
+    echo "Keycloak archive already exists."
   fi
 
   if [ ! -d "$KEYCLOAK_INSTALL_DIR" ]; then
@@ -38,11 +100,11 @@ install-keycloak(){
     tar -xzf $KEYCLOAK_ARCHIVE_PATH -C $KEYCLOAK_INSTALL_DIR
   else
     echo "$KEYCLOAK_FILENAME is already installed"
-  fi  
+  fi
 
   echo ""
   echo "---------------------------------------"
-  printf "\033[32mKeycloak $KEYCLOAK_VERSION installed\033[39m\n"  
+  printf "\033[32mKeycloak $KEYCLOAK_VERSION installed\033[39m\n"
   echo ""
   echo "To start Keycloak please use :"
   echo " cd $KEYCLOAK_INSTALL_DIR/$KEYCLOAK_FILENAME"
@@ -56,15 +118,17 @@ install-keycloak(){
 
 install-wildfly(){
 
+  # https://www.wildfly.org/downloads/
+
   createSoftwareFolder
 
-  WILDFLY_VERSION=26.0.1.Final
+  WILDFLY_VERSION=26.1.1.Final
   WILDFLY_FILENAME=wildfly-$WILDFLY_VERSION
   WILDFLY_ARCHIVE_NAME=$WILDFLY_FILENAME.tar.gz
   WILDFLY_ARCHIVE_PATH="$SOFTWARE_FOLDER/$WILDFLY_FILENAME.tar.gz"
-  WILDFLY_DOWNLOAD_ADDRESS=https://github.com/wildfly/wildfly/releases/download/$WILDFLY_VERSION/$WILDFLY_ARCHIVE_NAME                           
+  WILDFLY_DOWNLOAD_ADDRESS=https://github.com/wildfly/wildfly/releases/download/$WILDFLY_VERSION/$WILDFLY_ARCHIVE_NAME
   WILDFLY_INSTALL_DIR="/opt/wildfly"
-    
+
   if [ ! -e "$WILDFLY_ARCHIVE_PATH" ]; then
     echo "Downloading: $WILDFLY_DOWNLOAD_ADDRESS..."
     echo "Download location: $WILDFLY_ARCHIVE_PATH"
@@ -93,7 +157,7 @@ install-wildfly(){
   printf "\033[32mWildfly $WILDFLY_FILENAME installed\033[39m\n"
   echo ""
   echo "To start Wildfly please use :"
-  echo " cd $WILDFLY_INSTALL_DIR/$WILDFLY_FILENAME"  
+  echo " cd $WILDFLY_INSTALL_DIR/$WILDFLY_FILENAME"
   echo " bin/standalone.sh"
   echo ""
   echo "https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/START_JBOSS_EAP.adoc#start_the_jboss_eap_server"
@@ -104,45 +168,57 @@ install-wildfly(){
 
 install-jdk(){
 
+  VERSION_JAVA_EIGHT_ADOPTIUM_TAG=$VERSION_JAVA_EIGHT
+  VERSION_JAVA_EIGHT_ADOPTIUM_ARCHIVE_NAME="OpenJDK8U-jdk_x64_linux_hotspot_8u345b01.tar.gz"
+
+  VERSION_JAVA_ELEVEN_ADOPTIUM_TAG=$( eval "rawurlencode $VERSION_JAVA_ELEVEN")
+  VERSION_JAVA_ELEVEN_ADOPTIUM_ARCHIVE_NAME="OpenJDK11U-jdk_x64_linux_hotspot_11.0.16_8.tar.gz"
+
+  VERSION_JAVA_SEVENTEEN_ADOPTIUM_TAG=$( eval "rawurlencode $VERSION_JAVA_SEVENTEEN")
+  VERSION_JAVA_SEVENTEEN_ADOPTIUM_ARCHIVE_NAME="OpenJDK17U-jdk_x64_linux_hotspot_17.0.4_8.tar.gz"
+
   JDK_VERSION=$1
 
   echo "JDK_VERSION : $JDK_VERSION"
 
   case $JDK_VERSION in
-    17.0.2)
+    17)
+      # https://github.com/adoptium/temurin17-binaries
       ADOPTIUM_TOP_VERSION=17
-      ADOPTIUM_SUB_VERSION=jdk-17.0.2%2B8
-      ADOPTIUM_FOLDER=jdk-17.0.2+8
-      ADOPTIUM_ARCHIVE_NAME=OpenJDK17U-jdk_x64_linux_hotspot_17.0.2_8.tar.gz
-    ;;
-    
-    11.0.14)
-      ADOPTIUM_TOP_VERSION=11
-      ADOPTIUM_SUB_VERSION=jdk-11.0.14.1%2B1
-      ADOPTIUM_FOLDER=jdk-11.0.14.1+1
-      ADOPTIUM_ARCHIVE_NAME=OpenJDK11U-jdk_x64_linux_hotspot_11.0.14.1_1.tar.gz
+      ADOPTIUM_TAG_VERSION=$VERSION_JAVA_SEVENTEEN_ADOPTIUM_TAG
+      ADOPTIUM_FOLDER=$VERSION_JAVA_SEVENTEEN
+      ADOPTIUM_ARCHIVE_NAME=$VERSION_JAVA_SEVENTEEN_ADOPTIUM_ARCHIVE_NAME
     ;;
 
-    8u322b06)
+    11)
+      # https://github.com/adoptium/temurin11-binaries
+      ADOPTIUM_TOP_VERSION=11
+      ADOPTIUM_TAG_VERSION=$VERSION_JAVA_ELEVEN_ADOPTIUM_TAG
+      ADOPTIUM_FOLDER=$VERSION_JAVA_ELEVEN
+      ADOPTIUM_ARCHIVE_NAME=$VERSION_JAVA_ELEVEN_ADOPTIUM_ARCHIVE_NAME
+    ;;
+
+    8)
+      # https://github.com/adoptium/temurin8-binaries
       ADOPTIUM_TOP_VERSION=8
-      ADOPTIUM_SUB_VERSION=jdk8u322-b06
-      ADOPTIUM_FOLDER=jdk8u322-b06
-      ADOPTIUM_ARCHIVE_NAME=OpenJDK8U-jdk_x64_linux_hotspot_8u322b06.tar.gz
+      ADOPTIUM_TAG_VERSION=$VERSION_JAVA_EIGHT_ADOPTIUM_TAG
+      ADOPTIUM_FOLDER=$VERSION_JAVA_EIGHT
+      ADOPTIUM_ARCHIVE_NAME=$VERSION_JAVA_EIGHT_ADOPTIUM_ARCHIVE_NAME
     ;;
 
     *)
       ADOPTIUM_TOP_VERSION=17
-      ADOPTIUM_SUB_VERSION=jdk-17.0.2%2B8
-      ADOPTIUM_FOLDER=jdk-17.0.2+8
-      ADOPTIUM_ARCHIVE_NAME=OpenJDK17U-jdk_x64_linux_hotspot_17.0.2_8.tar.gz
+      ADOPTIUM_TAG_VERSION=$VERSION_JAVA_SEVENTEEN_ADOPTIUM_TAG
+      ADOPTIUM_FOLDER=$VERSION_JAVA_SEVENTEEN
+      ADOPTIUM_ARCHIVE_NAME=$VERSION_JAVA_SEVENTEEN_ADOPTIUM_ARCHIVE_NAME
     ;;
   esac
-  
+
   JAVA_INSTALL_DIR="/opt/java"
-  JDK_BASE_URL="https://github.com/adoptium/temurin"$ADOPTIUM_TOP_VERSION"-binaries/releases/download/$ADOPTIUM_SUB_VERSION/$ADOPTIUM_ARCHIVE_NAME"
-  
+  JDK_BASE_URL="https://github.com/adoptium/temurin"$ADOPTIUM_TOP_VERSION"-binaries/releases/download/$ADOPTIUM_TAG_VERSION/$ADOPTIUM_ARCHIVE_NAME"
+
   JDK_ARCHIVE_PATH="$SOFTWARE_FOLDER/$ADOPTIUM_ARCHIVE_NAME"
-  
+
   echo "ADOPTIUM_ARCHIVE_NAME : $ADOPTIUM_ARCHIVE_NAME"
   echo "JDK_ARCHIVE_PATH : $JDK_ARCHIVE_PATH"
 
@@ -153,27 +229,32 @@ install-jdk(){
   if [ ! -d "$JAVA_INSTALL_DIR" ]; then
     sudo mkdir -p $JAVA_INSTALL_DIR
     sudo chown $LOGNAME:$LOGNAME -R $JAVA_INSTALL_DIR
+    echo "Folder $JAVA_INSTALL_DIR was created"
+  else
+    echo "Folder $JAVA_INSTALL_DIR already existed"
   fi
-  
+
   if [ ! -d "$JAVA_INSTALL_DIR/$ADOPTIUM_FOLDER" ]; then
-    tar -xzf $ADOPTIUM_FOLDER -C $JAVA_INSTALL_DIR
+    tar -xzf $JDK_ARCHIVE_PATH -C $JAVA_INSTALL_DIR
   else
     echo "$ADOPTIUM_FOLDER is already installed"
   fi
+
+  echo "Java install in the folder $ADOPTIUM_FOLDER"
 
 }
 
 install-jdk8(){
   echo "Starting to install jdk8"
-  install-jdk 8u322b06
+  install-jdk 8
 }
 
 install-jdk11(){
   echo "Starting to install jdk11"
-  install-jdk 11.0.14
+  install-jdk 11
 }
 
 install-jdk17(){
   echo "Starting to install jdk17"
-  install-jdk 17.0.2
+  install-jdk 17
 }

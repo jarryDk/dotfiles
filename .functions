@@ -46,20 +46,20 @@ banport25(){
 }
 
 # Git Squash
-gitS() {	
+gitS() {
 	# Check if the current directory is in a Git repository.
 	if [ "$(git rev-parse --is-inside-work-tree &>/dev/null; echo "${?}")" == '0' ]; then
 
-		if [ "X" != "X$1" ]; then		
+		if [ "X" != "X$1" ]; then
 			MESSAGE=""
 			if [ "X" != "X$2" ]; then
-				MESSAGE=" -m \"$2\""	
+				MESSAGE=" -m \"$2\""
 			fi
 
-			command="git reset --soft HEAD~$1"			
+			command="git reset --soft HEAD~$1"
 			$command
 
-			command="git commit $MESSAGE"	
+			command="git commit $MESSAGE"
 			$command
 		else
 			echo "Head is first argument"
@@ -68,4 +68,122 @@ gitS() {
 	else
 		echo "Current directory is NOT in a Git repository"
 	fi
+}
+
+# https://github.com/sfinktah/bash/blob/master/rawurlencode.inc.sh
+# Returns a string in which all non-alphanumeric characters except -_.~ have
+# been replaced with a percent (%) sign followed by two hex digits.
+#
+# Example
+# -------
+#     easier:    echo http://url/q?=$( rawurlencode "$args" )
+#     faster:    rawurlencode "$args"; echo http://url/q?${REPLY}
+
+rawurlencode() {
+    local string="${1}"
+    local strlen=${#string}
+    local encoded=""
+    local pos c o
+
+    for (( pos=0 ; pos<strlen ; pos++ )); do
+        c=${string:$pos:1}
+        case "$c" in
+           [-_.~a-zA-Z0-9] ) o="${c}" ;;
+           * )               printf -v o '%%%02x' "'$c"
+        esac
+        encoded+="${o}"
+    done
+    echo "${encoded}"    # You can either set a return variable (FASTER)
+    REPLY="${encoded}"   #+or echo the result (EASIER)... or both... :p
+}
+
+kafka-info(){
+
+	ZOOKEEPER_PORT=2181
+	SERVER_BROKER_0_PORT=9092
+	SERVER_BROKER_1_PORT=9093
+	SERVER_BROKER_2_PORT=9094
+	SERVER_BROKER_3_PORT=9095
+
+ 	PID_OF_PORT_IN_USE_ZOOKEEPER=$(lsof -i:$ZOOKEEPER_PORT | grep LISTEN | awk '{print $2}')
+	PID_OF_PORT_IN_USE_SERVER_BORKER_0=$(lsof -i:$SERVER_BROKER_0_PORT | grep LISTEN | awk '{print $2}')
+	PID_OF_PORT_IN_USE_SERVER_BORKER_1=$(lsof -i:$SERVER_BROKER_1_PORT | grep LISTEN | awk '{print $2}')
+	PID_OF_PORT_IN_USE_SERVER_BORKER_2=$(lsof -i:$SERVER_BROKER_2_PORT | grep LISTEN | awk '{print $2}')
+	PID_OF_PORT_IN_USE_SERVER_BORKER_3=$(lsof -i:$SERVER_BROKER_3_PORT | grep LISTEN | awk '{print $2}')
+
+	if [ "X" != "X$PID_OF_PORT_IN_USE_ZOOKEEPER" ]; then
+		echo "Zookeeper runing on port $ZOOKEEPER_PORT have pid : $PID_OF_PORT_IN_USE_ZOOKEEPER"
+	else
+		echo "No Zookeeper runing on port $ZOOKEEPER_PORT"
+	fi
+	if [ "X" != "X$PID_OF_PORT_IN_USE_SERVER_BORKER_0" ]; then
+		echo "Server (broker:0) on port $SERVER_BROKER_0_PORT have pid : $PID_OF_PORT_IN_USE_SERVER_BORKER_0"
+	fi
+	if [ "X" != "X$PID_OF_PORT_IN_USE_SERVER_BORKER_1" ]; then
+		echo "Server (broker:1) on port $SERVER_BROKER_2_PORT have pid : $PID_OF_PORT_IN_USE_SERVER_BORKER_1"
+	fi
+	if [ "X" != "X$PID_OF_PORT_IN_USE_SERVER_BORKER_2" ]; then
+		echo "Server (broker:2) on port $SERVER_BROKER_3_PORT have pid : $PID_OF_PORT_IN_USE_SERVER_BORKER_2"
+	fi
+	if [ "X" != "X$PID_OF_PORT_IN_USE_SERVER_BORKER_3" ]; then
+		echo "Server (broker:3) on port $SERVER_BROKER_3_PORT have pid : $PID_OF_PORT_IN_USE_SERVER_BORKER_3"
+	fi
+
+}
+
+kafka-kill-all(){
+
+	ZOOKEEPER_PORT=2181
+	SERVER_BROKER_0_PORT=9092
+	SERVER_BROKER_1_PORT=9093
+	SERVER_BROKER_2_PORT=9094
+	SERVER_BROKER_3_PORT=9095
+
+ 	PID_OF_PORT_IN_USE_ZOOKEEPER=$(lsof -i:$ZOOKEEPER_PORT | grep LISTEN | awk '{print $2}')
+	PID_OF_PORT_IN_USE_SERVER_BORKER_0=$(lsof -i:$SERVER_BROKER_0_PORT | grep LISTEN | awk '{print $2}')
+	PID_OF_PORT_IN_USE_SERVER_BORKER_1=$(lsof -i:$SERVER_BROKER_1_PORT | grep LISTEN | awk '{print $2}')
+	PID_OF_PORT_IN_USE_SERVER_BORKER_2=$(lsof -i:$SERVER_BROKER_2_PORT | grep LISTEN | awk '{print $2}')
+	PID_OF_PORT_IN_USE_SERVER_BORKER_3=$(lsof -i:$SERVER_BROKER_3_PORT | grep LISTEN | awk '{print $2}')
+
+	if [ "X" != "X$PID_OF_PORT_IN_USE_SERVER_BORKER_0" ]; then	
+		echo "Killing server (broker:0) on port $SERVER_BROKER_0_PORT have pid : $PID_OF_PORT_IN_USE_SERVER_BORKER_0"
+		kill -15 $PID_OF_PORT_IN_USE_SERVER_BORKER_0
+	fi
+	if [ "X" != "X$PID_OF_PORT_IN_USE_SERVER_BORKER_1" ]; then
+		echo "Killing server (broker:1) on port $SERVER_BROKER_2_PORT have pid : $PID_OF_PORT_IN_USE_SERVER_BORKER_1"
+		kill -15 $PID_OF_PORT_IN_USE_SERVER_BORKER_1
+	fi
+	if [ "X" != "X$PID_OF_PORT_IN_USE_SERVER_BORKER_2" ]; then
+		echo "Killing server (broker:2) on port $SERVER_BROKER_3_PORT have pid : $PID_OF_PORT_IN_USE_SERVER_BORKER_2"
+		kill -15 $PID_OF_PORT_IN_USE_SERVER_BORKER_2
+	fi
+	if [ "X" != "X$PID_OF_PORT_IN_USE_SERVER_BORKER_3" ]; then
+		echo "Killing server (broker:3) on port $SERVER_BROKER_3_PORT have pid : $PID_OF_PORT_IN_USE_SERVER_BORKER_3"
+		kill -15 $PID_OF_PORT_IN_USE_SERVER_BORKER_3
+	fi
+
+	if [ "X" != "X$PID_OF_PORT_IN_USE_ZOOKEEPER" ]; then
+		echo "Killing zookeeper runing on port $ZOOKEEPER_PORT have pid : $PID_OF_PORT_IN_USE_ZOOKEEPER"
+		kill -15 $PID_OF_PORT_IN_USE_ZOOKEEPER
+	else
+		echo "No Zookeeper runing on port $ZOOKEEPER_PORT"
+	fi
+
+	# https://stackoverflow.com/questions/690415/in-what-order-should-i-send-signals-to-gracefully-shutdown-processes
+	# Signal     Value     Action   Comment
+	# ----------------------------------------------------------------------
+	# SIGTERM      15       Term    Termination signal
+	# SIGINT        2       Term    Famous CONTROL+C interrupt from keyboard
+	# SIGHUP        1       Term    Disconnected terminal or parent died
+	# SIGPIPE      13       Term    Broken pipe
+	# SIGALRM(*)   14       Term    Timer signal from alarm
+	# SIGUSR2(*)   12       Term    User-defined signal 2
+	# SIGUSR1(*)   10       Term    User-defined signal 1
+	# SIGQUIT       3       Core    CONTRL+\ or quit from keyboard
+	# SIGABRT       6       Core    Abort signal from abort(3)
+	# SIGSEGV      11       Core    Invalid memory reference
+	# SIGILL        4       Core    Illegal Instruction
+	# SIGFPE        8       Core    Floating point exception
+	# SIGKILL       9       Term    Kill signal
+
 }

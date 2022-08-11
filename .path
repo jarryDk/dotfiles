@@ -1,3 +1,25 @@
 #!/bin/sh
 
-# Don't do anyting yet
+# Eclipse IDE
+export PATH=/opt/eclipse/eclipse-jee-$VERSION_ECLIPSE:$PATH
+
+# Apache Maven
+export PATH=/opt/apache/maven/apache-maven-$VERSION_MAVEN/bin:$PATH
+
+# Apache Ant
+export PATH=/opt/apache/ant/apache-ant-$VERSION_ANT/bin:$PATH
+
+# Apache jMeter
+export PATH=/opt/apache/jmeter/apache-jmeter-$VERSION_JMETER/bin:$PATH
+
+# Gradle
+export PATH=/opt/gradle/gradle-$VERSION_GRADLE/bin/:$PATH
+
+# OpenShift client
+export PATH=/opt/openshift/openshift-client-linux-$VERSION_OPENSHIFT:$PATH
+
+# OpenShift installer
+export PATH=/opt/openshift/openshift-install-linux-$VERSION_OPENSHIFT:$PATH
+
+# CodeReadyContainers
+export PATH=/opt/CodeReadyContainers/crc-linux-$VERSION_CRC-amd64:$PATH

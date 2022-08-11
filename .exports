@@ -1,1 +1,30 @@
 #!/bin/bash
+
+export VERSION_ECLIPSE=2022-06-R
+export VERSION_MAVEN=3.8.5
+export VERSION_ANT=1.10.12
+export VERSION_JMETER=5.4.3
+export VERSION_GRADLE=7.4.2
+export VERSION_OPENSHIFT=4.11.0-0.okd-2022-07-29-154152
+export VERSION_CRC=2.6.0
+export VERSION_GRAALVM=17-22.1.0
+export VERSION_KAFKA=3.2.1
+export VERSION_KAFKA_SCALA=2.13
+
+
+# GraalVM Community
+export GRAALVM_HOME=/opt/graalvm/graalvm-ce-java$VERSION_GRAALVM
+
+# Kafka home
+export KAFKA_INSTALL_DIR="/opt/apache/kafka"
+export KAFKA_HOME="$KAFKA_INSTALL_DIR/kafka_"$VERSION_KAFKA_SCALA"-$VERSION_KAFKA"
+
+# JAVA
+export JAVA_FOLDER="/opt/java"
+export VERSION_JAVA_EIGHT="jdk8u345-b01"
+export JAVA_EIGHT_HOME="$JAVA_FOLDER/$VERSION_JAVA_EIGHT"
+export VERSION_JAVA_ELEVEN="jdk-11.0.16+8"
+export JAVA_ELEVEN_HOME="$JAVA_FOLDER/$VERSION_JAVA_ELEVEN"
+export VERSION_JAVA_SEVENTEEN="jdk-17.0.4+8"
+export JAVA_SEVENTEEN_HOME="$JAVA_FOLDER/$VERSION_JAVA_SEVENTEEN"
+export JAVA_NEXT_HOME="$HOME/git/openjdk/jdk/build/linux-x86_64-server-release/jdk"
