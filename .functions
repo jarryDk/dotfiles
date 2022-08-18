@@ -97,6 +97,26 @@ rawurlencode() {
     REPLY="${encoded}"   #+or echo the result (EASIER)... or both... :p
 }
 
+quarkus-info(){
+	SERVER_PORT=8080
+	PID_OF_PORT_IN_USE_SERVER=$(lsof -i:$SERVER_PORT | grep LISTEN | awk '{print $2}')
+	if [ "X" != "X$PID_OF_PORT_IN_USE_SERVER" ]; then
+		echo "Server on port $SERVER_PORT have pid : $PID_OF_PORT_IN_USE_SERVER"
+	fi
+}
+
+quarkus-kill(){
+	SERVER_PORT=8080
+	PID_OF_PORT_IN_USE_SERVER=$(lsof -i:$SERVER_PORT | grep LISTEN | awk '{print $2}')
+	if [ "X" != "X$PID_OF_PORT_IN_USE_SERVER" ]; then
+		echo "Killing Server on port $SERVER_PORT have pid : $PID_OF_PORT_IN_USE_SERVER"
+		kill -kill $PID_OF_PORT_IN_USE_SERVER
+	else
+		echo "No server running on port $SERVER_PORT"
+	fi
+}
+
+
 kafka-info(){
 
 	ZOOKEEPER_PORT=2181
