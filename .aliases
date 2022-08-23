@@ -36,11 +36,10 @@ alias mversion="mvn versions:display-dependency-updates"
 
 # Kafka options
 alias kafka-zookeeper="$KAFKA_HOME/bin/zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.properties"
-alias kafka-server="$KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties"
 alias kafka-server-broker-0=kafka-server
-alias kafka-server-broker-1="$KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties --override broker.id=1 --override listeners=PLAINTEXT://:9093 --override log.dirs=/tmp/kafka-logs-broker-1"
-alias kafka-server-broker-2="$KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties --override broker.id=2 --override listeners=PLAINTEXT://:9094 --override log.dirs=/tmp/kafka-logs-broker-2"
-alias kafka-server-broker-3="$KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties --override broker.id=3 --override listeners=PLAINTEXT://:9095 --override log.dirs=/tmp/kafka-logs-broker-3"
+alias kafka-server-broker-1="kafka-server --broker.id 1 --listeners PLAINTEXT://:9093 --log.dirs /tmp/kafka-logs-broker-1"
+alias kafka-server-broker-2="kafka-server --broker.id 2 --listeners PLAINTEXT://:9094 --log.dirs /tmp/kafka-logs-broker-2"
+alias kafka-server-broker-3="kafka-server --broker.id 3 --listeners PLAINTEXT://:9095 --log.dirs /tmp/kafka-logs-broker-3"
 
 
 # Pretty print the path

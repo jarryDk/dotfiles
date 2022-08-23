@@ -256,16 +256,22 @@ install-jdk(){
 }
 
 install-jdk8(){
-  echo "Starting to install jdk8"
+  echo "Starting to install jdk 8"
   install-jdk 8
 }
 
 install-jdk11(){
-  echo "Starting to install jdk11"
+  echo "Starting to install jdk 11"
   install-jdk 11
 }
 
 install-jdk17(){
-  echo "Starting to install jdk17"
+  echo "Starting to install jdk 17"
   install-jdk 17
 }
+
+install-jdk18(){
+  echo "Starting to install jdk 18"
+  install-jdk 18
+}
+

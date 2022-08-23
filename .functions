@@ -116,6 +116,59 @@ quarkus-kill(){
 	fi
 }
 
+kafka-server(){
+
+	BROKER_ID=0
+	LISTENERS=PLAINTEXT://:9092
+	LOG_DIRS=/tmp/kafka-logs-broker
+
+	if [ $# == 0 ] || [ $# == 6 ]; then
+
+		while [[ $# -gt 1 ]]
+		do
+		key="$1"
+		case $key in
+			-id|--broker.id)
+			BROKER_ID="$2"
+			shift # past argument
+			;;
+			-lis|--listeners)
+			LISTENERS="$2"
+			shift # past argument
+			;;
+			-log|--log.dirs)
+			LOG_DIRS="$2"
+			shift # past argument
+			;;
+			--default)
+			DEFAULT=YES
+			;;
+			*)
+			# unknown option
+			;;
+		esac
+		shift # past argument or value
+		done
+
+		$KAFKA_HOME/bin/kafka-server-start.sh \
+			$KAFKA_HOME/config/server.properties \
+			--override broker.id=$BROKER_ID \
+			--override listeners=$LISTENERS \
+			--override log.dirs=$LOG_DIRS
+	else
+		echo ""
+		echo "Use:"
+		echo "  kafka-server "
+		echo "    --broker.id <BROKER_ID> \\"
+		echo "    --listeners <LISTENERS> \\"
+		echo "    --log.dirs <LOG_DIRS>"
+		echo "Use:"
+		echo "  kafka-server"
+		echo ""
+		echo " It is all or nothing"
+		echo ""
+	fi
+}
 
 kafka-info(){
 

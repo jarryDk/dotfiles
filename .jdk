@@ -24,6 +24,12 @@ jdk18(){
 	echo "== Switching to Java 18 -> JAVA_HOME : $JAVA_HOME"
 }
 
+jdk19(){
+	export JAVA_HOME=$JAVA_NINETEEN_HOME
+	updateJdkAlternatives
+	echo "== Switching to Java 19 -> JAVA_HOME : $JAVA_HOME"
+}
+
 
 jdkNext(){
 	export JAVA_HOME=$JAVA_NEXT_HOME
@@ -88,5 +94,10 @@ updateJdkAlternatives() {
 	if [ -f "$JAVA_HOME/bin/javadoc" ]; then
 		sudo $ALTERNATIVES_NAME --install "/usr/bin/javadoc" "javadoc" "$JAVA_HOME/bin/javadoc" 1
 		sudo $ALTERNATIVES_NAME --set javadoc "$JAVA_HOME/bin/javadoc"
+	fi
+
+	if [ -f "$JAVA_HOME/bin/keytool" ]; then
+		sudo $ALTERNATIVES_NAME --install "/usr/bin/keytool" "keytool" "$JAVA_HOME/bin/keytool" 1
+		sudo $ALTERNATIVES_NAME --set keytool "$JAVA_HOME/bin/keytool"
 	fi
 }
