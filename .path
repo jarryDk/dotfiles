@@ -9,14 +9,14 @@ export PATH=/opt/apache/maven/apache-maven-$VERSION_MAVEN/bin:$PATH
 # Apache MVND
 export PATH=/opt/apache/mvnd/mvnd-$VERSION_MVND-linux-amd64/bin:$PATH
 
-# JBANG
-export PATH=/opt/jbang/jbang-$VERSION_JBANG/bin/:$PATH
-
 # Apache Ant
 export PATH=/opt/apache/ant/apache-ant-$VERSION_ANT/bin:$PATH
 
 # Apache jMeter
 export PATH=/opt/apache/jmeter/apache-jmeter-$VERSION_JMETER/bin:$PATH
+
+# JBANG
+export PATH=/opt/jbang/jbang-$VERSION_JBANG/bin/:$PATH
 
 # Gradle
 export PATH=/opt/gradle/gradle-$VERSION_GRADLE/bin/:$PATH
@@ -29,3 +29,9 @@ export PATH=/opt/openshift/openshift-install-linux-$VERSION_OPENSHIFT:$PATH
 
 # CodeReadyContainers
 export PATH=/opt/CodeReadyContainers/crc-linux-$VERSION_CRC-amd64:$PATH
+
+# Hashicorp - Envconsul
+export PATH="/opt/hashicorp/envconsul/envconsul_"$VERSION_HASHICORP_ENVCONSUL"_linux_amd64":$PATH
+
+# Hashicorp - Consul Template
+export PATH="/opt/hashicorp/consul-template/consul-template_"$VERSION_HASHICORP_CONSUL_TEMPLATE"_linux_amd64":$PATH

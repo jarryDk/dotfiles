@@ -1,6 +1,7 @@
 [user]
 	name = Michael Bornholdt Nielsen
 	email = michaelbornholdtnielsen@gmail.com
+	signingkey = D79C8D598F225503
 [github]
 	user = jarryDk
 [cola]
