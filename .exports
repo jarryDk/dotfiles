@@ -11,6 +11,7 @@ export VERSION_CRC=2.6.0
 export VERSION_GRAALVM=17-22.2.0
 export VERSION_KAFKA=3.2.1
 export VERSION_KAFKA_SCALA=2.13
+export VERSION_JBANG=0.97.0
 
 
 # GraalVM Community

@@ -9,6 +9,9 @@ export PATH=/opt/apache/maven/apache-maven-$VERSION_MAVEN/bin:$PATH
 # Apache MVND
 export PATH=/opt/apache/mvnd/mvnd-$VERSION_MVND-linux-amd64/bin:$PATH
 
+# JBANG
+export PATH=/opt/jbang/jbang-$VERSION_JBANG/bin/:$PATH
+
 # Apache Ant
 export PATH=/opt/apache/ant/apache-ant-$VERSION_ANT/bin:$PATH
 
