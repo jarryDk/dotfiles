@@ -35,3 +35,6 @@ export PATH="/opt/hashicorp/envconsul/envconsul_"$VERSION_HASHICORP_ENVCONSUL"_l
 
 # Hashicorp - Consul Template
 export PATH="/opt/hashicorp/consul-template/consul-template_"$VERSION_HASHICORP_CONSUL_TEMPLATE"_linux_amd64":$PATH
+
+#VERSION_STERN
+export PATH="/opt/stern/stern-$VERSION_STERN":$PATH
