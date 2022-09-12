@@ -63,7 +63,7 @@ micbn   ALL=NOPASSWD:/usr/sbin/alternatives
 
 == Links
 
-[Jess Frazelle - dotfiles - github.com](https://github.com/jessfraz/dotfiles)
-[Ryan Tomayko - dotfiles - github.com](https://github.com/rtomayko/dotfiles)
-[thoughtbot, inc - dotfiles - github.com](https://github.com/thoughtbot/dotfiles)
-[Henrik Nyh - dotfiles - github.com](https://github.com/henrik/dotfiles)
+- https://github.com/jessfraz/dotfiles[Jess Frazelle - dotfiles - github.com]
+- https://github.com/rtomayko/dotfiles[Ryan Tomayko - dotfiles - github.com]
+- https://github.com/thoughtbot/dotfiles[thoughtbot, inc - dotfiles - github.com]
+- https://github.com/henrik/dotfiles[Henrik Nyh - dotfiles - github.com]
