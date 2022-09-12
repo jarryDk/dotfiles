@@ -1,25 +1,28 @@
-# dotfiles
+= dotfiles
 
 dotfiles I found handy.
 
-## requirement
+== requirement
 
-```console
+[source,bash]
+----
 sudo dnf install python3-pygments
-```
+----
 
-**To install:**
+== To install
 
-```console
-$ make
-```
+[source,bash]
+----
+make
+----
 
-**To customize:**
+== To customize
 
 Save env vars, etc in a `.extra` file, that looks something like
 this:
 
-```bash
+[source,bash]
+----
 ###
 ### Git credentials
 ###
@@ -39,9 +42,26 @@ git config --global github.user "$GH_USER"
 export GMAIL=email@you.com
 export GMAIL_NAME="Your Name"
 export GMAIL_FROM=from-email@you.com
-```
+----
 
-# Links
+=== Change Jdk
+
+To allow to run `sudo alternatives` with being promt for password - update /etc/sudos via
+
+[source,bash]
+----
+sudo visudo
+----
+
+Add shomething like this to the bottom of the file
+
+----
+micbn   ALL=NOPASSWD:/usr/sbin/alternatives
+----
+
+
+
+== Links
 
 [Jess Frazelle - dotfiles - github.com](https://github.com/jessfraz/dotfiles)
 [Ryan Tomayko - dotfiles - github.com](https://github.com/rtomayko/dotfiles)

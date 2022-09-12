@@ -41,3 +41,6 @@ export PATH="/opt/stern/stern-$VERSION_STERN":$PATH
 
 # Prometheus
 export PATH="/opt/prometheus/prometheus-$VERSION_PROMETHUES.linux-amd64":$PATH
+
+# Istio
+export PATH="$PATH:/opt/istio/istio-$VERSION_ISTIO/bin"
