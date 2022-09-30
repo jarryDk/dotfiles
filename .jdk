@@ -83,21 +83,22 @@ updateJdkAlternatives() {
 
 	echo "JAVA_HOME: $JAVA_HOME"
 
-    sudo $ALTERNATIVES_NAME --install "/usr/bin/java" "java" "$JAVA_HOME/bin/java" 1
+    sudo $ALTERNATIVES_NAME --install "/usr/bin/java" java "$JAVA_HOME/bin/java" 1
 	sudo $ALTERNATIVES_NAME --set java "$JAVA_HOME/bin/java"
 
 	if [ -f "$JAVA_HOME/bin/javac" ]; then
-		sudo $ALTERNATIVES_NAME --install "/usr/bin/javac" "javac" "$JAVA_HOME/bin/javac" 1
+		sudo $ALTERNATIVES_NAME --install "/usr/bin/javac" javac "$JAVA_HOME/bin/javac" 1
 		sudo $ALTERNATIVES_NAME --set javac "$JAVA_HOME/bin/javac"
 	fi
 
 	if [ -f "$JAVA_HOME/bin/javadoc" ]; then
-		sudo $ALTERNATIVES_NAME --install "/usr/bin/javadoc" "javadoc" "$JAVA_HOME/bin/javadoc" 1
+		sudo $ALTERNATIVES_NAME --install "/usr/bin/javadoc" javadoc "$JAVA_HOME/bin/javadoc" 1
 		sudo $ALTERNATIVES_NAME --set javadoc "$JAVA_HOME/bin/javadoc"
 	fi
 
 	if [ -f "$JAVA_HOME/bin/keytool" ]; then
-		sudo $ALTERNATIVES_NAME --install "/usr/bin/keytool" "keytool" "$JAVA_HOME/bin/keytool" 1
+		sudo $ALTERNATIVES_NAME --install "/usr/bin/keytool" keytool "$JAVA_HOME/bin/keytool" 1
 		sudo $ALTERNATIVES_NAME --set keytool "$JAVA_HOME/bin/keytool"
 	fi
+
 }

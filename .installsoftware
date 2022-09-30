@@ -122,7 +122,7 @@ install-wildfly(){
 
   createSoftwareFolder
 
-  WILDFLY_VERSION=26.1.1.Final
+  WILDFLY_VERSION=26.1.2.Final
   WILDFLY_FILENAME=wildfly-$WILDFLY_VERSION
   WILDFLY_ARCHIVE_NAME=$WILDFLY_FILENAME.tar.gz
   WILDFLY_ARCHIVE_PATH="$SOFTWARE_FOLDER/$WILDFLY_FILENAME.tar.gz"
@@ -180,11 +180,22 @@ install-jdk(){
   VERSION_JAVA_EIGHTEEN_ADOPTIUM_TAG=$( eval "rawurlencode $VERSION_JAVA_EIGHTEEN")
   VERSION_JAVA_EIGHTEEN_ADOPTIUM_ARCHIVE_NAME="OpenJDK18U-jdk_x64_linux_hotspot_18.0.2_9.tar.gz"
 
+  VERSION_JAVA_NINETEEN_ADOPTIUM_TAG=$( eval "rawurlencode $VERSION_JAVA_NINETEEN")
+  VERSION_JAVA_NINETEEN_ADOPTIUM_ARCHIVE_NAME="OpenJDK19U-jdk_x64_linux_hotspot_19_36.tar.gz"
+
   JDK_VERSION=$1
 
   echo "JDK_VERSION : $JDK_VERSION"
 
   case $JDK_VERSION in
+    19)
+      # https://github.com/adoptium/temurin19-binaries
+      ADOPTIUM_TOP_VERSION=19
+      ADOPTIUM_TAG_VERSION=$VERSION_JAVA_NINETEEN_ADOPTIUM_TAG
+      ADOPTIUM_FOLDER=$VERSION_JAVA_NINETEEN
+      ADOPTIUM_ARCHIVE_NAME=$VERSION_JAVA_NINETEEN_ADOPTIUM_ARCHIVE_NAME
+    ;;
+
     18)
       # https://github.com/adoptium/temurin18-binaries
       ADOPTIUM_TOP_VERSION=18
@@ -192,7 +203,7 @@ install-jdk(){
       ADOPTIUM_FOLDER=$VERSION_JAVA_EIGHTEEN
       ADOPTIUM_ARCHIVE_NAME=$VERSION_JAVA_EIGHTEEN_ADOPTIUM_ARCHIVE_NAME
     ;;
-  
+
     17)
       # https://github.com/adoptium/temurin17-binaries
       ADOPTIUM_TOP_VERSION=17
@@ -273,5 +284,10 @@ install-jdk17(){
 install-jdk18(){
   echo "Starting to install jdk 18"
   install-jdk 18
+}
+
+install-jdk19(){
+  echo "Starting to install jdk 18"
+  install-jdk 19
 }
 
