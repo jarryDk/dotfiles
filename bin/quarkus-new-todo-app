@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -eu
+
+if [ ! -n $VERSION_QUARKUS ]; then
+    VERSION_QUARKUS=2.13.0.Final
+fi
+
+mvn io.quarkus:quarkus-maven-plugin:$VERSION_QUARKUS:create \
+    -DprojectGroupId=dk.jarry \
+    -DprojectArtifactId=todo-app \
+    -DclassName="dk.jarry.todo.boundary.ToDoResource" \
+    -Dpath="/todos"
+cd todo-app
+mvn clean quarkus:dev

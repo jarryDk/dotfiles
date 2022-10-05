@@ -18,6 +18,8 @@ export VERSION_STERN=1.11.0
 export VERSION_PROMETHUES=2.38.0
 export VERSION_ISTIO=1.15.0
 
+export VERSION_QUARKUS=2.13.0.Final
+
 # GraalVM Community
 export GRAALVM_HOME=/opt/graalvm/graalvm-ce-java$VERSION_GRAALVM
 
