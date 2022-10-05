@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -eu
+
+steeps_back=${1:-1}
+message=${2:-Updated}
+
+# Check if the current directory is in a Git repository.
+if [ "$(git rev-parse --is-inside-work-tree &>/dev/null; echo "${?}")" == '0' ]; then
+    git reset --soft HEAD~${steeps_back} || true
+    if [ "Updated" == $message ]; then
+        git commit || true
+    else
+        git commit -m "${message}" || true
+    fi
+
+else
+    echo "Current directory is NOT in a Git repository"
+fi
