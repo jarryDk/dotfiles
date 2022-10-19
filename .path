@@ -21,6 +21,9 @@ export PATH=/opt/jbang/jbang-$VERSION_JBANG/bin/:$PATH
 # Gradle
 export PATH=/opt/gradle/gradle-$VERSION_GRADLE/bin/:$PATH
 
+# GraldVM
+export PATH=$GRAALVM_HOME/bin:$PATH
+
 # OpenShift client
 export PATH=/opt/openshift/openshift-client-linux-$VERSION_OPENSHIFT:$PATH
 
