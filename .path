@@ -7,7 +7,7 @@ export PATH=/opt/eclipse/eclipse-jee-$VERSION_ECLIPSE:$PATH
 export PATH=/opt/apache/maven/apache-maven-$VERSION_MAVEN/bin:$PATH
 
 # Apache MVND
-export PATH=/opt/apache/mvnd/mvnd-$VERSION_MVND-linux-amd64/bin:$PATH
+export PATH=/opt/apache/mvnd/maven-mvnd-$VERSION_MVND-linux-amd64/bin:$PATH
 
 # Apache Ant
 export PATH=/opt/apache/ant/apache-ant-$VERSION_ANT/bin:$PATH
@@ -47,3 +47,7 @@ export PATH="/opt/prometheus/prometheus-$VERSION_PROMETHUES.linux-amd64":$PATH
 
 # Istio
 export PATH="$PATH:/opt/istio/istio-$VERSION_ISTIO/bin"
+
+# kcctl
+export PATH="$PATH:/opt/kcctl/kcctl-$VERSION_KCCTL-linux-x86_64/bin"
+. /opt/kcctl/kcctl-1.0.0.Beta1-linux-x86_64/./kcctl_completion
