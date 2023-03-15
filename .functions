@@ -218,7 +218,7 @@ kafka-kill-all(){
 	PID_OF_PORT_IN_USE_SERVER_BORKER_2=$(lsof -i:$SERVER_BROKER_2_PORT | grep LISTEN | awk '{print $2}')
 	PID_OF_PORT_IN_USE_SERVER_BORKER_3=$(lsof -i:$SERVER_BROKER_3_PORT | grep LISTEN | awk '{print $2}')
 
-	if [ "X" != "X$PID_OF_PORT_IN_USE_SERVER_BORKER_0" ]; then	
+	if [ "X" != "X$PID_OF_PORT_IN_USE_SERVER_BORKER_0" ]; then
 		echo "Killing server (broker:0) on port $SERVER_BROKER_0_PORT have pid : $PID_OF_PORT_IN_USE_SERVER_BORKER_0"
 		kill -15 $PID_OF_PORT_IN_USE_SERVER_BORKER_0
 	fi

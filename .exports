@@ -21,7 +21,7 @@ export VERSION_PROMETHUES=2.42.0
 export VERSION_ISTIO=1.17.0
 export VERSION_KCCTL=1.0.0.Beta3
 
-export VERSION_QUARKUS=2.16.3.Final
+export VERSION_QUARKUS=2.16.4.Final
 
 # GraalVM Community
 export GRAALVM_HOME=/opt/graalvm/graalvm-ce-java$VERSION_GRAALVM

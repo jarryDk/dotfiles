@@ -50,4 +50,4 @@ export PATH="$PATH:/opt/istio/istio-$VERSION_ISTIO/bin"
 
 # kcctl
 export PATH="$PATH:/opt/kcctl/kcctl-$VERSION_KCCTL-linux-x86_64/bin"
-. /opt/kcctl/kcctl-1.0.0.Beta1-linux-x86_64/./kcctl_completion
+# . /opt/kcctl/kcctl-1.0.0.Beta1-linux-x86_64/./kcctl_completion
