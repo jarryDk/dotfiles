@@ -9,6 +9,10 @@ dotfiles I found handy.
 sudo dnf install python3-pygments
 ----
 
+== Structure
+
+- `bin/` contains binaries and will be add via `logical links` to the `/usr/local/bin/` folder
+
 == To install
 
 [source,bash]
