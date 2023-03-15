@@ -68,4 +68,5 @@ micbn   ALL=NOPASSWD:/usr/sbin/alternatives
 - https://github.com/jessfraz/dotfiles[Jess Frazelle - dotfiles - github.com]
 - https://github.com/thoughtbot/dotfiles[thoughtbot, inc - dotfiles - github.com]
 - https://github.com/henrik/dotfiles[Henrik Nyh - dotfiles - github.com]
-- https://github.com/sdaschner/dotfiles[Sebastian Daschner  - dotfiles - github.com]
+- https://github.com/sdaschner/dotfiles[Sebastian Daschner - dotfiles - github.com]
+- https://github.com/thoughtbot/dotfiles[thoughtbot, inc - dotfiles - github.com]
