@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export VERSION_ECLIPSE=2022-12-R
+export VERSION_ECLIPSE=2023-03-R
 #export VERSION_MAVEN=3.9.0
 export VERSION_MAVEN=3.6.3
 export VERSION_MVND=0.9.0

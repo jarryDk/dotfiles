@@ -1,53 +1,76 @@
 #!/bin/sh
 
+addToPath(){
+    PATH_TO_ADD=$1
+    SEPERATOR=$2
+    if [[ ! "$PATH" == *"$SEPERATOR$PATH_TO_ADD"* ]]; then
+        export PATH=$PATH:$PATH_TO_ADD
+    fi
+}
+
+# ----------------------------------------------------------------------
+# PATH
+# ----------------------------------------------------------------------
+
+# we want the various sbins on the path along with /usr/local/bin
+addToPath /usr/local/sbin : 
+addToPath /usr/sbin :
+addToPath /sbin :
+addToPath /usr/local/bin
+
+# put ~/bin first on PATH
+if [ -d "$HOME/bin" ]; then
+    addToPath $HOME/bin
+fi
+
 # Eclipse IDE
-export PATH=/opt/eclipse/eclipse-jee-$VERSION_ECLIPSE:$PATH
+addToPath /opt/eclipse/eclipse-jee-$VERSION_ECLIPSE
 
 # Apache Maven
-export PATH=/opt/apache/maven/apache-maven-$VERSION_MAVEN/bin:$PATH
+addToPath /opt/apache/maven/apache-maven-$VERSION_MAVEN/bin
 
 # Apache MVND
-export PATH=/opt/apache/mvnd/maven-mvnd-$VERSION_MVND-linux-amd64/bin:$PATH
+addToPath /opt/apache/mvnd/maven-mvnd-$VERSION_MVND-linux-amd64/bin
 
 # Apache Ant
-export PATH=/opt/apache/ant/apache-ant-$VERSION_ANT/bin:$PATH
+addToPath /opt/apache/ant/apache-ant-$VERSION_ANT/bin
 
 # Apache jMeter
-export PATH=/opt/apache/jmeter/apache-jmeter-$VERSION_JMETER/bin:$PATH
+addToPath /opt/apache/jmeter/apache-jmeter-$VERSION_JMETER/bin
 
 # JBANG
-export PATH=/opt/jbang/jbang-$VERSION_JBANG/bin/:$PATH
+# export PATH=/opt/jbang/jbang-$VERSION_JBANG/bin/:$PATH
 
 # Gradle
-export PATH=/opt/gradle/gradle-$VERSION_GRADLE/bin/:$PATH
+addToPath /opt/gradle/gradle-$VERSION_GRADLE/bin
 
 # GraldVM
-export PATH=$GRAALVM_HOME/bin:$PATH
+addToPath $GRAALVM_HOME/bin
 
 # OpenShift client
-export PATH=/opt/openshift/openshift-client-linux-$VERSION_OPENSHIFT:$PATH
+# export PATH=/opt/openshift/openshift-client-linux-$VERSION_OPENSHIFT:$PATH
 
 # OpenShift installer
-export PATH=/opt/openshift/openshift-install-linux-$VERSION_OPENSHIFT:$PATH
+# export PATH=/opt/openshift/openshift-install-linux-$VERSION_OPENSHIFT:$PATH
 
 # CodeReadyContainers
-export PATH=/opt/CodeReadyContainers/crc-linux-$VERSION_CRC-amd64:$PATH
+# export PATH=/opt/CodeReadyContainers/crc-linux-$VERSION_CRC-amd64:$PATH
 
 # Hashicorp - Envconsul
-export PATH="/opt/hashicorp/envconsul/envconsul_"$VERSION_HASHICORP_ENVCONSUL"_linux_amd64":$PATH
+# export PATH="/opt/hashicorp/envconsul/envconsul_"$VERSION_HASHICORP_ENVCONSUL"_linux_amd64":$PATH
 
 # Hashicorp - Consul Template
-export PATH="/opt/hashicorp/consul-template/consul-template_"$VERSION_HASHICORP_CONSUL_TEMPLATE"_linux_amd64":$PATH
+# export PATH="/opt/hashicorp/consul-template/consul-template_"$VERSION_HASHICORP_CONSUL_TEMPLATE"_linux_amd64":$PATH
 
 # Stern
-export PATH="/opt/stern/stern-$VERSION_STERN":$PATH
+# export PATH="/opt/stern/stern-$VERSION_STERN":$PATH
 
 # Prometheus
-export PATH="/opt/prometheus/prometheus-$VERSION_PROMETHUES.linux-amd64":$PATH
+# export PATH="/opt/prometheus/prometheus-$VERSION_PROMETHUES.linux-amd64":$PATH
 
 # Istio
-export PATH="$PATH:/opt/istio/istio-$VERSION_ISTIO/bin"
+# export PATH="$PATH:/opt/istio/istio-$VERSION_ISTIO/bin"
 
 # kcctl
-export PATH="$PATH:/opt/kcctl/kcctl-$VERSION_KCCTL-linux-x86_64/bin"
+#  export PATH="$PATH:/opt/kcctl/kcctl-$VERSION_KCCTL-linux-x86_64/bin"
 # . /opt/kcctl/kcctl-1.0.0.Beta1-linux-x86_64/./kcctl_completion
