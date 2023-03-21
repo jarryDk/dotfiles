@@ -164,6 +164,19 @@ install-okd(){
 
 }
 
+install-minikube(){
+  curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+  install minikube-linux-amd64 $HOME/bin/minikube
+  rm minikube-linux-amd64
+
+  echo "Getting started with minikube got to"
+  echo "    https://minikube.sigs.k8s.io/docs/start/"
+  echo "    https://minikube.sigs.k8s.io/docs/drivers/podman/"
+  echo ""
+  echo "minikube config set driver podman"
+  echo "minikube start"
+}
+
 install-kafka(){
 
   # https://kafka.apache.org/downloads
