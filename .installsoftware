@@ -20,6 +20,150 @@ install-vim(){
     vim-syntastic-xhtml
 }
 
+install-crc(){
+
+  # https://github.com/crc-org/crc/releases
+  # https://developers.redhat.com/content-gateway/rest/mirror/pub/openshift-v4/clients/crc
+  # https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/2.15.0/crc-linux-amd64.tar.xz
+
+  createSoftwareFolder
+
+  if [ ! -z $1 ]; then
+    VERSION_CRC=$1
+  fi
+
+  echo "About to install CodeReadyContainers (crc) version : $VERSION_CRC"
+
+  # VERSION_CRC is to be found in ~.exports
+  CRC_FILENAME=crc-linux-$VERSION_CRC-amd64
+  CRC_ARCHIVE_NAME=$CRC_FILENAME.tar.xz
+  CRC_ARCHIVE_PATH="$SOFTWARE_FOLDER/$CRC_ARCHIVE_NAME"
+  CRC_DOWNLOAD_ADDRESS=https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/$VERSION_CRC/crc-linux-amd64.tar.xz
+  CRC_INSTALL_DIR="/opt/crc"
+
+  if [ ! -e "$CRC_ARCHIVE_PATH" ]; then
+    echo "Downloading: $CRC_DOWNLOAD_ADDRESS..."
+    echo "Download location: $CRC_ARCHIVE_PATH"
+    wget -P $SOFTWARE_FOLDER -O $CRC_ARCHIVE_PATH $CRC_DOWNLOAD_ADDRESS
+    if [ $? -ne 0 ]; then
+      echo "Not possible to download CodeReadyContainers (crc)."
+      sleep 20
+      exit 1
+    fi
+  else
+    echo "CodeReadyContainers (crc) archive already exists."
+  fi
+
+  if [ ! -d "$CRC_INSTALL_DIR" ]; then
+    sudo mkdir -p $CRC_INSTALL_DIR
+    sudo chown $LOGNAME:$LOGNAME -R $CRC_INSTALL_DIR
+  fi
+
+  if [ ! -d "$CRC_INSTALL_DIR/$CRC_FILENAME" ]; then
+    echo "Do installation of $CRC_FILENAME"
+    tar -xf $CRC_ARCHIVE_PATH -C $CRC_INSTALL_DIR
+  else
+    echo "$CRC_FILENAME is already installed"
+  fi
+
+  echo ""
+  echo "To use these binaries follow the instructions at https://console.redhat.com/openshift/create/local to obtain the needed pull-secret"
+  echo "Get started by - crc start"
+}
+
+install-okd(){
+
+  # https://github.com/okd-project/okd/releases
+  # https://github.com/okd-project/okd/releases/download/4.12.0-0.okd-2023-03-18-084815/openshift-install-linux-4.12.0-0.okd-2023-03-18-084815.tar.gz
+  # https://github.com/okd-project/okd/releases/download/4.12.0-0.okd-2023-03-18-084815/openshift-client-linux-4.12.0-0.okd-2023-03-18-084815.tar.gz
+
+  createSoftwareFolder
+
+  if [ ! -z $1 ]; then
+    VERSION_OKD=$1
+  fi
+
+  echo "About to install OKD version : $VERSION_OKD"
+
+  ODK_INSTALL_DIR="/opt/okd"
+  if [ ! -d "$ODK_INSTALL_DIR" ]; then
+    sudo mkdir -p $ODK_INSTALL_DIR
+    sudo chown $LOGNAME:$LOGNAME -R $ODK_INSTALL_DIR
+  fi
+
+  # Install
+
+  ODK_INSTALL_INSTALL_DIR="$ODK_INSTALL_DIR/openshift-install-linux-$VERSION_OKD"
+  if [ ! -d "$ODK_INSTALL_INSTALL_DIR" ]; then
+    sudo mkdir -p $ODK_INSTALL_INSTALL_DIR
+    sudo chown $LOGNAME:$LOGNAME -R $ODK_INSTALL_INSTALL_DIR
+  fi
+
+  # VERSION_CRC is to be found in ~.exports
+  ODK_INSTALL_FILENAME=openshift-install-linux-$VERSION_OKD
+  ODK_INSTALL_ARCHIVE_NAME=$ODK_INSTALL_FILENAME.tar.gz
+  ODK_INSTALL_ARCHIVE_PATH="$SOFTWARE_FOLDER/$ODK_INSTALL_ARCHIVE_NAME"
+  ODK_INSTALL_DOWNLOAD_ADDRESS=https://github.com/okd-project/okd/releases/download/$VERSION_OKD/$ODK_INSTALL_ARCHIVE_NAME
+
+  if [ ! -e "$ODK_INSTALL_ARCHIVE_PATH" ]; then
+    echo "Downloading: $ODK_INSTALL_DOWNLOAD_ADDRESS..."
+    echo "Download location: $ODK_INSTALL_ARCHIVE_PATH"
+    wget -P $SOFTWARE_FOLDER -O $ODK_INSTALL_ARCHIVE_PATH $ODK_INSTALL_DOWNLOAD_ADDRESS
+    if [ $? -ne 0 ]; then
+      echo "Not possible to download ODK (Install)."
+      sleep 20
+      exit 1
+    fi
+  else
+    echo "ODK (Install) archive already exists."
+  fi
+
+  if [ ! -f "$ODK_INSTALL_INSTALL_DIR/openshift-install" ]; then
+    echo "Do installation of $ODK_INSTALL_FILENAME"
+    tar -xf $ODK_INSTALL_ARCHIVE_PATH -C $ODK_INSTALL_INSTALL_DIR
+  else
+    echo "$ODK_INSTALL_FILENAME is already installed"
+  fi
+
+  # Client
+
+  ODK_CLIENT_INSTALL_DIR="$ODK_INSTALL_DIR/openshift-client-linux-$VERSION_OKD"
+  if [ ! -d "$ODK_CLIENT_INSTALL_DIR" ]; then
+    sudo mkdir -p $ODK_CLIENT_INSTALL_DIR
+    sudo chown $LOGNAME:$LOGNAME -R $ODK_CLIENT_INSTALL_DIR
+  fi
+
+  # VERSION_CRC is to be found in ~.exports
+  ODK_CLIENT_FILENAME=openshift-client-linux-$VERSION_OKD
+  ODK_CLIENT_ARCHIVE_NAME=$ODK_CLIENT_FILENAME.tar.gz
+  ODK_CLIENT_ARCHIVE_PATH="$SOFTWARE_FOLDER/$ODK_CLIENT_ARCHIVE_NAME"
+  ODK_CLIENT_DOWNLOAD_ADDRESS=https://github.com/okd-project/okd/releases/download/$VERSION_OKD/$ODK_CLIENT_ARCHIVE_NAME
+
+  if [ ! -e "$ODK_CLIENT_ARCHIVE_PATH" ]; then
+    echo "Downloading: $ODK_DOWNLOAD_ADDRESS..."
+    echo "Download location: $ODK_CLIENT_ARCHIVE_PATH"
+    wget -P $SOFTWARE_FOLDER -O $ODK_CLIENT_ARCHIVE_PATH $ODK_CLIENT_DOWNLOAD_ADDRESS
+    if [ $? -ne 0 ]; then
+      echo "Not possible to download ODK (Client)."
+      sleep 20
+      exit 1
+    fi
+  else
+    echo "ODK (Client) archive already exists."
+  fi
+
+  if [ ! -f "$ODK_CLIENT_INSTALL_DIR/oc" ]; then
+    echo "Do installation of $ODK_CLIENT_FILENAME"
+    tar -xf $ODK_CLIENT_ARCHIVE_PATH -C $ODK_CLIENT_INSTALL_DIR
+  else
+    echo "$ODK_CLIENT_FILENAME is already installed"
+  fi
+
+  echo "To create the first cluster use:"
+  echo "  openshift-install create cluster"
+
+}
+
 install-kafka(){
 
   # https://kafka.apache.org/downloads

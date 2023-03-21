@@ -47,14 +47,14 @@ addToPath /opt/gradle/gradle-$VERSION_GRADLE/bin
 # GraldVM
 addToPath $GRAALVM_HOME/bin
 
-# OpenShift client
-# export PATH=/opt/openshift/openshift-client-linux-$VERSION_OPENSHIFT:$PATH
+# OpenShift (OKD) client
+addToPath /opt/okd/openshift-client-linux-$VERSION_OKD
 
-# OpenShift installer
-# export PATH=/opt/openshift/openshift-install-linux-$VERSION_OPENSHIFT:$PATH
+# OpenShift (OKD) installer
+addToPath /opt/okd/openshift-install-linux-$VERSION_OKD
 
 # CodeReadyContainers
-# export PATH=/opt/CodeReadyContainers/crc-linux-$VERSION_CRC-amd64:$PATH
+addToPath /opt/CodeReadyContainers/crc-linux-$VERSION_CRC-amd64
 
 # Hashicorp - Envconsul
 # export PATH="/opt/hashicorp/envconsul/envconsul_"$VERSION_HASHICORP_ENVCONSUL"_linux_amd64":$PATH
