@@ -23,6 +23,7 @@ export VERSION_BYTECODE_VIEWER=2.11.2
 export VERSION_KEYCLOAK=21.0.1
 export VERSION_WILDFLY=27.0.1.Final
 export VERSION_QUARKUS=2.16.4.Final
+export VERSION_SONARQUBE=9.9.0.65466
 
 # GraalVM Community
 export GRAALVM_HOME=/opt/graalvm/graalvm-ce-java$VERSION_GRAALVM
