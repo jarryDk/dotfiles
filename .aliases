@@ -41,6 +41,8 @@ alias kafka-server-broker-1="kafka-server --broker.id 1 --listeners PLAINTEXT://
 alias kafka-server-broker-2="kafka-server --broker.id 2 --listeners PLAINTEXT://:9094 --log.dirs /tmp/kafka-logs-broker-2"
 alias kafka-server-broker-3="kafka-server --broker.id 3 --listeners PLAINTEXT://:9095 --log.dirs /tmp/kafka-logs-broker-3"
 
+# Bytecode Viewer
+alias bytecode-viewer="java -jar /opt/bytecode-viewer/Bytecode-Viewer-$VERSION_BYTECODE_VIEWER.jar"
 
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
