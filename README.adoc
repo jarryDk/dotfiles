@@ -70,3 +70,6 @@ micbn   ALL=NOPASSWD:/usr/sbin/alternatives
 - https://github.com/henrik/dotfiles[Henrik Nyh - dotfiles - github.com]
 - https://github.com/sdaschner/dotfiles[Sebastian Daschner - dotfiles - github.com]
 - https://github.com/thoughtbot/dotfiles[thoughtbot, inc - dotfiles - github.com]
+
+- https://gist.github.com/mohanpedala/1e2ff5661761d3abd0385e8223e16425[set -e, -u, -o, -x pipefail explanation]
+- https://www.gnu.org/software/wget/manual/html_node/Exit-Status.html[wget - Exit Status]

@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# https://github.com/keycloak/keycloak/releases
+
+VERSION_KEYCLOAK=${VERSION_KEYCLOAK:=21.0.1}
+
+if [ ! -z $1 ]; then
+    VERSION_KEYCLOAK=$1
+fi
+
+echo "About to install Keycloak version : $VERSION_KEYCLOAK"
+
+# VERSION_KEYCLOAK is to be found in ~.exports
+KEYCLOAK_FILENAME=keycloak-$VERSION_KEYCLOAK
+KEYCLOAK_ARCHIVE_NAME=$KEYCLOAK_FILENAME.tar.gz
+KEYCLOAK_ARCHIVE_PATH="$SOFTWARE_FOLDER/$KEYCLOAK_FILENAME.tar.gz"
+KEYCLOAK_DOWNLOAD_ADDRESS=https://github.com/keycloak/keycloak/releases/download/$VERSION_KEYCLOAK/$KEYCLOAK_ARCHIVE_NAME
+KEYCLOAK_INSTALL_DIR="/opt/keycloak"
+
+if [ ! -e "$KEYCLOAK_ARCHIVE_PATH" ]; then
+    echo "Downloading: $KEYCLOAK_DOWNLOAD_ADDRESS..."
+    echo "Download location: $KEYCLOAK_ARCHIVE_PATH"
+    wget -P $SOFTWARE_FOLDER $KEYCLOAK_DOWNLOAD_ADDRESS
+    wgetreturn=$?
+    if [ $wgetreturn -ne 0 ]; then
+        echo "Not possible to download Keycloak - Exit Status : $wgetreturn"
+        exit 1
+    fi
+else
+    echo "Keycloak archive already exists."
+fi
+
+if [ ! -d "$KEYCLOAK_INSTALL_DIR" ]; then
+    sudo mkdir -p $KEYCLOAK_INSTALL_DIR
+    sudo chown $LOGNAME:$LOGNAME -R $KEYCLOAK_INSTALL_DIR
+fi
+
+if [ ! -d "$KEYCLOAK_INSTALL_DIR/$KEYCLOAK_FILENAME" ]; then
+    tar -xzf $KEYCLOAK_ARCHIVE_PATH -C $KEYCLOAK_INSTALL_DIR
+else
+    echo "$KEYCLOAK_FILENAME is already installed"
+fi
+
+echo ""
+echo "---------------------------------------"
+printf "\033[32mKeycloak $VERSION_KEYCLOAK installed\033[39m\n"
+echo ""
+echo "To start Keycloak please use :"
+echo " cd $KEYCLOAK_INSTALL_DIR/$KEYCLOAK_FILENAME"
+echo " bin/kc.sh start-dev"
+echo ""
+echo "https://www.keycloak.org/getting-started/getting-started-zip#_start_keycloak"
+echo ""
+echo "---------------------------------------"

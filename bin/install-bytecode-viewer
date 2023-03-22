@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# https://github.com/Konloch/bytecode-viewer/releases
+# https://github.com/Konloch/bytecode-viewer/releases/download/v2.11.2/Bytecode-Viewer-2.11.2.jar
+
+VERSION_BYTECODE_VIEWER=${VERSION_BYTECODE_VIEWER:=2.11.2}
+
+if [ ! -z $1 ]; then
+    VERSION_BYTECODE_VIEWER=$1
+fi
+
+echo "About to install Bytecode Viewer version : $VERSION_BYTECODE_VIEWER"
+
+# VERSION_ANT is to be found in ~.exports
+BYTECODE_VIEWER_FILENAME="Bytecode-Viewer-$VERSION_BYTECODE_VIEWER.jar"
+BYTECODE_VIEWER_ARCHIVE_PATH="$SOFTWARE_FOLDER/$BYTECODE_VIEWER_FILENAME"
+BYTECODE_VIEWER_DOWNLOAD_ADDRESS=https://github.com/Konloch/bytecode-viewer/releases/download/v$VERSION_BYTECODE_VIEWER/$BYTECODE_VIEWER_FILENAME
+BYTECODE_VIEWER_INSTALL_DIR="/opt/bytecode-viewer"
+
+if [ ! -e "$BYTECODE_VIEWER_ARCHIVE_PATH" ]; then
+    echo "Downloading: $BYTECODE_VIEWER_DOWNLOAD_ADDRESS..."
+    echo "Download location: $BYTECODE_VIEWER_ARCHIVE_PATH"
+    wget -P $SOFTWARE_FOLDER $BYTECODE_VIEWER_DOWNLOAD_ADDRESS
+    wgetreturn=$?
+    if [ $wgetreturn -ne 0 ]; then
+        echo "Not possible to download Bytecode Viewer - Exit Status : $wgetreturn"
+        exit 1
+    fi
+else
+    echo "Bytecode Viewer archive already exists."
+fi
+
+if [ ! -d "$BYTECODE_VIEWER_INSTALL_DIR" ]; then
+    sudo mkdir -p $BYTECODE_VIEWER_INSTALL_DIR
+    sudo chown $LOGNAME:$LOGNAME -R $BYTECODE_VIEWER_INSTALL_DIR
+fi
+
+if [ ! -f "$BYTECODE_VIEWER_INSTALL_DIR/$BYTECODE_VIEWER_FILENAME" ]; then
+    echo "Do installation of $BYTECODE_VIEWER_FILENAME"
+    cp $BYTECODE_VIEWER_ARCHIVE_PATH $BYTECODE_VIEWER_INSTALL_DIR/$BYTECODE_VIEWER_FILENAME
+else
+    echo "$BYTECODE_VIEWER_FILENAME is already installed"
+fi

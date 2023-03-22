@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# https://ant.apache.org/bindownload.cgi
+# https://dlcdn.apache.org//ant/binaries/apache-ant-1.10.13-bin.tar.gz
+
+VERSION_ANT=${VERSION_ANT:=1.10.13}
+
+if [ ! -z $1 ]; then
+    VERSION_ANT=$1
+fi
+
+echo "About to install Apache Ant version : $VERSION_ANT"
+
+# VERSION_ANT is to be found in ~.exports
+ANT_FILENAME=apache-ant-$VERSION_ANT
+ANT_ARCHIVE_NAME=$ANT_FILENAME-bin.tar.gz
+ANT_ARCHIVE_PATH="$SOFTWARE_FOLDER/$ANT_ARCHIVE_NAME"
+ANT_DOWNLOAD_ADDRESS=https://dlcdn.apache.org/ant/binaries/$ANT_ARCHIVE_NAME
+ANT_INSTALL_DIR="/opt/apache/ant"
+
+if [ ! -e "$ANT_ARCHIVE_PATH" ]; then
+    echo "Downloading: $ANT_DOWNLOAD_ADDRESS..."
+    echo "Download location: $ANT_ARCHIVE_PATH"
+    wget -P $SOFTWARE_FOLDER $ANT_DOWNLOAD_ADDRESS
+    wgetreturn=$?
+    if [ $wgetreturn -ne 0 ]; then
+        echo "Not possible to download Apache Ant - Exit Status : $wgetreturn"
+        exit 1
+    fi
+else
+    echo "Apache Ant archive already exists."
+fi
+
+if [ ! -d "$ANT_INSTALL_DIR" ]; then
+    sudo mkdir -p $ANT_INSTALL_DIR
+    sudo chown $LOGNAME:$LOGNAME -R $ANT_INSTALL_DIR
+fi
+
+if [ ! -d "$ANT_INSTALL_DIR/$ANT_FILENAME" ]; then
+    echo "Do installation of $ANT_FILENAME"
+    tar -xzf $ANT_ARCHIVE_PATH -C $ANT_INSTALL_DIR
+else
+    echo "$ANT_FILENAME is already installed"
+fi

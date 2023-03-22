@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -euo pipefail
+
+sudo dnf install vim-common vim-data vim-enhanced vim-filesystem vim-minimal \
+  vim-go \
+  vim-syntastic vim-syntastic-asciidoc vim-syntastic-css vim-syntastic-eruby \
+  vim-syntastic-html vim-syntastic-java vim-syntastic-json vim-syntastic-perl \
+  vim-syntastic-php vim-syntastic-pod vim-syntastic-ruby vim-syntastic-sh \
+  vim-syntastic-text vim-syntastic-xml vim-syntastic-yaml vim-ansible \
+  vim-syntastic-ansible vim-syntastic-c vim-syntastic-cpp vim-syntastic-go \
+  vim-syntastic-python vim-syntastic-scala vim-syntastic-spec \
+  vim-syntastic-xhtml

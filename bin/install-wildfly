@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# https://www.wildfly.org/downloads/
+
+VERSION_WILDFLY=${VERSION_WILDFLY:=27.0.1.Final}
+
+if [ ! -z $1 ]; then
+    VERSION_WILDFLY=$1
+fi
+
+echo "About to install Wildfly version : $VERSION_WILDFLY"
+
+# VERSION_WILDFLY is to be found in ~.exports
+WILDFLY_FILENAME=wildfly-$VERSION_WILDFLY
+WILDFLY_ARCHIVE_NAME=$WILDFLY_FILENAME.tar.gz
+WILDFLY_ARCHIVE_PATH="$SOFTWARE_FOLDER/$WILDFLY_ARCHIVE_NAME"
+WILDFLY_DOWNLOAD_ADDRESS=https://github.com/wildfly/wildfly/releases/download/$VERSION_WILDFLY/$WILDFLY_ARCHIVE_NAME
+WILDFLY_INSTALL_DIR="/opt/wildfly"
+
+if [ ! -e "$WILDFLY_ARCHIVE_PATH" ]; then
+    echo "Downloading: $WILDFLY_DOWNLOAD_ADDRESS..."
+    echo "Download location: $WILDFLY_ARCHIVE_PATH"
+    wget -P $SOFTWARE_FOLDER $WILDFLY_DOWNLOAD_ADDRESS
+    wgetreturn=$?
+    if [ $wgetreturn -ne 0 ]; then
+        echo "Not possible to download Wildfly - Exit Status : $wgetreturn"
+        sleep 20
+        exit 1
+    fi
+else
+    echo "Wildfly archive already exists."
+fi
+
+if [ ! -d "$WILDFLY_INSTALL_DIR" ]; then
+    sudo mkdir -p $WILDFLY_INSTALL_DIR
+    sudo chown $LOGNAME:$LOGNAME -R $WILDFLY_INSTALL_DIR
+fi
+
+if [ ! -d "$WILDFLY_INSTALL_DIR/$WILDFLY_FILENAME" ]; then
+    tar -xzf $WILDFLY_ARCHIVE_PATH -C $WILDFLY_INSTALL_DIR
+else
+    echo "$WILDFLY_FILENAME is already installed"
+fi
+
+echo ""
+echo "---------------------------------------"
+printf "\033[32mWildfly $WILDFLY_FILENAME installed\033[39m\n"
+echo ""
+echo "To start Wildfly please use :"
+echo " cd $WILDFLY_INSTALL_DIR/$WILDFLY_FILENAME"
+echo " bin/standalone.sh"
+echo ""
+echo "https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/START_JBOSS_EAP.adoc#start_the_jboss_eap_server"
+echo ""
+echo "---------------------------------------"

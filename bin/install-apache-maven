@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# https://maven.apache.org/download.cgi
+# https://dlcdn.apache.org/maven/maven-3/3.9.1/binaries/apache-maven-3.9.1-bin.tar.gz
+
+VERSION_MAVEN=${VERSION_MAVEN:=3.9.1}
+
+if [ ! -z $1 ]; then
+    VERSION_MAVEN=$1
+fi
+
+echo "About to install Apache Maven version : $VERSION_MAVEN"
+
+# VERSION_MAVEN is to be found in ~.exports
+MAVEN_FILENAME=apache-maven-$VERSION_MAVEN
+MAVEN_ARCHIVE_NAME=$MAVEN_FILENAME-bin.tar.gz
+MAVEN_ARCHIVE_PATH="$SOFTWARE_FOLDER/$MAVEN_ARCHIVE_NAME"
+MAVEN_DOWNLOAD_ADDRESS=https://dlcdn.apache.org/maven/maven-3/$VERSION_MAVEN/binaries/$MAVEN_ARCHIVE_NAME
+MAVEN_INSTALL_DIR="/opt/apache/maven"
+
+if [ ! -e "$MAVEN_ARCHIVE_PATH" ]; then
+    echo "Downloading: $MAVEN_DOWNLOAD_ADDRESS..."
+    echo "Download location: $MAVEN_ARCHIVE_PATH"
+    wget -P $SOFTWARE_FOLDER $MAVEN_DOWNLOAD_ADDRESS
+    wgetreturn=$?
+    if [ $wgetreturn -ne 0 ]; then
+        echo "Not possible to download Apache Maven - Exit Status : $wgetreturn"
+        sleep 20
+        exit 1
+    fi
+else
+    echo "Apache Maven archive already exists."
+fi
+
+if [ ! -d "$MAVEN_INSTALL_DIR" ]; then
+    sudo mkdir -p $MAVEN_INSTALL_DIR
+    sudo chown $LOGNAME:$LOGNAME -R $MAVEN_INSTALL_DIR
+fi
+
+if [ ! -d "$MAVEN_INSTALL_DIR/$MAVEN_FILENAME" ]; then
+    echo "Do installation of $MAVEN_FILENAME"
+    tar -xzf $MAVEN_ARCHIVE_PATH -C $MAVEN_INSTALL_DIR
+else
+    echo "$MAVEN_FILENAME is already installed"
+fi

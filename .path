@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# We need the $HOME/software folder
+if [ -d $SOFTWARE_FOLDER ]; then
+    mkdir -p $SOFTWARE_FOLDER
+fi
+
 addToPath(){
     PATH_TO_ADD=$1
     SEPERATOR=$2
@@ -13,7 +18,7 @@ addToPath(){
 # ----------------------------------------------------------------------
 
 # we want the various sbins on the path along with /usr/local/bin
-addToPath /usr/local/sbin : 
+addToPath /usr/local/sbin :
 addToPath /usr/sbin :
 addToPath /sbin :
 addToPath /usr/local/bin

@@ -1,0 +1,98 @@
+#!/bin/bash
+
+# https://github.com/okd-project/okd/releases
+# https://github.com/okd-project/okd/releases/download/4.12.0-0.okd-2023-03-18-084815/openshift-install-linux-4.12.0-0.okd-2023-03-18-084815.tar.gz
+# https://github.com/okd-project/okd/releases/download/4.12.0-0.okd-2023-03-18-084815/openshift-client-linux-4.12.0-0.okd-2023-03-18-084815.tar.gz
+
+VERSION_OKD=${VERSION_OKD:=4.12.0-0.okd-2023-03-18-084815}
+
+if [ ! -z $1 ]; then
+    VERSION_OKD=$1
+fi
+
+echo "About to install OKD version : $VERSION_OKD"
+
+# VERSION_OKD is to be found in ~.exports
+ODK_INSTALL_DIR="/opt/okd"
+
+ODK_INSTALL_INSTALL_DIR="$ODK_INSTALL_DIR/openshift-install-linux-$VERSION_OKD"
+ODK_INSTALL_FILENAME=openshift-install-linux-$VERSION_OKD
+ODK_INSTALL_ARCHIVE_NAME=$ODK_INSTALL_FILENAME.tar.gz
+ODK_INSTALL_ARCHIVE_PATH="$SOFTWARE_FOLDER/$ODK_INSTALL_ARCHIVE_NAME"
+ODK_INSTALL_DOWNLOAD_ADDRESS=https://github.com/okd-project/okd/releases/download/$VERSION_OKD/$ODK_INSTALL_ARCHIVE_NAME
+
+ODK_CLIENT_INSTALL_DIR="$ODK_INSTALL_DIR/openshift-client-linux-$VERSION_OKD"
+ODK_CLIENT_FILENAME=openshift-client-linux-$VERSION_OKD
+ODK_CLIENT_ARCHIVE_NAME=$ODK_CLIENT_FILENAME.tar.gz
+ODK_CLIENT_ARCHIVE_PATH="$SOFTWARE_FOLDER/$ODK_CLIENT_ARCHIVE_NAME"
+ODK_CLIENT_DOWNLOAD_ADDRESS=https://github.com/okd-project/okd/releases/download/$VERSION_OKD/$ODK_CLIENT_ARCHIVE_NAME
+
+if [ ! -d "$ODK_INSTALL_DIR" ]; then
+    sudo mkdir -p $ODK_INSTALL_DIR
+    sudo chown $LOGNAME:$LOGNAME -R $ODK_INSTALL_DIR
+fi
+
+#
+# openshift-install-linux
+#
+if [ ! -d "$ODK_INSTALL_INSTALL_DIR" ]; then
+    sudo mkdir -p $ODK_INSTALL_INSTALL_DIR
+    sudo chown $LOGNAME:$LOGNAME -R $ODK_INSTALL_INSTALL_DIR
+fi
+
+if [ ! -e "$ODK_INSTALL_ARCHIVE_PATH" ]; then
+    echo "Downloading: $ODK_INSTALL_DOWNLOAD_ADDRESS..."
+    echo "Download location: $ODK_INSTALL_ARCHIVE_PATH"
+    wget -P $SOFTWARE_FOLDER -O $ODK_INSTALL_ARCHIVE_PATH $ODK_INSTALL_DOWNLOAD_ADDRESS
+    wgetreturn=$?
+    if [ $wgetreturn -ne 0 ]; then
+        echo "Not possible to download ODK (Install) - Exit Status : $wgetreturn"
+        if [ -f $ODK_INSTALL_ARCHIVE_PATH ]; then
+            rm $ODK_INSTALL_ARCHIVE_PATH
+        fi
+        exit 1
+    fi
+else
+    echo "ODK (Install) archive already exists."
+fi
+
+if [ ! -f "$ODK_INSTALL_INSTALL_DIR/openshift-install" ]; then
+    echo "Do installation of $ODK_INSTALL_FILENAME"
+    tar -xf $ODK_INSTALL_ARCHIVE_PATH -C $ODK_INSTALL_INSTALL_DIR
+else
+    echo "$ODK_INSTALL_FILENAME is already installed"
+fi
+
+#
+# openshift-client-linux
+#
+if [ ! -d "$ODK_CLIENT_INSTALL_DIR" ]; then
+    sudo mkdir -p $ODK_CLIENT_INSTALL_DIR
+    sudo chown $LOGNAME:$LOGNAME -R $ODK_CLIENT_INSTALL_DIR
+fi
+
+if [ ! -e "$ODK_CLIENT_ARCHIVE_PATH" ]; then
+    echo "Downloading: $ODK_DOWNLOAD_ADDRESS..."
+    echo "Download location: $ODK_CLIENT_ARCHIVE_PATH"
+    wget -P $SOFTWARE_FOLDER -O $ODK_CLIENT_ARCHIVE_PATH $ODK_CLIENT_DOWNLOAD_ADDRESS
+    wgetreturn=$?
+    if [ $wgetreturn -ne 0 ]; then
+        echo "Not possible to download ODK (Client) - Exit Status : $wgetreturn"
+        if [ -f $ODK_CLIENT_ARCHIVE_PATH ]; then
+            rm $ODK_CLIENT_ARCHIVE_PATH
+        fi
+        exit 1
+    fi
+else
+    echo "ODK (Client) archive already exists."
+fi
+
+if [ ! -f "$ODK_CLIENT_INSTALL_DIR/oc" ]; then
+    echo "Do installation of $ODK_CLIENT_FILENAME"
+    tar -xf $ODK_CLIENT_ARCHIVE_PATH -C $ODK_CLIENT_INSTALL_DIR
+else
+    echo "$ODK_CLIENT_FILENAME is already installed"
+fi
+
+echo "To create the first cluster use:"
+echo "  openshift-install create cluster"

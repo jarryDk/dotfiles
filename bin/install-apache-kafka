@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# https://kafka.apache.org/downloads
+
+VERSION_KAFKA=${VERSION_KAFKA:=3.4.0}
+VERSION_KAFKA_SCALA=${VERSION_KAFKA_SCALA:=2.13}
+
+if [ ! -z $1 ]; then
+    VERSION_KAFKA=$1
+fi
+
+if [ ! -z $2 ]; then
+    VERSION_KAFKA_SCALA=$2
+fi
+
+echo "About to install Apache Kafka version : "$VERSION_KAFKA_SCALA"-$VERSION_KAFKA"
+
+KAFKA_FILENAME="kafka_"$VERSION_KAFKA_SCALA"-$VERSION_KAFKA"
+KAFKA_ARCHIVE_NAME="$KAFKA_FILENAME.tgz"
+KAFKA_ARCHIVE_PATH="$SOFTWARE_FOLDER/$KAFKA_ARCHIVE_NAME"
+KAFKA_DOWNLOAD_ADDRESS=https://downloads.apache.org/kafka/$VERSION_KAFKA/$KAFKA_ARCHIVE_NAME
+
+if [ ! -e "$KAFKA_ARCHIVE_PATH" ]; then
+    echo "Downloading: $KAFKA_DOWNLOAD_ADDRESS..."
+    echo "Download location: $KAFKA_ARCHIVE_PATH"
+    wget -P $SOFTWARE_FOLDER $KAFKA_DOWNLOAD_ADDRESS
+    wgetreturn=$?
+    if [ $wgetreturn -ne 0 ]; then
+        echo "Not possible to download Apache Kafka - Exit Status : $wgetreturn"
+        exit 1
+    fi
+else
+    echo "Apache Kafka archive already exists."
+fi
+
+if [ ! -d "$KAFKA_INSTALL_DIR" ]; then
+    sudo mkdir -p $KAFKA_INSTALL_DIR
+    sudo chown $LOGNAME:$LOGNAME -R $KAFKA_INSTALL_DIR
+fi
+
+if [ ! -d "$KAFKA_INSTALL_DIR/$KAFKA_FILENAME" ]; then
+    tar -xzf $KAFKA_ARCHIVE_PATH -C $KAFKA_INSTALL_DIR
+else
+    echo "$KAFKA_FILENAME is already installed"
+fi
+
+echo ""
+echo "---------------------------------------"
+printf "\033[32mKafka $VERSION_KAFKA installed\033[39m\n"
+echo ""
+echo "To start Kafka please use :"
+echo ""
+echo "Start the ZooKeeper service"
+echo " cd $KAFKA_HOME"
+echo " bin/zookeeper-server-start.sh config/zookeeper.properties"
+echo " or"
+echo " $KAFKA_HOME/bin/zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.properties"
+echo ""
+echo "Start the Kafka broker service"
+echo " cd $KAFKA_HOME"
+echo " bin/kafka-server-start.sh config/server.properties"
+echo " or"
+echo " $KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties"
+echo ""
+echo "https://kafka.apache.org/quickstart"
+echo ""
+echo "---------------------------------------"

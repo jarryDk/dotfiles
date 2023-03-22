@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export SOFTWARE_FOLDER="$HOME/software"
+
 export VERSION_ECLIPSE=2023-03-R
 #export VERSION_MAVEN=3.9.0
 export VERSION_MAVEN=3.6.3

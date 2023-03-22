@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# https://github.com/apache/maven-mvnd/releases
+# https://github.com/apache/maven-mvnd/releases/download/0.9.0/maven-mvnd-0.9.0-linux-amd64.tar.gz
+
+VERSION_MVND=${VERSION_MVND:=0.9.0}
+
+if [ ! -z $1 ]; then
+    VERSION_MVND=$1
+fi
+
+echo "About to install Apache Maven Daemon version : $VERSION_MVND"
+
+# VERSION_MVND is to be found in ~.exports
+MVND_FILENAME=maven-mvnd-$VERSION_MVND-linux-amd64
+MVND_ARCHIVE_NAME=$MVND_FILENAME.tar.gz
+MVND_ARCHIVE_PATH="$SOFTWARE_FOLDER/$MVND_ARCHIVE_NAME"
+MVND_DOWNLOAD_ADDRESS=https://github.com/apache/maven-mvnd/releases/download/$VERSION_MVND/$MVND_ARCHIVE_NAME
+MVND_INSTALL_DIR="/opt/apache/mvnd"
+
+if [ ! -e "$MVND_ARCHIVE_PATH" ]; then
+    echo "Downloading: $MVND_DOWNLOAD_ADDRESS..."
+    echo "Download location: $MVND_ARCHIVE_PATH"
+    wget -P $SOFTWARE_FOLDER $MVND_DOWNLOAD_ADDRESS
+    if [ $? -ne 0 ]; then
+        echo "Not possible to download Apache Maven Daemon."
+        sleep 20
+        exit 1
+    fi
+else
+    echo "Apache Maven Daemon archive already exists."
+fi
+
+if [ ! -d "$MVND_INSTALL_DIR" ]; then
+    sudo mkdir -p $MVND_INSTALL_DIR
+    sudo chown $LOGNAME:$LOGNAME -R $MVND_INSTALL_DIR
+fi
+
+if [ ! -d "$MVND_INSTALL_DIR/$MVND_FILENAME" ]; then
+    echo "Do installation of $MVND_FILENAME"
+    tar -xzf $MVND_ARCHIVE_PATH -C $MVND_INSTALL_DIR
+else
+    echo "$MVND_FILENAME is already installed"
+fi
