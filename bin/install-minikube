@@ -1,13 +1,25 @@
 #!/bin/bash
 
+# https://github.com/minekube
+
 curl -L -o $SOFTWARE_FOLDER/minikube-linux-amd64 https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-install $SOFTWARE_FOLDER/minikube-linux-amd64 $HOME/bin/minikube
-# sudo install -m 555 $SOFTWARE_FOLDER/minikube-linux-amd64 /usr/local/bin/minikube
+# install $SOFTWARE_FOLDER/minikube-linux-amd64 $HOME/bin/minikube
+sudo install -m 555 $SOFTWARE_FOLDER/minikube-linux-amd64 /usr/local/bin/minikube
 rm $SOFTWARE_FOLDER/minikube-linux-amd64
 
 echo "Getting started with minikube got to"
 echo "    https://minikube.sigs.k8s.io/docs/start/"
 echo "    https://minikube.sigs.k8s.io/docs/drivers/podman/"
+echo "    https://minikube.sigs.k8s.io/docs/drivers/kvm2/"
 echo ""
-echo "minikube config set driver podman"
-echo "minikube start"
+echo "    minikube config set driver podman"
+echo "    minikube start --driver=podman"
+echo "    minikube start --driver=podman --container-runtime=cri-o"
+echo ""
+echo "    minikube config set driver kvm2"
+echo "    minikube start --driver=kvm2"
+echo ""
+echo "    minikube start"
+echo "    minikube delete --all"
+echo ""
+echo "    https://github.com/jarryDk/minikube"
