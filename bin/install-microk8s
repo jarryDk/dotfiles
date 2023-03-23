@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# https://microk8s.io/
+
+echo "Install MicroK8s on Linux"
+sudo snap install microk8s --classic
+
+echo "Check the status while Kubernetes starts"
+microk8s status --wait-ready
+
+echo "Turn on the services you want"
+microk8s enable dashboard dns registry istio
+
+echo "Start using Kubernetes"
+microk8s kubectl get all --all-namespaces
+
+echo "Access the Kubernetes dashboard"
+microk8s dashboard-proxy
+
+echo "Start and stop Kubernetes to save battery"
+echo "  microk8s start"
+echo "  microk8s stop"

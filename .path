@@ -9,7 +9,12 @@ addToPath(){
     PATH_TO_ADD=$1
     SEPERATOR=$2
     if [[ ! "$PATH" == *"$SEPERATOR$PATH_TO_ADD"* ]]; then
-        export PATH=$PATH:$PATH_TO_ADD
+        if [ -d $PATH_TO_ADD ]; then
+            echo "$PATH_TO_ADD added to path"
+            export PATH=$PATH:$PATH_TO_ADD
+        else
+            echo "$PATH_TO_ADD not added to path - did not exist"
+        fi
     fi
 }
 
@@ -22,6 +27,9 @@ addToPath /usr/local/sbin :
 addToPath /usr/sbin :
 addToPath /sbin :
 addToPath /usr/local/bin
+
+# We like snap "classic in path"
+addToPath /snap/bin
 
 # put ~/bin first on PATH
 if [ -d "$HOME/bin" ]; then
