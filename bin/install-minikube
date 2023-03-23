@@ -3,7 +3,7 @@
 curl -L -o $SOFTWARE_FOLDER/minikube-linux-amd64 https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 install $SOFTWARE_FOLDER/minikube-linux-amd64 $HOME/bin/minikube
 # sudo install -m 555 $SOFTWARE_FOLDER/minikube-linux-amd64 /usr/local/bin/minikube
-rm minikube-linux-amd64
+rm $SOFTWARE_FOLDER/minikube-linux-amd64
 
 echo "Getting started with minikube got to"
 echo "    https://minikube.sigs.k8s.io/docs/start/"
