@@ -1,0 +1,52 @@
+#!/bin/bash
+
+VERSION_MINECRAFT_FORGE_SERVER=${VERSION_MINECRAFT_FORGE_SERVER:=1.19.4-45.0.22}
+
+if [ ! -z $1 ]; then
+    VERSION_MINECRAFT_FORGE_SERVER=$1
+fi
+
+echo "About to install Minecraft Forge server version : $VERSION_MINECRAFT_FORGE_SERVER"
+
+# VERSION_ANT is to be found in ~.exports
+MINECRAFT_FORGE_SERVER_FILENAME="forge-$VERSION_MINECRAFT_FORGE_SERVER-installer.jar"
+MINECRAFT_FORGE_SERVER_ARCHIVE_PATH="$SOFTWARE_FOLDER/$MINECRAFT_FORGE_SERVER_FILENAME"
+MINECRAFT_FORGE_SERVER_DOWNLOAD_ADDRESS=https://maven.minecraftforge.net/net/minecraftforge/forge/$VERSION_MINECRAFT_FORGE_SERVER/$MINECRAFT_FORGE_SERVER_FILENAME
+MINECRAFT_FORGE_SERVER_DIR="/opt/minecraft/forge"
+MINECRAFT_FORGE_SERVER_INSTALL_DIR="$MINECRAFT_FORGE_SERVER_DIR/.minecraft_$VERSION_MINECRAFT_FORGE_SERVER"
+
+if [ ! -e "$MINECRAFT_FORGE_SERVER_ARCHIVE_PATH" ]; then
+    echo "Downloading: $MINECRAFT_FORGE_SERVER_DOWNLOAD_ADDRESS..."
+    echo "Download location: $MINECRAFT_FORGE_SERVER_ARCHIVE_PATH"
+    wget -P $SOFTWARE_FOLDER $MINECRAFT_FORGE_SERVER_DOWNLOAD_ADDRESS
+    wgetreturn=$?
+    if [ $wgetreturn -ne 0 ]; then
+        echo "Not possible to download Minecraft Forge server - Exit Status : $wgetreturn"
+        exit 1
+    fi
+else
+    echo "Minecraft Forge server archive already exists."
+fi
+
+if [ ! -d "$MINECRAFT_FORGE_SERVER_INSTALL_DIR" ]; then
+    sudo mkdir -p $MINECRAFT_FORGE_SERVER_INSTALL_DIR
+    sudo chown $LOGNAME:$LOGNAME -R $MINECRAFT_FORGE_SERVER_INSTALL_DIR
+fi
+
+if [ ! -f "$MINECRAFT_FORGE_SERVER_INSTALL_DIR/$MINECRAFT_FORGE_SERVER_FILENAME" ]; then
+    echo "Do installation of $MINECRAFT_FORGE_SERVER_FILENAME"
+    echo "  Copy $MINECRAFT_FORGE_SERVER_FILENAME to $MINECRAFT_FORGE_SERVER_DIR"
+    cp $MINECRAFT_FORGE_SERVER_ARCHIVE_PATH $MINECRAFT_FORGE_SERVER_DIR/$MINECRAFT_FORGE_SERVER_FILENAME
+
+    echo "Install Minecraft Forge server ($VERSION_MINECRAFT_FORGE_SERVER) in the folder $MINECRAFT_FORGE_SERVER_INSTALL_DIR"
+    java -jar $MINECRAFT_FORGE_SERVER_DIR/$MINECRAFT_FORGE_SERVER_FILENAME --installServer=$MINECRAFT_FORGE_SERVER_INSTALL_DIR
+
+    echo "Accept eula for Minecraft"
+    echo "eula=true" > $MINECRAFT_FORGE_SERVER_INSTALL_DIR/eula.txt
+
+    echo ""
+    echo "Start sthe server with"
+    echo "    cd $MINECRAFT_FORGE_SERVER_INSTALL_DIR && ./run.sh"
+else
+    echo "$MINECRAFT_FORGE_SERVER_FILENAME is already installed"
+fi
