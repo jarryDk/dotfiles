@@ -10,10 +10,7 @@ addToPath(){
     SEPERATOR=$2
     if [[ ! "$PATH" == *"$SEPERATOR$PATH_TO_ADD"* ]]; then
         if [ -d $PATH_TO_ADD ]; then
-            echo "$PATH_TO_ADD added to path"
             export PATH=$PATH:$PATH_TO_ADD
-        else
-            echo "$PATH_TO_ADD not added to path - did not exist"
         fi
     fi
 }
