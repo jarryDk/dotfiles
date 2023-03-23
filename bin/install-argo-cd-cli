@@ -1,6 +1,29 @@
 #!/bin/bash
 
-curl -L -o $SOFTWARE_FOLDER/argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-# install -m 555 $SOFTWARE_FOLDER/argocd-linux-amd64 $HOME/bin/argocd
-min sudo install -m 555 $SOFTWARE_FOLDER/argocd-linux-amd64 /usr/local/bin/argocd
-rm $SOFTWARE_FOLDER/argocd-linux-amd64
+ARGO_CD_ARCHIVE_PATH=$SOFTWARE_FOLDER/argocd-linux-amd64
+
+ARGO_CD_DOWNLOAD=true
+ARGO_CD_DELETE=true
+if [ ! -z $1 ]; then
+    ARGO_CD_DOWNLOAD=$1
+fi
+if [ ! -z $2 ]; then
+    ARGO_CD_DELETE=$2
+fi
+
+ARGO_CD_CLI_DOWNLOAD_ADDRESS=https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+
+if [ $ARGO_CD_DOWNLOAD = true ]; then
+    echo "Downloadning ... $ARGO_CD_CLI_DOWNLOAD_ADDRESS"
+    curl -L -o $ARGO_CD_ARCHIVE_PATH $ARGO_CD_CLI_DOWNLOAD_ADDRESS
+fi
+
+if [ -f $ARGO_CD_ARCHIVE_PATH ]; then
+    # install -m 555 $SOFTWARE_FOLDER/argocd-linux-amd64 $HOME/bin/argocd
+    sudo install -m 555 $ARGO_CD_ARCHIVE_PATH /usr/local/bin/argocd
+
+    if [ $ARGO_CD_DELETE = true ]; then
+        echo "Deleting $ARGO_CD_ARCHIVE_PATH"
+        rm $ARGO_CD_ARCHIVE_PATH
+    fi
+fi
