@@ -1,24 +1,100 @@
 #!/bin/bash
 
-VERSION_MINECRAFT_FORGE_SERVER=${VERSION_MINECRAFT_FORGE_SERVER:=1.19.4-45.0.22}
+# VERSION_MINECRAFT_FORGE_SERVER is to be found in ~.exports
+VERSION=${VERSION_MINECRAFT_FORGE_SERVER:=1.19.4-45.0.22}
+HOME_DIR="/opt/minecraft/forge"
+EULA=false
+DRU_RUN=false
 
-if [ ! -z $1 ]; then
-    VERSION_MINECRAFT_FORGE_SERVER=$1
+commandInput=$@
+if [[ " ${commandInput[*]} " =~ " help " ]]; then
+    # whatever you want to do when array contains value
+    echo "Usage:"
+    echo " install-minecraft-forge-server [options] [command]"
+    echo ""
+    echo "Available Commands:"
+    echo "  help    Help about any command"
+    echo ""
+    echo "Options:"
+    echo "  -v | --version      Version of software to install (default \"$VERSION\")"
+    echo "  -h | --home-dir     Path to the home folder of the software (default \"$HOME_DIR\")"
+    echo "  -i | --install-dir  Path to the installation folder of the software"
+    echo "  -s | --software-di  Path to store the downloaded software (default \"$SOFTWARE_FOLDER\")"
+    echo "  --eula              Accept eula (true|false) (default \"$EULA\")"
+    echo "  --dryrun            Just print installation info (true|false) (default \"$DRU_RUN\")"
+    echo ""
+    exit 0
 fi
 
-echo "About to install Minecraft Forge server version : $VERSION_MINECRAFT_FORGE_SERVER"
+while [[ $# -gt 1 ]]; do
+    case $1 in
+        -v|--version)
+            VERSION="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -h|--home-dir)
+            HOME_DIR="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -i|--install-dir)
+            INSTALL_DIR="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -s|--software-dir)
+            SOFTWARE_FOLDER="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        --eula)
+            EULA="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        --dryrun)
+            DRU_RUN="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -*|--*)
+            echo "Unknown option $1"
+            exit 1
+            ;;
+    esac
+shift # past argument or value
+done
 
-# VERSION_ANT is to be found in ~.exports
-MINECRAFT_FORGE_SERVER_FILENAME="forge-$VERSION_MINECRAFT_FORGE_SERVER-installer.jar"
-MINECRAFT_FORGE_SERVER_ARCHIVE_PATH="$SOFTWARE_FOLDER/$MINECRAFT_FORGE_SERVER_FILENAME"
-MINECRAFT_FORGE_SERVER_DOWNLOAD_ADDRESS=https://maven.minecraftforge.net/net/minecraftforge/forge/$VERSION_MINECRAFT_FORGE_SERVER/$MINECRAFT_FORGE_SERVER_FILENAME
-MINECRAFT_FORGE_SERVER_DIR="/opt/minecraft/forge"
-MINECRAFT_FORGE_SERVER_INSTALL_DIR="$MINECRAFT_FORGE_SERVER_DIR/.minecraft_$VERSION_MINECRAFT_FORGE_SERVER"
+INSTALL_DIR=${INSTALL_DIR:="$HOME_DIR/.minecraft_$VERSION"}
 
-if [ ! -e "$MINECRAFT_FORGE_SERVER_ARCHIVE_PATH" ]; then
-    echo "Downloading: $MINECRAFT_FORGE_SERVER_DOWNLOAD_ADDRESS..."
-    echo "Download location: $MINECRAFT_FORGE_SERVER_ARCHIVE_PATH"
-    wget -P $SOFTWARE_FOLDER $MINECRAFT_FORGE_SERVER_DOWNLOAD_ADDRESS
+echo "About to install Minecraft Forge server"
+echo "  Version             : $VERSION"
+echo "  Home folder         : $HOME_DIR"
+echo "  Install folder      : $INSTALL_DIR"
+echo "  Eula                : $EULA"
+echo "  Software folder     : $SOFTWARE_FOLDER"
+echo "  Info only           : $DRU_RUN"
+
+if [ $DRU_RUN = true ]; then
+    echo ""
+    echo "Info only - Nothing will be downloaded and nothing will be installed"
+    exit 0
+fi
+
+if ! command -v java 2>&1; then
+    echo "Java not found. Please install Java and add it to the PATH"
+    exit 1
+fi
+
+FILENAME="forge-$VERSION-installer.jar"
+ARCHIVE_PATH="$SOFTWARE_FOLDER/$FILENAME"
+DOWNLOAD_ADDRESS=https://maven.minecraftforge.net/net/minecraftforge/forge/$VERSION/$FILENAME
+
+if [ ! -f "$ARCHIVE_PATH" ]; then
+    echo "Downloading: $DOWNLOAD_ADDRESS ..."
+    echo "Download location: $ARCHIVE_PATH"
+    wget -P $SOFTWARE_FOLDER $DOWNLOAD_ADDRESS
     wgetreturn=$?
     if [ $wgetreturn -ne 0 ]; then
         echo "Not possible to download Minecraft Forge server - Exit Status : $wgetreturn"
@@ -28,25 +104,28 @@ else
     echo "Minecraft Forge server archive already exists."
 fi
 
-if [ ! -d "$MINECRAFT_FORGE_SERVER_INSTALL_DIR" ]; then
-    sudo mkdir -p $MINECRAFT_FORGE_SERVER_INSTALL_DIR
-    sudo chown $LOGNAME:$LOGNAME -R $MINECRAFT_FORGE_SERVER_INSTALL_DIR
+if [ ! -d "$INSTALL_DIR" ]; then
+    sudo mkdir -p $INSTALL_DIR && \
+        sudo chown $LOGNAME:$LOGNAME -R $INSTALL_DIR
 fi
 
-if [ ! -f "$MINECRAFT_FORGE_SERVER_INSTALL_DIR/$MINECRAFT_FORGE_SERVER_FILENAME" ]; then
-    echo "Do installation of $MINECRAFT_FORGE_SERVER_FILENAME"
-    echo "  Copy $MINECRAFT_FORGE_SERVER_FILENAME to $MINECRAFT_FORGE_SERVER_DIR"
-    cp $MINECRAFT_FORGE_SERVER_ARCHIVE_PATH $MINECRAFT_FORGE_SERVER_DIR/$MINECRAFT_FORGE_SERVER_FILENAME
+if [ ! -f "$INSTALL_DIR/$FILENAME" ]; then
+    echo "Do installation of $FILENAME"
+    echo "  Copy $FILENAME to $HOME_DIR"
+    cp $ARCHIVE_PATH $HOME_DIR/$FILENAME
 
-    echo "Install Minecraft Forge server ($VERSION_MINECRAFT_FORGE_SERVER) in the folder $MINECRAFT_FORGE_SERVER_INSTALL_DIR"
-    java -jar $MINECRAFT_FORGE_SERVER_DIR/$MINECRAFT_FORGE_SERVER_FILENAME --installServer=$MINECRAFT_FORGE_SERVER_INSTALL_DIR
+    echo "Install Minecraft Forge server"
+    echo "  Version             : $VERSION"
+    echo "  Home folder         : $HOME_DIR"
+    echo "  Install folder      : $INSTALL_DIR"
+    java -jar $HOME_DIR/$FILENAME --installServer=$INSTALL_DIR
 
     echo "Accept eula for Minecraft"
-    echo "eula=true" > $MINECRAFT_FORGE_SERVER_INSTALL_DIR/eula.txt
+    echo "eula=$EULA" > $INSTALL_DIR/eula.txt
 
     echo ""
     echo "Start sthe server with"
-    echo "    cd $MINECRAFT_FORGE_SERVER_INSTALL_DIR && ./run.sh"
+    echo "    cd $INSTALL_DIR && ./run.sh"
 else
-    echo "$MINECRAFT_FORGE_SERVER_FILENAME is already installed"
+    echo "$FILENAME is already installed"
 fi

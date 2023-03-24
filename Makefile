@@ -3,6 +3,9 @@
 all: bin dotfiles
 
 bin:
+	if [ ! -d $(HOME)/bin ]; then
+		mkdir $(HOME)/bin
+	fi
 	# add aliases for things in bin
 	for file in $(shell find $(CURDIR)/bin -type f -not -name "*-backlight"); do \
 		f=$$(basename $$file); \
