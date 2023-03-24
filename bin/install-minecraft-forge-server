@@ -105,10 +105,13 @@ else
 fi
 
 if [ ! -d "$INSTALL_DIR" ]; then
+    echo "Creating the folder $INSTALL_DIR"
     sudo mkdir -p $INSTALL_DIR
-    sudo chown $LOGNAME:$LOGNAME -R $HOME_DIR
+    echo "Changing the ownership of $INSTALL_DIR to $LOGNAME:$LOGNAME"
+    sudo chown -v $LOGNAME:$LOGNAME -R $HOME_DIR
 else
-    sudo chown $LOGNAME:$LOGNAME -R $HOME_DIR
+    echo "Changing the ownership of $INSTALL_DIR to $LOGNAME:$LOGNAME"
+    sudo chown -v $LOGNAME:$LOGNAME -R $HOME_DIR
 fi
 
 if [ ! -f "$INSTALL_DIR/$FILENAME" ]; then
