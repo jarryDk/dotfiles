@@ -105,8 +105,10 @@ else
 fi
 
 if [ ! -d "$INSTALL_DIR" ]; then
-    sudo mkdir -p $INSTALL_DIR && \
-        sudo chown $LOGNAME:$LOGNAME -R $INSTALL_DIR
+    sudo mkdir -p $INSTALL_DIR
+    sudo chown $LOGNAME:$LOGNAME -R $HOME_DIR
+else
+    sudo chown $LOGNAME:$LOGNAME -R $HOME_DIR
 fi
 
 if [ ! -f "$INSTALL_DIR/$FILENAME" ]; then
