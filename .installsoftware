@@ -9,6 +9,16 @@ install-jdk(){
   echo "JDK_VERSION : $JDK_VERSION"
 
   case $JDK_VERSION in
+
+    20)
+      # https://github.com/adoptium/temurin20-binaries
+      ADOPTIUM_TOP_VERSION=20
+      ADOPTIUM_TAG_VERSION=$VERSION_JAVA_TWENTY_ADOPTIUM_TAG
+      ADOPTIUM_FOLDER=$VERSION_JAVA_TWENTY
+      ADOPTIUM_ARCHIVE_NAME=$VERSION_JAVA_TWENTY_ADOPTIUM_ARCHIVE_NAME
+    ;;
+
+
     19)
       # https://github.com/adoptium/temurin19-binaries
       ADOPTIUM_TOP_VERSION=19
@@ -110,5 +120,10 @@ install-jdk18(){
 install-jdk19(){
   echo "Starting to install jdk 19"
   install-jdk 19
+}
+
+install-jdk20(){
+  echo "Starting to install jdk 20"
+  install-jdk 20
 }
 

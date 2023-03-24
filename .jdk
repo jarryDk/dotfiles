@@ -30,6 +30,13 @@ jdk19(){
 	echo "== Switching to Java 19 -> JAVA_HOME : $JAVA_HOME"
 }
 
+jdk20(){
+	export JAVA_HOME=$JAVA_TWENTY_HOME
+	updateJdkAlternatives
+	echo "== Switching to Java 20 -> JAVA_HOME : $JAVA_HOME"
+}
+
+
 
 jdkNext(){
 	export JAVA_HOME=$JAVA_NEXT_HOME
