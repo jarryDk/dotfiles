@@ -3,43 +3,113 @@
 # https://maven.apache.org/download.cgi
 # https://dlcdn.apache.org/maven/maven-3/3.9.1/binaries/apache-maven-3.9.1-bin.tar.gz
 
-VERSION_MAVEN=${VERSION_MAVEN:=3.9.1}
+VERSION=${VERSION_MAVEN:=3.9.1}
+APP_HOME_DIR="/opt/apache/maven"
+APP_NAME="Apache Maven"
+DRY_RUN=false
 
-if [ ! -z $1 ]; then
-    VERSION_MAVEN=$1
+commandInput=$@
+if [[ " ${commandInput[*]} " =~ " help " ]]; then
+    
+    echo "Usage:"
+    echo " install-apache-maven [options] [command]"
+    echo ""
+    echo "Available Commands:"
+    echo "  help    Help about any command"
+    echo ""
+    echo "Options:"
+    echo "  -v | --version          Version of software to install (default \"$VERSION\")"
+    echo "  -h | --app-home-dir     Path to the home folder of the software (default \"$APP_HOME_DIR\")"
+    echo "  -s | --software-dir     Path to store the downloaded software (default \"$SOFTWARE_FOLDER\")"
+    echo "  --dryrun                Dryrun (true|false) (default \"$DRY_RUN\")"
+    echo ""
+    exit 0
 fi
 
-echo "About to install Apache Maven version : $VERSION_MAVEN"
+while [[ $# -gt 1 ]]; do
+    case $1 in
+        -v|--version)
+            VERSION="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -h|--app-home-dir)
+            APP_HOME_DIR="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -s|--software-dir)
+            SOFTWARE_FOLDER="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        --dryrun)
+            DRY_RUN="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -*|--*)
+            echo "Unknown option $1"
+            exit 1
+            ;;
+    esac
+shift # past argument or value
+done
 
-# VERSION_MAVEN is to be found in ~.exports
-MAVEN_FILENAME=apache-maven-$VERSION_MAVEN
-MAVEN_ARCHIVE_NAME=$MAVEN_FILENAME-bin.tar.gz
-MAVEN_ARCHIVE_PATH="$SOFTWARE_FOLDER/$MAVEN_ARCHIVE_NAME"
-MAVEN_DOWNLOAD_ADDRESS=https://dlcdn.apache.org/maven/maven-3/$VERSION_MAVEN/binaries/$MAVEN_ARCHIVE_NAME
-MAVEN_INSTALL_DIR="/opt/apache/maven"
+echo "About to install $APP_NAME"
+echo "  Version             : $VERSION"
+echo "  App Home folder     : $APP_HOME_DIR"
+echo "  Software folder     : $SOFTWARE_FOLDER"
+echo "  Dryrun              : $DRY_RUN"
 
-if [ ! -e "$MAVEN_ARCHIVE_PATH" ]; then
-    echo "Downloading: $MAVEN_DOWNLOAD_ADDRESS..."
-    echo "Download location: $MAVEN_ARCHIVE_PATH"
-    wget -P $SOFTWARE_FOLDER $MAVEN_DOWNLOAD_ADDRESS
+if [ $DRY_RUN = true ]; then
+    echo ""
+    echo "Dryrun - Nothing will be downloaded and nothing will be installed"
+    exit 0
+fi
+
+FILENAME=apache-maven-$VERSION
+ARCHIVE_NAME=$FILENAME-bin.tar.gz
+ARCHIVE_PATH="$SOFTWARE_FOLDER/$ARCHIVE_NAME"
+DOWNLOAD_ADDRESS=https://dlcdn.apache.org/maven/maven-3/$VERSION/binaries/$ARCHIVE_NAME
+
+if [ ! -e "$ARCHIVE_PATH" ]; then
+    echo "Downloading: $DOWNLOAD_ADDRESS..."
+    echo "Download location: $ARCHIVE_PATH"
+    wget -P $SOFTWARE_FOLDER $DOWNLOAD_ADDRESS
     wgetreturn=$?
     if [ $wgetreturn -ne 0 ]; then
-        echo "Not possible to download Apache Maven - Exit Status : $wgetreturn"
+        echo "Not possible to download $APP_NAME - Exit Status : $wgetreturn"
         sleep 20
         exit 1
     fi
 else
-    echo "Apache Maven archive already exists."
+    echo "$APP_NAME archive already exists."
 fi
 
-if [ ! -d "$MAVEN_INSTALL_DIR" ]; then
-    sudo mkdir -p $MAVEN_INSTALL_DIR
-    sudo chown $LOGNAME:$LOGNAME -R $MAVEN_INSTALL_DIR
+if [ ! -d "$APP_HOME_DIR" ]; then
+    sudo mkdir -p $APP_HOME_DIR
 fi
+sudo chown $LOGNAME:$LOGNAME -R $APP_HOME_DIR
 
-if [ ! -d "$MAVEN_INSTALL_DIR/$MAVEN_FILENAME" ]; then
-    echo "Do installation of $MAVEN_FILENAME"
-    tar -xzf $MAVEN_ARCHIVE_PATH -C $MAVEN_INSTALL_DIR
+if [ ! -d "$APP_HOME_DIR/$FILENAME" ]; then
+    echo "Do installation of $FILENAME"
+    tar -xzf $ARCHIVE_PATH -C $APP_HOME_DIR
 else
-    echo "$MAVEN_FILENAME is already installed"
+    echo "$FILENAME is already installed"
 fi
+
+echo ""
+echo "Set the user $LOGNAME as the owner of $APP_HOME_DIR after the installation is done"
+sudo chown $LOGNAME:$LOGNAME -R $APP_HOME_DIR
+
+echo ""
+printf "\033[32m-----------------------------------------------------\033[39m\n"
+printf "\033[32m$APP_NAME :: $FILENAME :: installed\033[39m\n"
+printf "\033[32m-----------------------------------------------------\033[39m\n"
+
+echo ""
+echo "---------------------------------------------------"
+mvn --version
+echo "---------------------------------------------------"
+echo ""

@@ -2,53 +2,112 @@
 
 # https://www.wildfly.org/downloads/
 
-VERSION_WILDFLY=${VERSION_WILDFLY:=27.0.1.Final}
+VERSION=${VERSION_WILDFLY:=27.0.1.Final}
+APP_HOME_DIR="/opt/wildfly"
+APP_NAME="Wildfly"
+DRY_RUN=false
 
-if [ ! -z $1 ]; then
-    VERSION_WILDFLY=$1
+commandInput=$@
+if [[ " ${commandInput[*]} " =~ " help " ]]; then
+    echo "Usage:"
+    echo " install-wildfly [options] [command]"
+    echo ""
+    echo "Available Commands:"
+    echo "  help    Help about any command"
+    echo ""
+    echo "Options:"
+    echo "  -v | --version          Version of software to install (default \"$VERSION\")"
+    echo "  -h | --app-home-dir     Path to the home folder of the software (default \"$APP_HOME_DIR\")"
+    echo "  -s | --software-dir     Path to store the downloaded software (default \"$SOFTWARE_FOLDER\")"
+    echo "  --dryrun                Dryrun (true|false) (default \"$DRY_RUN\")"
+    echo ""
+    exit 0
 fi
 
-echo "About to install Wildfly version : $VERSION_WILDFLY"
+while [[ $# -gt 1 ]]; do
+    case $1 in
+        -v|--version)
+            VERSION="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -h|--app-home-dir)
+            APP_HOME_DIR="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -s|--software-dir)
+            SOFTWARE_FOLDER="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        --dryrun)
+            DRY_RUN="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -*|--*)
+            echo "Unknown option $1"
+            exit 1
+            ;;
+    esac
+shift # past argument or value
+done
 
-# VERSION_WILDFLY is to be found in ~.exports
-WILDFLY_FILENAME=wildfly-$VERSION_WILDFLY
-WILDFLY_ARCHIVE_NAME=$WILDFLY_FILENAME.tar.gz
-WILDFLY_ARCHIVE_PATH="$SOFTWARE_FOLDER/$WILDFLY_ARCHIVE_NAME"
-WILDFLY_DOWNLOAD_ADDRESS=https://github.com/wildfly/wildfly/releases/download/$VERSION_WILDFLY/$WILDFLY_ARCHIVE_NAME
-WILDFLY_INSTALL_DIR="/opt/wildfly"
+echo "About to install $APP_NAME"
+echo "  Version             : $VERSION"
+echo "  App Home folder     : $APP_HOME_DIR"
+echo "  Software folder     : $SOFTWARE_FOLDER"
+echo "  Dryrun              : $DRY_RUN"
 
-if [ ! -e "$WILDFLY_ARCHIVE_PATH" ]; then
-    echo "Downloading: $WILDFLY_DOWNLOAD_ADDRESS..."
-    echo "Download location: $WILDFLY_ARCHIVE_PATH"
-    wget -P $SOFTWARE_FOLDER $WILDFLY_DOWNLOAD_ADDRESS
+if [ $DRY_RUN = true ]; then
+    echo ""
+    echo "Dryrun - Nothing will be downloaded and nothing will be installed"
+    exit 0
+fi
+
+FILENAME=wildfly-$VERSION
+ARCHIVE_NAME=$FILENAME.tar.gz
+ARCHIVE_PATH="$SOFTWARE_FOLDER/$ARCHIVE_NAME"
+DOWNLOAD_ADDRESS=https://github.com/wildfly/wildfly/releases/download/$VERSION/$ARCHIVE_NAME
+
+if [ ! -f "$ARCHIVE_PATH" ]; then
+    echo "Downloading: $DOWNLOAD_ADDRESS..."
+    echo "Download location: $ARCHIVE_PATH"
+    wget -P $SOFTWARE_FOLDER $DOWNLOAD_ADDRESS
     wgetreturn=$?
     if [ $wgetreturn -ne 0 ]; then
-        echo "Not possible to download Wildfly - Exit Status : $wgetreturn"
+        echo "Not possible to download $APP_NAME - Exit Status : $wgetreturn"
         sleep 20
         exit 1
     fi
 else
-    echo "Wildfly archive already exists."
+    echo "$APP_NAME archive already exists."
 fi
 
-if [ ! -d "$WILDFLY_INSTALL_DIR" ]; then
-    sudo mkdir -p $WILDFLY_INSTALL_DIR
-    sudo chown $LOGNAME:$LOGNAME -R $WILDFLY_INSTALL_DIR
+if [ ! -d "$APP_HOME_DIR" ]; then
+    sudo mkdir -p $APP_HOME_DIR
 fi
+sudo chown $LOGNAME:$LOGNAME -R $APP_HOME_DIR
 
-if [ ! -d "$WILDFLY_INSTALL_DIR/$WILDFLY_FILENAME" ]; then
-    tar -xzf $WILDFLY_ARCHIVE_PATH -C $WILDFLY_INSTALL_DIR
+if [ ! -d "$APP_HOME_DIR/$FILENAME" ]; then
+    tar -xzf $ARCHIVE_PATH -C $APP_HOME_DIR
 else
-    echo "$WILDFLY_FILENAME is already installed"
+    echo "$FILENAME is already installed"
 fi
 
 echo ""
-echo "---------------------------------------"
-printf "\033[32mWildfly $WILDFLY_FILENAME installed\033[39m\n"
+echo "Set the user $LOGNAME as the owner of $APP_HOME_DIR after the installation is done"
+sudo chown $LOGNAME:$LOGNAME -R $APP_HOME_DIR
+
+echo ""
+printf "\033[32m-----------------------------------------------------\033[39m\n"
+printf "\033[32m$APP_NAME :: $FILENAME :: installed\033[39m\n"
+printf "\033[32m-----------------------------------------------------\033[39m\n"
+
 echo ""
 echo "To start Wildfly please use :"
-echo " cd $WILDFLY_INSTALL_DIR/$WILDFLY_FILENAME"
-echo " bin/standalone.sh"
+echo " cd $APP_HOME_DIR/$FILENAME && bin/standalone.sh"
 echo ""
 echo "https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/START_JBOSS_EAP.adoc#start_the_jboss_eap_server"
 echo ""

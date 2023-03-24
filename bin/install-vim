@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -euo pipefail
-
 sudo dnf install vim-common vim-data vim-enhanced vim-filesystem vim-minimal \
   vim-go \
   vim-syntastic vim-syntastic-asciidoc vim-syntastic-css vim-syntastic-eruby \

@@ -4,48 +4,111 @@
 # https://developers.redhat.com/content-gateway/rest/mirror/pub/openshift-v4/clients/crc
 # https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/2.15.0/crc-linux-amd64.tar.xz
 
-VERSION_CRC=${VERSION_CRC:=2.15.0}
+VERSION=${VERSION_CRC:=2.15.0}
+APP_HOME_DIR="/opt/crc"
+APP_NAME="CodeReadyContainers (crc)"
+DRY_RUN=false
 
-if [ ! -z $1 ]; then
-    VERSION_CRC=$1
+commandInput=$@
+if [[ " ${commandInput[*]} " =~ " help " ]]; then    
+    echo "Usage:"
+    echo " install-crc [options] [command]"
+    echo ""
+    echo "Available Commands:"
+    echo "  help    Help about any command"
+    echo ""
+    echo "Options:"
+    echo "  -v | --version          Version of software to install (default \"$VERSION\")"
+    echo "  -h | --app-home-dir     Path to the home folder of the software (default \"$APP_HOME_DIR\")"
+    echo "  -s | --software-dir     Path to store the downloaded software (default \"$SOFTWARE_FOLDER\")"
+    echo "  --dryrun                Dryrun (true|false) (default \"$DRY_RUN\")"
+    echo ""
+    exit 0
 fi
 
-echo "About to install CodeReadyContainers (crc) version : $VERSION_CRC"
+while [[ $# -gt 1 ]]; do
+    case $1 in
+        -v|--version)
+            VERSION="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -h|--app-home-dir)
+            APP_HOME_DIR="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -s|--software-dir)
+            SOFTWARE_FOLDER="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        --dryrun)
+            DRY_RUN="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -*|--*)
+            echo "Unknown option $1"
+            exit 1
+            ;;
+    esac
+shift # past argument or value
+done
 
-# VERSION_CRC is to be found in ~.exports
-CRC_FILENAME=crc-linux-$VERSION_CRC-amd64
-CRC_ARCHIVE_NAME=$CRC_FILENAME.tar.xz
-CRC_ARCHIVE_PATH="$SOFTWARE_FOLDER/$CRC_ARCHIVE_NAME"
-CRC_DOWNLOAD_ADDRESS=https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/$VERSION_CRC/crc-linux-amd64.tar.xz
-CRC_INSTALL_DIR="/opt/crc"
+echo "About to install $APP_NAME"
+echo "  Version             : $VERSION"
+echo "  App Home folder     : $APP_HOME_DIR"
+echo "  Software folder     : $SOFTWARE_FOLDER"
+echo "  Dryrun              : $DRY_RUN"
 
-if [ ! -e "$CRC_ARCHIVE_PATH" ]; then
-    echo "Downloading: $CRC_DOWNLOAD_ADDRESS..."
-    echo "Download location: $CRC_ARCHIVE_PATH"
-    wget -P $SOFTWARE_FOLDER -O $CRC_ARCHIVE_PATH $CRC_DOWNLOAD_ADDRESS
+if [ $DRY_RUN = true ]; then
+    echo ""
+    echo "Dryrun - Nothing will be downloaded and nothing will be installed"
+    exit 0
+fi
+
+FILENAME=crc-linux-$VERSION-amd64
+ARCHIVE_NAME=$FILENAME.tar.xz
+ARCHIVE_PATH="$SOFTWARE_FOLDER/$ARCHIVE_NAME"
+DOWNLOAD_ADDRESS=https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/$VERSION/crc-linux-amd64.tar.xz
+
+if [ ! -e "$ARCHIVE_PATH" ]; then
+    echo "Downloading: $DOWNLOAD_ADDRESS..."
+    echo "Download location: $ARCHIVE_PATH"
+    wget -P $SOFTWARE_FOLDER -O $ARCHIVE_PATH $DOWNLOAD_ADDRESS
     wgetreturn=$?
     if [ $wgetreturn -ne 0 ]; then
-        echo "Not possible to download CodeReadyContainers (crc) - Exit Status : $wgetreturn"
-        if [ -f $CRC_ARCHIVE_PATH ]; then
-            rm $CRC_ARCHIVE_PATH
+        echo "Not possible to download $APP_NAME - Exit Status : $wgetreturn"
+        if [ -f $ARCHIVE_PATH ]; then
+            rm $ARCHIVE_PATH
         fi
         exit 1
     fi
 else
-    echo "CodeReadyContainers (crc) archive already exists."
+    echo "$APP_NAME archive already exists."
 fi
 
-if [ ! -d "$CRC_INSTALL_DIR" ]; then
-    sudo mkdir -p $CRC_INSTALL_DIR
-    sudo chown $LOGNAME:$LOGNAME -R $CRC_INSTALL_DIR
+if [ ! -d "$APP_HOME_DIR" ]; then
+    sudo mkdir -p $APP_HOME_DIR
 fi
+sudo chown $LOGNAME:$LOGNAME -R $APP_HOME_DIR
 
-if [ ! -d "$CRC_INSTALL_DIR/$CRC_FILENAME" ]; then
-    echo "Do installation of $CRC_FILENAME"
-    tar -xf $CRC_ARCHIVE_PATH -C $CRC_INSTALL_DIR
+if [ ! -d "$APP_HOME_DIR/$FILENAME" ]; then
+    echo "Do installation of $FILENAME"
+    tar -xf $ARCHIVE_PATH -C $APP_HOME_DIR
 else
-    echo "$CRC_FILENAME is already installed"
+    echo "$FILENAME is already installed"
 fi
+
+echo ""
+echo "Set the user $LOGNAME as the owner of $APP_HOME_DIR after the installation is done"
+sudo chown $LOGNAME:$LOGNAME -R $APP_HOME_DIR
+
+echo ""
+printf "\033[32m-----------------------------------------------------\033[39m\n"
+printf "\033[32m$APP_NAME :: $FILENAME :: installed\033[39m\n"
+printf "\033[32m-----------------------------------------------------\033[39m\n"
 
 echo ""
 echo "To use these binaries follow the instructions at https://console.redhat.com/openshift/create/local to obtain the needed pull-secret"

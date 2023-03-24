@@ -1,29 +1,103 @@
 #!/bin/bash
 
-ARGO_CD_ARCHIVE_PATH=$SOFTWARE_FOLDER/argocd-linux-amd64
+# https://argo-cd.readthedocs.io/en/stable/getting_started/
 
-ARGO_CD_DOWNLOAD=true
-ARGO_CD_DELETE=true
-if [ ! -z $1 ]; then
-    ARGO_CD_DOWNLOAD=$1
+VERSION=latest
+APP_HOME_DIR="/usr/local/bin"
+APP_NAME="Argocd cli"
+DRY_RUN=false
+DO_DOWNLOAD=true
+DO_REMOVE=true
+
+commandInput=$@
+if [[ " ${commandInput[*]} " =~ " help " ]]; then
+    echo "Usage:"
+    echo " install-argo-cd-cli [options] [command]"
+    echo ""
+    echo "Available Commands:"
+    echo "  help    Help about any command"
+    echo ""
+    echo "Options:"
+    echo "  -v | --version          Version of software to install (default \"$VERSION\")"
+    echo "  -h | --app-home-dir     Path to the home folder of the software (default \"$APP_HOME_DIR\")"
+    echo "  -s | --software-dir     Path to store the downloaded software (default \"$SOFTWARE_FOLDER\")"
+    echo "  -d | --download         Do download (true|false) (default \"$DOWNLOAD\")"
+    echo "  -r | --remove           Remove downloaded file after installation (true|false) (default \"$REMOVE\")"
+    echo "  --dryrun                Dryrun (true|false) (default \"$DRY_RUN\")"
+    echo ""
+    exit 0
 fi
-if [ ! -z $2 ]; then
-    ARGO_CD_DELETE=$2
+
+while [[ $# -gt 1 ]]; do
+    case $1 in
+        -v|--version)
+            VERSION="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -h|--app-home-dir)
+            APP_HOME_DIR="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -s|--software-dir)
+            SOFTWARE_FOLDER="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -d|--download)
+            DO_DOWNLOAD="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -r|--remove)
+            DO_REMOVE="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        --dryrun)
+            DRY_RUN="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -*|--*)
+            echo "Unknown option $1"
+            exit 1
+            ;;
+    esac
+shift # past argument or value
+done
+
+echo "About to install $APP_NAME"
+echo "  Version                     : $VERSION"
+echo "  App Home folder             : $APP_HOME_DIR"
+echo "  Software folder             : $SOFTWARE_FOLDER"
+echo "  Do download                 : $DO_DOWNLOAD"
+echo "  Remove after installation   : $DO_REMOVE"
+echo "  Dryrun                      : $DRY_RUN"
+
+if [ $DRY_RUN = true ]; then
+    echo ""
+    echo "Dryrun - Nothing will be downloaded and nothing will be installed"
+    exit 0
 fi
 
-ARGO_CD_CLI_DOWNLOAD_ADDRESS=https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+ARCHIVE_PATH=$SOFTWARE_FOLDER/argocd-linux-amd64
+DOWNLOAD_ADDRESS=https://github.com/argoproj/argo-cd/releases/$VERSION/download/argocd-linux-amd64
 
-if [ $ARGO_CD_DOWNLOAD = true ]; then
-    echo "Downloadning ... $ARGO_CD_CLI_DOWNLOAD_ADDRESS"
-    curl -L -o $ARGO_CD_ARCHIVE_PATH $ARGO_CD_CLI_DOWNLOAD_ADDRESS
+if [ $DO_DOWNLOAD = true ]; then
+    echo "Downloadning ... $DOWNLOAD_ADDRESS"
+    curl -L -o $ARCHIVE_PATH $DOWNLOAD_ADDRESS
 fi
 
-if [ -f $ARGO_CD_ARCHIVE_PATH ]; then
-    # install -m 555 $SOFTWARE_FOLDER/argocd-linux-amd64 $HOME/bin/argocd
-    sudo install -m 555 $ARGO_CD_ARCHIVE_PATH /usr/local/bin/argocd
-
-    if [ $ARGO_CD_DELETE = true ]; then
-        echo "Deleting $ARGO_CD_ARCHIVE_PATH"
-        rm $ARGO_CD_ARCHIVE_PATH
+if [ -f $DO_ARCHIVE_PATH ]; then
+    sudo install -m 555 $ARCHIVE_PATH $APP_HOME_DIR/argocd
+    if [ $DO_REMOVE = true ]; then
+        rm $ARCHIVE_PATH
     fi
 fi
+
+echo ""
+printf "\033[32m-----------------------------------------------------\033[39m\n"
+printf "\033[32m$APP_NAME :: installed\033[39m\n"
+printf "\033[32m-----------------------------------------------------\033[39m\n"

@@ -3,41 +3,105 @@
 # https://github.com/Konloch/bytecode-viewer/releases
 # https://github.com/Konloch/bytecode-viewer/releases/download/v2.11.2/Bytecode-Viewer-2.11.2.jar
 
-VERSION_BYTECODE_VIEWER=${VERSION_BYTECODE_VIEWER:=2.11.2}
+VERSION=${VERSION_BYTECODE_VIEWER:=2.11.2}
+APP_HOME_DIR="/opt/bytecode-viewer"
+APP_NAME="Bytecode Viewer"
+DRY_RUN=false
 
-if [ ! -z $1 ]; then
-    VERSION_BYTECODE_VIEWER=$1
+commandInput=$@
+if [[ " ${commandInput[*]} " =~ " help " ]]; then
+    echo "Usage:"
+    echo " install-bytecode-viewer [options] [command]"
+    echo ""
+    echo "Available Commands:"
+    echo "  help    Help about any command"
+    echo ""
+    echo "Options:"
+    echo "  -v | --version          Version of software to install (default \"$VERSION\")"
+    echo "  -h | --app-home-dir     Path to the home folder of the software (default \"$APP_HOME_DIR\")"
+    echo "  -s | --software-dir     Path to store the downloaded software (default \"$SOFTWARE_FOLDER\")"
+    echo "  --dryrun                Dryrun (true|false) (default \"$DRY_RUN\")"
+    echo ""
+    exit 0
 fi
 
-echo "About to install Bytecode Viewer version : $VERSION_BYTECODE_VIEWER"
+while [[ $# -gt 1 ]]; do
+    case $1 in
+        -v|--version)
+            VERSION="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -h|--app-home-dir)
+            APP_HOME_DIR="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -s|--software-dir)
+            SOFTWARE_FOLDER="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        --dryrun)
+            DRY_RUN="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -*|--*)
+            echo "Unknown option $1"
+            exit 1
+            ;;
+    esac
+shift # past argument or value
+done
 
-# VERSION_ANT is to be found in ~.exports
-BYTECODE_VIEWER_FILENAME="Bytecode-Viewer-$VERSION_BYTECODE_VIEWER.jar"
-BYTECODE_VIEWER_ARCHIVE_PATH="$SOFTWARE_FOLDER/$BYTECODE_VIEWER_FILENAME"
-BYTECODE_VIEWER_DOWNLOAD_ADDRESS=https://github.com/Konloch/bytecode-viewer/releases/download/v$VERSION_BYTECODE_VIEWER/$BYTECODE_VIEWER_FILENAME
-BYTECODE_VIEWER_INSTALL_DIR="/opt/bytecode-viewer"
+echo "About to install $APP_NAME"
+echo "  Version             : $VERSION"
+echo "  App Home folder     : $APP_HOME_DIR"
+echo "  Software folder     : $SOFTWARE_FOLDER"
+echo "  Dryrun              : $DRY_RUN"
 
-if [ ! -e "$BYTECODE_VIEWER_ARCHIVE_PATH" ]; then
-    echo "Downloading: $BYTECODE_VIEWER_DOWNLOAD_ADDRESS..."
-    echo "Download location: $BYTECODE_VIEWER_ARCHIVE_PATH"
-    wget -P $SOFTWARE_FOLDER $BYTECODE_VIEWER_DOWNLOAD_ADDRESS
+
+FILENAME="Bytecode-Viewer-$VERSION.jar"
+ARCHIVE_PATH="$SOFTWARE_FOLDER/$FILENAME"
+DOWNLOAD_ADDRESS=https://github.com/Konloch/bytecode-viewer/releases/download/v$VERSION/$FILENAME
+
+if [ ! -e "$ARCHIVE_PATH" ]; then
+    echo "Downloading: $DOWNLOAD_ADDRESS..."
+    echo "Download location: $ARCHIVE_PATH"
+    wget -P $SOFTWARE_FOLDER $DOWNLOAD_ADDRESS
     wgetreturn=$?
     if [ $wgetreturn -ne 0 ]; then
-        echo "Not possible to download Bytecode Viewer - Exit Status : $wgetreturn"
+        echo "Not possible to download $APP_NAME - Exit Status : $wgetreturn"
         exit 1
     fi
 else
-    echo "Bytecode Viewer archive already exists."
+    echo "$APP_NAME archive already exists."
 fi
 
-if [ ! -d "$BYTECODE_VIEWER_INSTALL_DIR" ]; then
-    sudo mkdir -p $BYTECODE_VIEWER_INSTALL_DIR
-    sudo chown $LOGNAME:$LOGNAME -R $BYTECODE_VIEWER_INSTALL_DIR
+if [ ! -d "$APP_HOME_DIR" ]; then
+    sudo mkdir -p $APP_HOME_DIR
 fi
+sudo chown $LOGNAME:$LOGNAME -R $APP_HOME_DIR
 
-if [ ! -f "$BYTECODE_VIEWER_INSTALL_DIR/$BYTECODE_VIEWER_FILENAME" ]; then
-    echo "Do installation of $BYTECODE_VIEWER_FILENAME"
-    cp $BYTECODE_VIEWER_ARCHIVE_PATH $BYTECODE_VIEWER_INSTALL_DIR/$BYTECODE_VIEWER_FILENAME
+if [ ! -f "$APP_HOME_DIR/$FILENAME" ]; then
+    echo "Do installation of $FILENAME"
+    cp $ARCHIVE_PATH $APP_HOME_DIR/$FILENAME
 else
-    echo "$BYTECODE_VIEWER_FILENAME is already installed"
+    echo "$FILENAME is already installed"
 fi
+
+echo ""
+echo "Set the user $LOGNAME as the owner of $APP_HOME_DIR after the installation is done"
+sudo chown $LOGNAME:$LOGNAME -R $APP_HOME_DIR
+
+echo ""
+printf "\033[32m-----------------------------------------------------\033[39m\n"
+printf "\033[32m$APP_NAME :: $FILENAME :: installed\033[39m\n"
+printf "\033[32m-----------------------------------------------------\033[39m\n"
+
+echo ""
+echo "Use by execte "
+echo "    java -jar $APP_HOME_DIR/$FILENAME"
+echo "or by alias like"
+echo "    alias bytecode-viewer="java -jar /opt/bytecode-viewer/Bytecode-Viewer-$VERSION_BYTECODE_VIEWER.jar""
