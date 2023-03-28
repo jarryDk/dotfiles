@@ -1,51 +1,241 @@
 #!/bin/bash
 
-jdk8(){
-	export JAVA_HOME=$JAVA_8_HOME
+####################################################
+# Change between Jdk versions
+#
+
+jdk(){
+	JDK_VERSION=$1
+	case $1 in
+		8)
+			VERSION_JAVA=$VERSION_JAVA_8
+		;;
+		11)
+			VERSION_JAVA=$VERSION_JAVA_11
+		;;
+		17)
+			VERSION_JAVA=$VERSION_JAVA_17
+		;;
+		18)
+			VERSION_JAVA=$VERSION_JAVA_18
+		;;
+		19)
+			VERSION_JAVA=$VERSION_JAVA_19
+		;;
+		20|*)
+			VERSION_JAVA=$VERSION_JAVA_20
+		;;
+	esac
+
+	export JAVA_HOME=$JAVA_FOLDER/$VERSION_JAVA
+	if [ ! -d $JAVA_HOME ]; then
+		printf "\e[33m✋ Java $VERSION_JAVA not installed.\n    - Try install-jdk ${JDK_VERSION:=20}\033\e[0m\n"
+		return
+	fi
 	updateJdkAlternatives
-	echo
-	echo "☕ Switching to Java 8 -> JAVA_HOME : $JAVA_HOME"
+	printf "\n\e[1;33m☕ Switching to Java $VERSION_JAVA -> $JAVA_HOME\033\e[0m\n"
+}
+
+jdk8(){
+	jdk 8
 }
 
 jdk11(){
-	export JAVA_HOME=$JAVA_11_HOME
-	updateJdkAlternatives
-	echo "== Switching to Java 11 -> JAVA_HOME : $JAVA_HOME"
+	jdk 11
 }
 
 jdk17(){
-	export JAVA_HOME=$JAVA_17_HOME
-	updateJdkAlternatives
-	echo
-	echo "☕ Switching to Java 17 -> JAVA_HOME : $JAVA_HOME"
+	jdk 17
 }
 
 jdk18(){
-	export JAVA_HOME=$JAVA_18_HOME
-	updateJdkAlternatives
-	echo
-	echo "☕ Switching to Java 18 -> JAVA_HOME : $JAVA_HOME"
+	jdk 18
 }
 
 jdk19(){
-	export JAVA_HOME=$JAVA_19_HOME
-	updateJdkAlternatives
-	echo
-	echo "☕ Switching to Java 19 -> JAVA_HOME : $JAVA_HOME"
+	jdk 19
 }
 
 jdk20(){
-	export JAVA_HOME=$JAVA_20_HOME
-	updateJdkAlternatives
-	echo
-	echo "☕ Switching to Java 20 -> JAVA_HOME : $JAVA_HOME"
+	jdk 20
+}
+
+####################################################
+# Install jdk
+#
+
+install-jdk(){
+
+	APP_HOME_DIR="/opt/java"
+	APP_NAME="Eclipse Adoptium Temurin (Jdk)"
+	DRY_RUN=false
+
+	VERSION=20
+
+	commandInput=$@
+	if [[ " ${commandInput[*]} " =~ " help " ]]; then
+		echo "Usage:"
+		echo "  install-jdk [options] [command]"
+		echo ""
+		echo "Available Commands:"
+		echo "  help    Help about any command"
+		echo ""
+		echo "Options:"
+		echo "  -v | --version          Version of software to install (default \"$VERSION\")"
+		echo "  -h | --app-home-dir     Path to the home folder of the software (default \"$APP_HOME_DIR\")"
+		echo "  -s | --software-dir     Path to store the downloaded software (default \"$SOFTWARE_FOLDER\")"
+		echo "  --dryrun                Dryrun (true|false) (default \"$DRY_RUN\")"
+		echo ""
+		exit 0
+	fi
+
+	while [[ $# -gt 1 ]]; do
+		case $1 in
+			-v|--version)
+				VERSION="$2"
+				shift # past argument
+				shift # past value
+				;;
+			-h|--app-home-dir)
+				APP_HOME_DIR="$2"
+				shift # past argument
+				shift # past value
+				;;
+			-s|--software-dir)
+				SOFTWARE_FOLDER="$2"
+				shift # past argument
+				shift # past value
+				;;
+			--dryrun)
+				DRY_RUN="$2"
+				shift # past argument
+				shift # past value
+				;;
+			-*|--*)
+				echo "Unknown option $1"
+				exit 1
+				;;
+		esac
+	shift # past argument or value
+	done
+
+	case $VERSION in
+
+		8)
+		# https://github.com/adoptium/temurin8-binaries
+		ADOPTIUM_TOP_VERSION=8
+		ADOPTIUM_TAG_VERSION=$VERSION_JAVA_8_ADOPTIUM_TAG
+		ADOPTIUM_FOLDER=$VERSION_JAVA_8
+		ADOPTIUM_ARCHIVE_NAME=$VERSION_JAVA_8_ADOPTIUM_ARCHIVE_NAME
+		;;
+		11)
+		# https://github.com/adoptium/temurin11-binaries
+		ADOPTIUM_TOP_VERSION=11
+		ADOPTIUM_TAG_VERSION=$VERSION_JAVA_11_ADOPTIUM_TAG
+		ADOPTIUM_FOLDER=$VERSION_JAVA_11
+		ADOPTIUM_ARCHIVE_NAME=$VERSION_JAVA_11_ADOPTIUM_ARCHIVE_NAME
+		;;
+		17)
+		# https://github.com/adoptium/temurin17-binaries
+		ADOPTIUM_TOP_VERSION=17
+		ADOPTIUM_TAG_VERSION=$VERSION_JAVA_17_ADOPTIUM_TAG
+		ADOPTIUM_FOLDER=$VERSION_JAVA_17
+		ADOPTIUM_ARCHIVE_NAME=$VERSION_JAVA_17_ADOPTIUM_ARCHIVE_NAME
+		;;
+		18)
+		# https://github.com/adoptium/temurin18-binaries
+		ADOPTIUM_TOP_VERSION=18
+		ADOPTIUM_TAG_VERSION=$VERSION_JAVA_18_ADOPTIUM_TAG
+		ADOPTIUM_FOLDER=$VERSION_JAVA_18
+		ADOPTIUM_ARCHIVE_NAME=$VERSION_JAVA_18_ADOPTIUM_ARCHIVE_NAME
+		;;
+		19)
+		# https://github.com/adoptium/temurin19-binaries
+		ADOPTIUM_TOP_VERSION=19
+		ADOPTIUM_TAG_VERSION=$VERSION_JAVA_19_ADOPTIUM_TAG
+		ADOPTIUM_FOLDER=$VERSION_JAVA_19
+		ADOPTIUM_ARCHIVE_NAME=$VERSION_JAVA_19_ADOPTIUM_ARCHIVE_NAME
+		;;
+		20|*)
+		# https://github.com/adoptium/temurin20-binaries
+		ADOPTIUM_TOP_VERSION=20
+		ADOPTIUM_TAG_VERSION=$VERSION_JAVA_20_ADOPTIUM_TAG
+		ADOPTIUM_FOLDER=$VERSION_JAVA_20
+		ADOPTIUM_ARCHIVE_NAME=$VERSION_JAVA_20_ADOPTIUM_ARCHIVE_NAME
+		;;
+	esac
+
+	echo "About to install $APP_NAME"
+	echo "  Version             : $VERSION"
+	echo "  App Home folder     : $APP_HOME_DIR"
+	echo "  Software folder     : $SOFTWARE_FOLDER"
+	echo "  Dryrun              : $DRY_RUN"
+
+	if [ $DRY_RUN = true ]; then
+		echo ""
+		echo "Dryrun - Nothing will be downloaded and nothing will be installed"
+		exit 0
+	fi
+
+	ARCHIVE_PATH="$SOFTWARE_FOLDER/$ADOPTIUM_ARCHIVE_NAME"
+	DOWNLOAD_ADDRESS="https://github.com/adoptium/temurin"$ADOPTIUM_TOP_VERSION"-binaries/releases/download/$ADOPTIUM_TAG_VERSION/$ADOPTIUM_ARCHIVE_NAME"
+
+	if [ ! -f "$ARCHIVE_PATH" ]; then
+		echo "Downloading: $DOWNLOAD_ADDRESS..."
+		echo "Download location: $ARCHIVE_PATH"
+		wget -P $SOFTWARE_FOLDER $DOWNLOAD_ADDRESS
+		wgetreturn=$?
+		if [ $wgetreturn -ne 0 ]; then
+			echo "Not possible to download $APP_NAME - Exit Status : $wgetreturn"
+			exit 1
+		fi
+	else
+		echo "$APP_NAME archive already exists."
+	fi
+
+	if [ ! -d "$APP_HOME_DIR/$ADOPTIUM_FOLDER" ]; then
+		if [ ! -d "$APP_HOME_DIR" ]; then
+			sudo mkdir -p $APP_HOME_DIR
+		fi
+		sudo chown $LOGNAME:$LOGNAME -R $APP_HOME_DIR
+
+		echo "Do installation of $ADOPTIUM_FOLDER"
+		tar -xzf $ARCHIVE_PATH -C $APP_HOME_DIR
+		echo "Java installed in the folder $APP_HOME_DIR/$ADOPTIUM_FOLDER"
+	else
+		echo "$APP_NAME ($ADOPTIUM_FOLDER) is already installed in $APP_HOME_DIR"
+	fi
+
+}
+
+install-jdk8(){
+  install-jdk -v 8
+}
+
+install-jdk11(){
+  install-jdk -v 11
+}
+
+install-jdk17(){
+  install-jdk -v 17
+}
+
+install-jdk18(){
+  install-jdk -v 18
+}
+
+install-jdk19(){
+  install-jdk -v 19
+}
+
+install-jdk20(){
+  install-jdk -v 20
 }
 
 jdkNext(){
 	export JAVA_HOME=$JAVA_NEXT_HOME
 	updateJdkAlternatives
-	echo
-	echo "☕ Switching to Java Next -> JAVA_HOME : $JAVA_HOME"
+	printf "\n\e[1;33m☕ Switching to Java Next -> $JAVA_HOME\033\e[0m\n"
 }
 
 jdkGetReadyToBuild(){
@@ -100,25 +290,25 @@ updateJdkAlternatives() {
 	if [ -f "$JAVA_HOME/bin/javac" ]; then
 		sudo $ALTERNATIVES_NAME --install "/usr/bin/javac" javac "$JAVA_HOME/bin/javac" 1 2> /dev/null
 		sudo $ALTERNATIVES_NAME --set javac "$JAVA_HOME/bin/javac"
-		printf "\e[32m✔ /usr/bin/javac -> $JAVA_HOME/bin/javac\033\e[0m$@\n"
+		printf "\e[32m✔ /usr/bin/javac -> $JAVA_HOME/bin/javac\033\e[0m\n"
 	else
-		printf "\e[33m✋ $JAVA_HOME/bin/javac was not found\033\e[0m$@\n"
+		printf "\e[33m✋ $JAVA_HOME/bin/javac was not found\033\e[0m\n"
 	fi
 
 	if [ -f "$JAVA_HOME/bin/javadoc" ]; then
 		sudo $ALTERNATIVES_NAME --install "/usr/bin/javadoc" javadoc "$JAVA_HOME/bin/javadoc" 1 2> /dev/null
 		sudo $ALTERNATIVES_NAME --set javadoc "$JAVA_HOME/bin/javadoc"
-		printf "\e[32m✔ /usr/bin/javadoc -> $JAVA_HOME/bin/javadoc\033\e[0m$@\n"
+		printf "\e[32m✔ /usr/bin/javadoc -> $JAVA_HOME/bin/javadoc\033\e[0m\n"
 	else
-		printf "\e[33m✋ $JAVA_HOME/bin/javadoc was not found\033\e[0m$@\n"
+		printf "\e[33m✋ $JAVA_HOME/bin/javadoc was not found\033\e[0m\n"
 	fi
 
 	if [ -f "$JAVA_HOME/bin/keytool" ]; then
 		sudo $ALTERNATIVES_NAME --install "/usr/bin/keytool" keytool "$JAVA_HOME/bin/keytool" 1 2> /dev/null
 		sudo $ALTERNATIVES_NAME --set keytool "$JAVA_HOME/bin/keytool"
-		printf "\e[32m✔ /usr/bin/keytool -> $JAVA_HOME/bin/keytool\033\e[0m$@\n"
+		printf "\e[32m✔ /usr/bin/keytool -> $JAVA_HOME/bin/keytool\033\e[0m\n"
 	else
-		printf "\e[33m✋ $JAVA_HOME/bin/keytool was not found\033\e[0m$@\n"
+		printf "\e[33m✋ $JAVA_HOME/bin/keytool was not found\033\e[0m\n"
 	fi
 
 }
