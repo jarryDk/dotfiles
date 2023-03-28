@@ -1,47 +1,51 @@
 #!/bin/bash
 
 jdk8(){
-	export JAVA_HOME=$JAVA_EIGHT_HOME
+	export JAVA_HOME=$JAVA_8_HOME
 	updateJdkAlternatives
-	echo "== Switching to Java 8 -> JAVA_HOME : $JAVA_HOME"
+	echo
+	echo "☕ Switching to Java 8 -> JAVA_HOME : $JAVA_HOME"
 }
 
 jdk11(){
-	export JAVA_HOME=$JAVA_ELEVEN_HOME
+	export JAVA_HOME=$JAVA_11_HOME
 	updateJdkAlternatives
 	echo "== Switching to Java 11 -> JAVA_HOME : $JAVA_HOME"
 }
 
 jdk17(){
-	export JAVA_HOME=$JAVA_SEVENTEEN_HOME
+	export JAVA_HOME=$JAVA_17_HOME
 	updateJdkAlternatives
-	echo "== Switching to Java 17 -> JAVA_HOME : $JAVA_HOME"
+	echo
+	echo "☕ Switching to Java 17 -> JAVA_HOME : $JAVA_HOME"
 }
 
 jdk18(){
-	export JAVA_HOME=$JAVA_EIGHTEEN_HOME
+	export JAVA_HOME=$JAVA_18_HOME
 	updateJdkAlternatives
-	echo "== Switching to Java 18 -> JAVA_HOME : $JAVA_HOME"
+	echo
+	echo "☕ Switching to Java 18 -> JAVA_HOME : $JAVA_HOME"
 }
 
 jdk19(){
-	export JAVA_HOME=$JAVA_NINETEEN_HOME
+	export JAVA_HOME=$JAVA_19_HOME
 	updateJdkAlternatives
-	echo "== Switching to Java 19 -> JAVA_HOME : $JAVA_HOME"
+	echo
+	echo "☕ Switching to Java 19 -> JAVA_HOME : $JAVA_HOME"
 }
 
 jdk20(){
-	export JAVA_HOME=$JAVA_TWENTY_HOME
+	export JAVA_HOME=$JAVA_20_HOME
 	updateJdkAlternatives
-	echo "== Switching to Java 20 -> JAVA_HOME : $JAVA_HOME"
+	echo
+	echo "☕ Switching to Java 20 -> JAVA_HOME : $JAVA_HOME"
 }
-
-
 
 jdkNext(){
 	export JAVA_HOME=$JAVA_NEXT_HOME
 	updateJdkAlternatives
-	echo "== Switching to Java Next -> JAVA_HOME : $JAVA_HOME"
+	echo
+	echo "☕ Switching to Java Next -> JAVA_HOME : $JAVA_HOME"
 }
 
 jdkGetReadyToBuild(){
@@ -61,11 +65,11 @@ jdkGetReadyToBuild(){
 	OPENJDK_JDK=$HOME/git/openjdk/jdk
 
 	if [ -d $OPENJDK_JDK ]; then
-		echo "We have the folder$OPENJDK_JDK"
+		echo "We have the folder $OPENJDK_JDK"
 		cd $OPENJDK_JDK
 		git pull
 	else
-		echo "We do not have the folder$OPENJDK_JDK"
+		echo "We do not have the folder $OPENJDK_JDK"
 		mkdir -p $OPENJDK_JDK
 		git clone https://github.com/openjdk/jdk.git $OPENJDK_JDK
 		cd $OPENJDK_JDK
@@ -88,27 +92,33 @@ updateJdkAlternatives() {
 	    ALTERNATIVES_NAME=update-alternatives
     fi
 
-	echo "JAVA_HOME: $JAVA_HOME"
+	printf "\e[32m✔ JAVA_HOME -> $JAVA_HOME\033\e[0m$@\n"
 
     sudo $ALTERNATIVES_NAME --install "/usr/bin/java" java "$JAVA_HOME/bin/java" 1
 	sudo $ALTERNATIVES_NAME --set java "$JAVA_HOME/bin/java"
 
 	if [ -f "$JAVA_HOME/bin/javac" ]; then
-		echo "$JAVA_HOME/bin/javac is found"
-		sudo $ALTERNATIVES_NAME --install "/usr/bin/javac" javac "$JAVA_HOME/bin/javac" 1
+		sudo $ALTERNATIVES_NAME --install "/usr/bin/javac" javac "$JAVA_HOME/bin/javac" 1 2> /dev/null
 		sudo $ALTERNATIVES_NAME --set javac "$JAVA_HOME/bin/javac"
+		printf "\e[32m✔ /usr/bin/javac -> $JAVA_HOME/bin/javac\033\e[0m$@\n"
+	else
+		printf "\e[33m✋ $JAVA_HOME/bin/javac was not found\033\e[0m$@\n"
 	fi
 
 	if [ -f "$JAVA_HOME/bin/javadoc" ]; then
-		echo "$JAVA_HOME/bin/javadoc is found"
-		sudo $ALTERNATIVES_NAME --install "/usr/bin/javadoc" javadoc "$JAVA_HOME/bin/javadoc" 1
+		sudo $ALTERNATIVES_NAME --install "/usr/bin/javadoc" javadoc "$JAVA_HOME/bin/javadoc" 1 2> /dev/null
 		sudo $ALTERNATIVES_NAME --set javadoc "$JAVA_HOME/bin/javadoc"
+		printf "\e[32m✔ /usr/bin/javadoc -> $JAVA_HOME/bin/javadoc\033\e[0m$@\n"
+	else
+		printf "\e[33m✋ $JAVA_HOME/bin/javadoc was not found\033\e[0m$@\n"
 	fi
 
 	if [ -f "$JAVA_HOME/bin/keytool" ]; then
-		echo "$JAVA_HOME/bin/keytool is found"
-		sudo $ALTERNATIVES_NAME --install "/usr/bin/keytool" keytool "$JAVA_HOME/bin/keytool" 1
+		sudo $ALTERNATIVES_NAME --install "/usr/bin/keytool" keytool "$JAVA_HOME/bin/keytool" 1 2> /dev/null
 		sudo $ALTERNATIVES_NAME --set keytool "$JAVA_HOME/bin/keytool"
+		printf "\e[32m✔ /usr/bin/keytool -> $JAVA_HOME/bin/keytool\033\e[0m$@\n"
+	else
+		printf "\e[33m✋ $JAVA_HOME/bin/keytool was not found\033\e[0m$@\n"
 	fi
 
 }
