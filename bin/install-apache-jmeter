@@ -10,7 +10,6 @@ DRY_RUN=false
 
 commandInput=$@
 if [[ " ${commandInput[*]} " =~ " help " ]]; then
-    
     echo "Usage:"
     echo " install-apache-jmeter [options] [command]"
     echo ""

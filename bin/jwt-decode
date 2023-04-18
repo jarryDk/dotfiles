@@ -1,0 +1,12 @@
+#!/bin/bash
+
+TOKEN=$1
+
+if [ ! -z $TOKEN ]; then
+    echo $TOKEN | jq -R 'split(".") | .[0],.[1] | @base64d | fromjson'
+else
+    echo "Use : jwt-decode <TOKEN>"
+    echo
+    echo "Sample"
+    echo "  jwt-decode eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODE4MDAyNDUsImlzcyI6IjdaWUIzRmpWMjlNSVMwOHYzRVZOYThxWDNsNjZnb2ROIn0.gfg4ElhPhmKjN5PiTFNoXio5zaYR6MdC83SBAZTSVVY"
+fi
