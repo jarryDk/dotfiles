@@ -10,3 +10,6 @@ else
     echo "Sample"
     echo "  jwt-decode eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODE4MDAyNDUsImlzcyI6IjdaWUIzRmpWMjlNSVMwOHYzRVZOYThxWDNsNjZnb2ROIn0.gfg4ElhPhmKjN5PiTFNoXio5zaYR6MdC83SBAZTSVVY"
 fi
+
+# Alternative to this hack
+# https://github.com/mattroberts297/jsonwebtokencli
