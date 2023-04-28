@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=${VERSION_MINECRAFT_FORGE_SERVER:=1.19.4-45.0.22}
+VERSION=${VERSION_MINECRAFT_FORGE_SERVER:=1.19.4-45.0.49}
 APP_HOME_DIR="/opt/minecraft/forge"
 APP_NAME="Minecraft Forge server"
 EULA=false
@@ -109,7 +109,7 @@ if [ ! -d "$INSTALL_DIR" ]; then
 fi
 sudo chown $LOGNAME:$LOGNAME -R $APP_HOME_DIR
 
-if [ ! -d "$INSTALL_DIR" ]; then
+if [ ! -f "$INSTALL_DIR/eula.txt" ]; then
     echo "Do installation of $FILENAME"
     echo "  Copy $FILENAME to $APP_HOME_DIR"
     cp $ARCHIVE_PATH $APP_HOME_DIR/$FILENAME
@@ -120,8 +120,18 @@ if [ ! -d "$INSTALL_DIR" ]; then
     echo "  Install folder      : $INSTALL_DIR"
     java -jar $APP_HOME_DIR/$FILENAME --installServer=$INSTALL_DIR
 
-    echo "Accept eula for Minecraft"
+    echo
+    echo "Set eula for Minecraft to $EULA"
     echo "eula=$EULA" > $INSTALL_DIR/eula.txt
+
+    echo "Set nogui in $INSTALL_DIR/run.shm"
+    sed -i 's/unix_args.txt/unix_args.txt nogui/g' $INSTALL_DIR/run.sh
+
+    echo "Set -Xmx4G in $INSTALL_DIR/user_jvm_args.txt"
+    sed -i 's/# -Xmx4G/-Xmx4G/g' $INSTALL_DIR/user_jvm_args.txt
+
+    rm -vf $APP_HOME_DIR/$FILENAME
+    rm -vf $INSTALL_DIR/run.bat
 
     echo ""
     echo "Start sthe server with"
