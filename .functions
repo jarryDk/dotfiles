@@ -6,6 +6,20 @@ mkd() {
 	cd "$@" || exit
 }
 
+function settitle() {
+    if [ $# -eq 0 ]
+        then
+        eval set -- "\\u@\\h: \\w"
+    fi
+
+    case $TERM in
+        xterm*) local title="\[\033]0;$@\007\]";;
+        *) local title=''
+    esac
+    local prompt=$(echo "$PS1" | sed -e 's/\\\[\\033\]0;.*\\007\\\]//')
+    PS1="${title}${prompt}"
+}
+
 # Syntax-highlight JSON strings or files
 # Usage: `json '{"foo":42}'` or `echo '{"foo":42}' | json`
 json() {
