@@ -1,0 +1,104 @@
+#!/bin/bash
+
+# https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+# https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+
+VERSION=v1.27.1
+APP_HOME_DIR="/usr/local/bin"
+APP_NAME="Kubectl"
+DRY_RUN=false
+DO_DOWNLOAD=true
+DO_REMOVE=true
+
+commandInput=$@
+if [[ " ${commandInput[*]} " =~ " help " ]]; then
+    echo "Usage:"
+    echo " install-minikube [options] [command]"
+    echo ""
+    echo "Available Commands:"
+    echo "  help    Help about any command"
+    echo ""
+    echo "Options:"
+    echo "  -v | --version          Version of software to install (default \"$VERSION\")"
+    echo "  -h | --app-home-dir     Path to the home folder of the software (default \"$APP_HOME_DIR\")"
+    echo "  -s | --software-dir     Path to store the downloaded software (default \"$SOFTWARE_FOLDER\")"
+    echo "  -d | --download         Do download (true|false) (default \"$DOWNLOAD\")"
+    echo "  -r | --remove           Remove downloaded file after installation (true|false) (default \"$REMOVE\")"
+    echo "  --dryrun                Dryrun (true|false) (default \"$DRY_RUN\")"
+    echo ""
+    exit 0
+fi
+
+while [[ $# -gt 1 ]]; do
+    case $1 in
+        -v|--version)
+            VERSION="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -h|--app-home-dir)
+            APP_HOME_DIR="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -s|--software-dir)
+            SOFTWARE_FOLDER="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -d|--download)
+            DO_DOWNLOAD="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -r|--remove)
+            DO_REMOVE="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        --dryrun)
+            DRY_RUN="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -*|--*)
+            echo "Unknown option $1"
+            exit 1
+            ;;
+    esac
+shift # past argument or value
+done
+
+echo "About to install $APP_NAME"
+echo "  Version                     : $VERSION"
+echo "  App Home folder             : $APP_HOME_DIR"
+echo "  Software folder             : $SOFTWARE_FOLDER"
+echo "  Do download                 : $DO_DOWNLOAD"
+echo "  Remove after installation   : $DO_REMOVE"
+echo "  Dryrun                      : $DRY_RUN"
+
+if [ $DRY_RUN = true ]; then
+    echo ""
+    echo "Dryrun - Nothing will be downloaded and nothing will be installed"
+    exit 0
+fi
+
+ARCHIVE_PATH=$SOFTWARE_FOLDER/kubectl-linux-amd64
+DOWNLOAD_ADDRESS=https://dl.k8s.io/release/$VERSION/bin/linux/amd64/kubectl
+
+if [ $DO_DOWNLOAD = true ]; then
+    echo "Downloadning ... $DOWNLOAD_ADDRESS"
+    curl -L -o $ARCHIVE_PATH $DOWNLOAD_ADDRESS
+fi
+
+if [ -f $DO_ARCHIVE_PATH ]; then
+    sudo install -m 555 $ARCHIVE_PATH $APP_HOME_DIR/kubectl
+    if [ $DO_REMOVE = true ]; then
+        rm $ARCHIVE_PATH
+    fi
+fi
+
+echo ""
+printf "\033[32m-----------------------------------------------------\033[39m\n"
+printf "\033[32m$APP_NAME :: installed\033[39m\n"
+printf "\033[32m-----------------------------------------------------\033[39m\n"
