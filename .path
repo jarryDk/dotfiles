@@ -67,6 +67,9 @@ addToPath /opt/okd/openshift-install-linux-$VERSION_OKD
 # CodeReadyContainers
 addToPath /opt/CodeReadyContainers/crc-linux-$VERSION_CRC-amd64
 
+# Podman Desktop
+addToPath /opt/podman-desktop/podman-desktop-$VERSION_PODMAN_DESKTOP
+
 # Hashicorp - Envconsul
 # export PATH="/opt/hashicorp/envconsul/envconsul_"$VERSION_HASHICORP_ENVCONSUL"_linux_amd64":$PATH
 
