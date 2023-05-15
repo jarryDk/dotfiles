@@ -29,7 +29,7 @@ jdk(){
 
 	export JAVA_HOME=$JAVA_FOLDER/$VERSION_JAVA
 	if [ ! -d $JAVA_HOME ]; then
-		printf "\e[33m✋ Java $VERSION_JAVA not installed.\n    - Try install-jdk ${JDK_VERSION:=20}\033\e[0m\n"
+		printf "\e[33m✋ Java $VERSION_JAVA not installed.\n    - Try install-jdk -v ${JDK_VERSION:=20}\033\e[0m\n"
 		return
 	fi
 	updateJdkAlternatives
