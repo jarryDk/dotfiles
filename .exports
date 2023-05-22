@@ -12,7 +12,8 @@ export VERSION_JMETER=5.5
 export VERSION_GRADLE=8.0
 export VERSION_OKD=4.12.0-0.okd-2023-03-18-084815
 export VERSION_CRC=2.15.0
-export VERSION_GRAALVM=19-22.3.1
+export VERSION_GRAALVM_JAVA=17
+export VERSION_GRAALVM=22.3.2
 export VERSION_KAFKA=3.4.0
 export VERSION_KAFKA_SCALA=2.13
 export VERSION_JBANG=0.103.2
@@ -31,7 +32,7 @@ export VERSION_MINECRAFT_FORGE_SERVER="1.19.4-45.0.49"
 export VERSION_PODMAN_DESKTOP=0.15.0
 
 # GraalVM Community
-export GRAALVM_HOME=/opt/graalvm/graalvm-ce-java$VERSION_GRAALVM
+export GRAALVM_HOME=/opt/graalvm/graalvm-ce-java$VERSION_GRAALVM_JAVA-$VERSION_GRAALVM
 
 # Kafka home
 export KAFKA_INSTALL_DIR="/opt/apache/kafka"
