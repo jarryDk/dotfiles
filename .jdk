@@ -172,7 +172,7 @@ install-jdk(){
 	echo "  Dryrun              : $DRY_RUN"
 
 	echo "ADOPTIUM_ARCHIVE_NAME : $ADOPTIUM_ARCHIVE_NAME"
-	
+
 	if [ $DRY_RUN = true ]; then
 		echo ""
 		echo "Dryrun - Nothing will be downloaded and nothing will be installed"
