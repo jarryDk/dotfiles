@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -eu
+
+podman inspect -f '{{.Name}}\n\t- ip: {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}\n\t- Ports:{{json .NetworkSettings.Ports }}\n\t- image: {{.ImageName}}' $(podman ps -q)
