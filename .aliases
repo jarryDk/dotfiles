@@ -37,6 +37,7 @@ alias mcp-skip-tests="mvn clean package -DskipTests"
 alias mcp-no-tests="mvn clean package -Dmaven.test.skip"
 alias mversion="mvn versions:display-dependency-updates"
 alias mit="mvn test-compile failsafe:integration-test failsafe:verify"
+alias mdt="mvn dependency:tree"
 
 # Kafka options
 alias kafka-zookeeper="$KAFKA_HOME/bin/zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.properties"
