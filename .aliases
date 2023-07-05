@@ -32,8 +32,9 @@ alias vi='vim'
 
 alias mci="mvn clean install"
 alias mcp="mvn clean package"
-alias mverbose="mvn clean package -D=VERBOSE"
-
+alias mcp-verbose="mvn clean package -Dmaven.plugin.validation=VERBOSE"
+alias mcp-skip-tests="mvn clean package -DskipTests"
+alias mcp-no-tests="mvn clean package -Dmaven.test.skip"
 alias mversion="mvn versions:display-dependency-updates"
 alias mit="mvn test-compile failsafe:integration-test failsafe:verify"
 
