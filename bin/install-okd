@@ -12,7 +12,7 @@ DRY_RUN=false
 commandInput=$@
 if [[ " ${commandInput[*]} " =~ " help " ]]; then
     echo "Usage:"
-    echo " install-apache-maven-mvnd [options] [command]"
+    echo " install-odk [options] [command]"
     echo ""
     echo "Available Commands:"
     echo "  help    Help about any command"

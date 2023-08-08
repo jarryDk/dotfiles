@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=${VERSION_MINECRAFT_FORGE_SERVER:=1.19.4-45.0.49}
+VERSION=${VERSION_MINECRAFT_FORGE_SERVER:=1.20.1-47.1.43}
 APP_HOME_DIR="/opt/minecraft/forge"
 APP_NAME="Minecraft Forge server"
 EULA=false
