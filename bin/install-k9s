@@ -1,0 +1,17 @@
+#!/bin/bash
+
+APP_HOME_DIR="/usr/local/bin"
+
+if [ ! -d "$HOME/git/k9s" ]; then
+    git clone https://github.com/derailed/k9s.git -c $HOME/git/k9s
+fi
+cd $HOME/git/k9s
+
+echo "Get all updates from git"
+git pull
+
+echo "Starting -- make build"
+make build
+
+echo "Install k9s into $APP_HOME_DIR"
+sudo install -m 555 ./execs/k9s $APP_HOME_DIR/k9s
