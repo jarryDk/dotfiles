@@ -60,6 +60,46 @@ jdk20(){
 	jdk 20
 }
 
+jdkNext(){
+	export JAVA_HOME=$JAVA_NEXT_HOME
+	updateJdkAlternatives
+	printf "\n\e[1;33m☕ Switching to Java Next -> $JAVA_HOME\033\e[0m\n"
+}
+
+jdkGetReadyToBuild(){
+	sudo dnf install freetype-devel \
+		cups-devel \
+		libXtst-devel \
+		libXt-devel \
+		libXrender-devel \
+		libXrandr-devel \
+		libXi-devel \
+		alsa-lib-devel \
+		libffi-devel \
+		autoconf \
+		gcc-c++ \
+		fontconfig-devel -y
+
+	OPENJDK_JDK=$HOME/git/openjdk/jdk
+
+	if [ -d $OPENJDK_JDK ]; then
+		echo "We have the folder $OPENJDK_JDK"
+		cd $OPENJDK_JDK
+		git pull
+	else
+		echo "We do not have the folder $OPENJDK_JDK"
+		mkdir -p $OPENJDK_JDK
+		git clone https://github.com/openjdk/jdk.git $OPENJDK_JDK
+		cd $OPENJDK_JDK
+		git config pull.rebase false
+	fi
+
+	bash configure  --with-version-date=$(date +"%Y-%m-%d") --with-vendor-name=JarryDk
+
+	echo ""
+	echo "make clean images"
+}
+
 ####################################################
 # Install jdk
 #
@@ -241,46 +281,6 @@ install-jdk19(){
 
 install-jdk20(){
   install-jdk -v 20
-}
-
-jdkNext(){
-	export JAVA_HOME=$JAVA_NEXT_HOME
-	updateJdkAlternatives
-	printf "\n\e[1;33m☕ Switching to Java Next -> $JAVA_HOME\033\e[0m\n"
-}
-
-jdkGetReadyToBuild(){
-	sudo dnf install freetype-devel \
-		cups-devel \
-		libXtst-devel \
-		libXt-devel \
-		libXrender-devel \
-		libXrandr-devel \
-		libXi-devel \
-		alsa-lib-devel \
-		libffi-devel \
-		autoconf \
-		gcc-c++ \
-		fontconfig-devel -y
-
-	OPENJDK_JDK=$HOME/git/openjdk/jdk
-
-	if [ -d $OPENJDK_JDK ]; then
-		echo "We have the folder $OPENJDK_JDK"
-		cd $OPENJDK_JDK
-		git pull
-	else
-		echo "We do not have the folder $OPENJDK_JDK"
-		mkdir -p $OPENJDK_JDK
-		git clone https://github.com/openjdk/jdk.git $OPENJDK_JDK
-		cd $OPENJDK_JDK
-		git config pull.rebase false
-	fi
-
-	bash configure  --with-version-date=$(date +"%Y-%m-%d") --with-vendor-name=JarryDk
-
-	echo ""
-	echo "make clean images"
 }
 
 updateJdkAlternatives() {

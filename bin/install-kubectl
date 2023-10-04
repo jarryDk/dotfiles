@@ -3,7 +3,7 @@
 # https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
 # https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
 
-VERSION=v1.27.1
+VERSION=v1.27.3
 APP_HOME_DIR="/usr/local/bin"
 APP_NAME="Kubectl"
 DRY_RUN=false
