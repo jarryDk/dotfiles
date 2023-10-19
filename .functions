@@ -274,3 +274,50 @@ kafka-kill-all(){
 	# SIGKILL       9       Term    Kill signal
 
 }
+
+podman-createNetwork(){
+
+	NETWORK=$1
+	podman network exists $NETWORK
+
+	if [ $? != 0 ]; then
+		echo "The network $NETWORK did not exists"
+		podman network create $NETWORK
+	else
+		echo "We already have $PODMAN_NETWORK as a network"
+	fi
+
+}
+
+podman-removeContainer(){
+
+    CONTAINER=$1
+    echo "Container to remove : $CONTAINER"
+
+    podman container exists $CONTAINER
+
+    if [ $? = 0 ]; then
+        echo "We will stop and remove the pod $CONTAINER"
+        podman stop $CONTAINER
+        podman rm $CONTAINER
+	else
+		echo "The container $CONTAINER does not exists"
+    fi
+}
+
+podman-removeVolume(){
+
+    VOLUME=$1
+    echo "Volume to remove : $VOLUME"
+
+    podman volume exists $VOLUME
+
+    if [ $? = 0 ]; then
+        echo "We will remove the volume $VOLUME"
+        podman network rm $VOLUME
+	else
+		echo "The volume $VOLUME does not exist"	
+    fi
+
+    echo "----"
+}
