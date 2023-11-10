@@ -39,6 +39,9 @@ alias mversion="mvn versions:display-dependency-updates"
 alias mit="mvn test-compile failsafe:integration-test failsafe:verify"
 alias mdt="mvn dependency:tree"
 
+# Visual Studio Code
+alias cn="code -n ."
+
 # Kafka options
 alias kafka-zookeeper="$KAFKA_HOME/bin/zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.properties"
 alias kafka-server-broker-0=kafka-server
