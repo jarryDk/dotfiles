@@ -2,7 +2,7 @@
 
 # https://kind.sigs.k8s.io/docs/user/quick-start/
 
-VERSION=v0.18.0
+VERSION=v0.20.0
 APP_HOME_DIR="/usr/local/bin"
 APP_NAME="Kind"
 DRY_RUN=false

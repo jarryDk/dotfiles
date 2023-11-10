@@ -3,8 +3,13 @@
 # https://www.graalvm.org/downloads/
 # https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-22.3.2/graalvm-ce-java17-linux-amd64-22.3.2.tar.gz
 
-VERSION=${VERSION_GRAALVM:=22.3.2}
-VERSION_GRAALVM_JAVA=${VERSION_GRAALVM_JAVA:=17}
+# https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-21.0.1/graalvm-community-jdk-21.0.1_linux-x64_bin.tar.gz
+# https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-17.0.9/graalvm-community-jdk-17.0.9_linux-x64_bin.tar.gz
+# https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-17.0.9/graalvm-community-17.0.9_linux-x64_bin.tar.gz
+
+
+VERSION_GRAALVM_JAVA=${VERSION_GRAALVM_JAVA:=17.0.9}
+VERSION_GRAALVM_JAVA_PLUS=${VERSION_GRAALVM_JAVA_PLUS:=9.1}
 APP_HOME_DIR="/opt/graalvm"
 APP_NAME="GraalVM Community"
 DRY_RUN=false
@@ -18,24 +23,24 @@ if [[ " ${commandInput[*]} " =~ " help " ]]; then
     echo "  help    Help about any command"
     echo ""
     echo "Options:"
-    echo "  -v  | --version         Version of software to install (default \"$VERSION\")"
-    echo "  -jv | --java-version    Version of java for software to install (default \"$VERSION_GRAALVM_JAVA\")"
-    echo "  -h  | --app-home-dir    Path to the home folder of the software (default \"$APP_HOME_DIR\")"
-    echo "  -s  | --software-dir    Path to store the downloaded software (default \"$SOFTWARE_FOLDER\")"
-    echo "  --dryrun                Dryrun (true|false) (default \"$DRY_RUN\")"
+    echo "  -jv  | --java-version       Version of java for software to install (default \"$VERSION_GRAALVM_JAVA\")"
+    echo "  -jpv | --java--plus-version Version of java plus for software to install (default \"$VERSION_GRAALVM_JAVA\")"
+    echo "  -h   | --app-home-dir       Path to the home folder of the software (default \"$APP_HOME_DIR\")"
+    echo "  -s   | --software-dir       Path to store the downloaded software (default \"$SOFTWARE_FOLDER\")"
+    echo "  --dryrun                    Dryrun (true|false) (default \"$DRY_RUN\")"
     echo ""
     exit 0
 fi
 
 while [[ $# -gt 1 ]]; do
     case $1 in
-        -v|--version)
-            VERSION="$2"
+        -jv|--java-version)
+            VERSION_GRAALVM_JAVA="$2"
             shift # past argument
             shift # past value
             ;;
-        -jv|--java-version)
-            VERSION_GRAALVM_JAVA="$2"
+        -jpv|--java-plus-version)
+            VERSION_GRAALVM_JAVA_PLUS="$2"
             shift # past argument
             shift # past value
             ;;
@@ -63,7 +68,8 @@ shift # past argument or value
 done
 
 echo "About to install $APP_NAME"
-echo "  Version             : $VERSION"
+echo "  Java version        : $VERSION_GRAALVM_JAVA"
+echo "  Java plus version   : $VERSION_GRAALVM_JAVA_PLUS"
 echo "  App Home folder     : $APP_HOME_DIR"
 echo "  Software folder     : $SOFTWARE_FOLDER"
 echo "  Dryrun              : $DRY_RUN"
@@ -74,10 +80,10 @@ if [ $DRY_RUN = true ]; then
     exit 0
 fi
 
-FILENAME=graalvm-ce-java$VERSION_GRAALVM_JAVA-linux-amd64-$VERSION_GRAALVM
+FILENAME='graalvm-community-jdk-'$VERSION_GRAALVM_JAVA'_linux-x64_bin'
 ARCHIVE_NAME=$FILENAME.tar.gz
 ARCHIVE_PATH="$SOFTWARE_FOLDER/$ARCHIVE_NAME"
-DOWNLOAD_ADDRESS=https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-$VERSION_GRAALVM/$ARCHIVE_NAME
+DOWNLOAD_ADDRESS=https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-$VERSION_GRAALVM_JAVA/$ARCHIVE_NAME
 
 if [ ! -e "$ARCHIVE_PATH" ]; then
     echo "Downloading: $DOWNLOAD_ADDRESS..."

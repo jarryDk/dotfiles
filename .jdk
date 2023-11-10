@@ -22,8 +22,11 @@ jdk(){
 		19)
 			VERSION_JAVA=$VERSION_JAVA_19
 		;;
-		20|*)
+		20)
 			VERSION_JAVA=$VERSION_JAVA_20
+		;;
+		21|*)
+			VERSION_JAVA=$VERSION_JAVA_21
 		;;
 	esac
 
@@ -60,13 +63,18 @@ jdk20(){
 	jdk 20
 }
 
+jdk21(){
+	jdk 21
+}
+
 jdkNext(){
 	export JAVA_HOME=$JAVA_NEXT_HOME
 	updateJdkAlternatives
 	printf "\n\e[1;33m☕ Switching to Java Next -> $JAVA_HOME\033\e[0m\n"
 }
 
-jdkGetReadyToBuild(){
+jdkNextBuild(){
+
 	sudo dnf install freetype-devel \
 		cups-devel \
 		libXtst-devel \
@@ -96,8 +104,7 @@ jdkGetReadyToBuild(){
 
 	bash configure  --with-version-date=$(date +"%Y-%m-%d") --with-vendor-name=JarryDk
 
-	echo ""
-	echo "make clean images"
+	make clean images
 }
 
 ####################################################
@@ -196,11 +203,18 @@ install-jdk(){
 		ADOPTIUM_FOLDER=$VERSION_JAVA_19
 		ADOPTIUM_ARCHIVE_NAME="OpenJDK"$ADOPTIUM_TOP_VERSION"U-jdk_x64_linux_hotspot_"$(echo $ADOPTIUM_FOLDER |tr -d 'jdk-'|tr - _|tr '+' _)".tar.gz"
 		;;
-		20|*)
+		20)
 		# https://github.com/adoptium/temurin20-binaries
 		ADOPTIUM_TOP_VERSION=20
 		ADOPTIUM_TAG_VERSION=$(echo $VERSION_JAVA_20 | sed -r 's/\+/%2b/g')
 		ADOPTIUM_FOLDER=$VERSION_JAVA_20
+		ADOPTIUM_ARCHIVE_NAME="OpenJDK"$ADOPTIUM_TOP_VERSION"U-jdk_x64_linux_hotspot_"$(echo $ADOPTIUM_FOLDER |tr -d 'jdk-'|tr - _|tr '+' _)".tar.gz"
+		;;
+		21|*)
+		# https://github.com/adoptium/temurin21-binaries
+		ADOPTIUM_TOP_VERSION=21
+		ADOPTIUM_TAG_VERSION=$(echo $VERSION_JAVA_21 | sed -r 's/\+/%2b/g')
+		ADOPTIUM_FOLDER=$VERSION_JAVA_21
 		ADOPTIUM_ARCHIVE_NAME="OpenJDK"$ADOPTIUM_TOP_VERSION"U-jdk_x64_linux_hotspot_"$(echo $ADOPTIUM_FOLDER |tr -d 'jdk-'|tr - _|tr '+' _)".tar.gz"
 		;;
 	esac
@@ -281,6 +295,10 @@ install-jdk19(){
 
 install-jdk20(){
   install-jdk -v 20
+}
+
+install-jdk21(){
+  install-jdk -v 21
 }
 
 updateJdkAlternatives() {

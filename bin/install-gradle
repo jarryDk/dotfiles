@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # https://gradle.org/releases/
-# https://services.gradle.org/distributions/gradle-8.1.1-bin.zip
+# https://services.gradle.org/distributions/gradle-8.4-bin.zip
 
-VERSION=${VERSION_GRADLE:=5.5}
+VERSION=${VERSION_GRADLE:=8.4}
 APP_HOME_DIR="/opt/gradle"
 APP_NAME="Gradle"
 DRY_RUN=false

@@ -4,13 +4,13 @@
 # https://developers.redhat.com/content-gateway/rest/mirror/pub/openshift-v4/clients/crc
 # https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/2.15.0/crc-linux-amd64.tar.xz
 
-VERSION=${VERSION_CRC:=2.15.0}
+VERSION=${VERSION_CRC:=2.29.0}
 APP_HOME_DIR="/opt/crc"
 APP_NAME="CodeReadyContainers (crc)"
 DRY_RUN=false
 
 commandInput=$@
-if [[ " ${commandInput[*]} " =~ " help " ]]; then    
+if [[ " ${commandInput[*]} " =~ " help " ]]; then
     echo "Usage:"
     echo " install-crc [options] [command]"
     echo ""

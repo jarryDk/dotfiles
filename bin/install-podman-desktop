@@ -3,7 +3,7 @@
 # https://podman-desktop.io/downloads
 # https://github.com/containers/podman-desktop/releases/download/v0.15.0/podman-desktop-0.15.0.tar.gz
 
-VERSION=${VERSION_PODMAN_DESKTOP:=1.0.1}
+VERSION=${VERSION_PODMAN_DESKTOP:=1.5.3}
 APP_HOME_DIR="/opt/podman-desktop"
 APP_NAME="Podman Desktop"
 DRY_RUN=false

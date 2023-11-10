@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # https://ant.apache.org/bindownload.cgi
-# https://dlcdn.apache.org//ant/binaries/apache-ant-1.10.13-bin.tar.gz
+# https://dlcdn.apache.org//ant/binaries/apache-ant-1.10.14-bin.tar.gz
 
-VERSION=${VERSION_ANT:=1.10.13}
+VERSION=${VERSION_ANT:=1.10.14}
 APP_HOME_DIR="/opt/apache/ant"
 APP_NAME="Apache Ant"
 DRY_RUN=false
