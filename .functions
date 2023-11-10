@@ -48,6 +48,17 @@ man() {
 		man "$@"
 }
 
+jv(){
+
+	printf "\n\e[1;33m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\033\e[0m"
+	printf "\n\e[1;33m~~ ☕ Lets get the JDK version"
+	printf "\n\e[1;33m~~ \n"
+	java --version
+	printf "\e[1;33m~~ "
+	printf "\n\e[1;33m~~ JAVA_HOME : ${JAVA_HOME:=NA}"
+	printf "\n\e[1;33m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\033\e[0m"
+}
+
 # Ban ip from port 25 via iptables
 banport25(){
 	if [ "$#" -ne 1 ]; then
