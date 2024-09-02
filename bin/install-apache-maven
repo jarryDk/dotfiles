@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # https://maven.apache.org/download.cgi
-# https://dlcdn.apache.org/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz
+# https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.tar.gz
 
-VERSION=${VERSION_MAVEN:=3.9.5}
+VERSION=${VERSION_MAVEN:=3.9.9}
 APP_HOME_DIR="/opt/apache/maven"
 APP_NAME="Apache Maven"
 DRY_RUN=false

@@ -2,9 +2,9 @@
 
 # https://www.sonarsource.com/products/sonarqube/downloads/
 # https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-10.2.1.78527.zip
-10.2.1.78527.zip
+10.6.0.92116.zip
 
-VERSION=${VERSION_SONARQUBE:=10.2.1.78527}
+VERSION=${VERSION_SONARQUBE:=10.6.0.92116}
 APP_HOME_DIR="/opt/sonarqube"
 APP_NAME="SonerQube"
 

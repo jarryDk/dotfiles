@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # https://github.com/Konloch/bytecode-viewer/releases
-# https://github.com/Konloch/bytecode-viewer/releases/download/v2.11.2/Bytecode-Viewer-2.11.2.jar
+# https://github.com/Konloch/bytecode-viewer/releases/download/v2.12/Bytecode-Viewer-2.12.jar
 
-VERSION=${VERSION_BYTECODE_VIEWER:=2.11.2}
+VERSION=${VERSION_BYTECODE_VIEWER:=2.12}
 APP_HOME_DIR="/opt/bytecode-viewer"
 APP_NAME="Bytecode Viewer"
 DRY_RUN=false

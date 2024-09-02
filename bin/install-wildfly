@@ -2,7 +2,7 @@
 
 # https://www.wildfly.org/downloads/
 
-VERSION=${VERSION_WILDFLY:=30.0.0.Final}
+VERSION=${VERSION_WILDFLY:=33.0.1.Final}
 APP_HOME_DIR="/opt/wildfly"
 APP_NAME="Wildfly"
 DRY_RUN=false

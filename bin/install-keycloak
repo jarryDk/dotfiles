@@ -2,7 +2,7 @@
 
 # https://github.com/keycloak/keycloak/releases
 
-VERSION=${VERSION_KEYCLOAK:=22.0.5}
+VERSION=${VERSION_KEYCLOAK:=25.0.4}
 APP_HOME_DIR="/opt/keycloak"
 APP_NAME="Keycloak"
 DRY_RUN=false
