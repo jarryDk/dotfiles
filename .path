@@ -49,6 +49,9 @@ addToPath /opt/apache/ant/apache-ant-$VERSION_ANT/bin
 # Apache jMeter
 addToPath /opt/apache/jmeter/apache-jmeter-$VERSION_JMETER/bin
 
+# Apache Groovy
+addToPath //opt/apache/groovy/groovy-$VERSION_GROOVY/bin
+
 # JBANG
 # export PATH=/opt/jbang/jbang-$VERSION_JBANG/bin/:$PATH
 
