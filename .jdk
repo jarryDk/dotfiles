@@ -28,6 +28,9 @@ jdk(){
 		21|*)
 			VERSION_JAVA=$VERSION_JAVA_21
 		;;
+		23)
+			VERSION_JAVA=$VERSION_JAVA_23
+		;;
 	esac
 
 	export JAVA_HOME=$JAVA_FOLDER/$VERSION_JAVA
@@ -66,6 +69,11 @@ jdk20(){
 jdk21(){
 	jdk 21
 }
+
+jdk23(){
+	jdk 23
+}
+
 
 jdkNext(){
 	export JAVA_HOME=$JAVA_NEXT_HOME
