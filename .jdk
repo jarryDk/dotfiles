@@ -16,19 +16,10 @@ jdk(){
 		17)
 			VERSION_JAVA=$VERSION_JAVA_17
 		;;
-		18)
-			VERSION_JAVA=$VERSION_JAVA_18
-		;;
-		19)
-			VERSION_JAVA=$VERSION_JAVA_19
-		;;
-		20)
-			VERSION_JAVA=$VERSION_JAVA_20
-		;;
-		21|*)
+		21)
 			VERSION_JAVA=$VERSION_JAVA_21
 		;;
-		23)
+		23|*)
 			VERSION_JAVA=$VERSION_JAVA_23
 		;;
 	esac
@@ -54,18 +45,6 @@ jdk17(){
 	jdk 17
 }
 
-jdk18(){
-	jdk 18
-}
-
-jdk19(){
-	jdk 19
-}
-
-jdk20(){
-	jdk 20
-}
-
 jdk21(){
 	jdk 21
 }
@@ -73,7 +52,6 @@ jdk21(){
 jdk23(){
 	jdk 23
 }
-
 
 jdkNext(){
 	export JAVA_HOME=$JAVA_NEXT_HOME
@@ -132,7 +110,7 @@ install-jdk(){
 	APP_NAME="Eclipse Adoptium Temurin (Jdk)"
 	DRY_RUN=false
 
-	VERSION=20
+	VERSION=23
 
 	commandInput=$@
 	if [[ " ${commandInput[*]} " =~ " help " ]]; then
@@ -204,32 +182,18 @@ install-jdk(){
 		ADOPTIUM_FOLDER=$VERSION_JAVA_17
 		ADOPTIUM_ARCHIVE_NAME="OpenJDK"$ADOPTIUM_TOP_VERSION"U-jdk_x64_linux_hotspot_"$(echo $ADOPTIUM_FOLDER |tr -d 'jdk-'|tr - _|tr '+' _)".tar.gz"
 		;;
-		18)
-		# https://github.com/adoptium/temurin18-binaries
-		ADOPTIUM_TOP_VERSION=18
-		ADOPTIUM_TAG_VERSION=$(echo $VERSION_JAVA_18 | sed -r 's/\+/%2b/g')
-		ADOPTIUM_FOLDER=$VERSION_JAVA_18
-		ADOPTIUM_ARCHIVE_NAME="OpenJDK"$ADOPTIUM_TOP_VERSION"U-jdk_x64_linux_hotspot_"$(echo $ADOPTIUM_FOLDER |tr -d 'jdk-'|tr - _|tr '+' _)".tar.gz"
-		;;
-		19)
-		# https://github.com/adoptium/temurin19-binaries
-		ADOPTIUM_TOP_VERSION=19
-		ADOPTIUM_TAG_VERSION=$(echo $VERSION_JAVA_19 | sed -r 's/\+/%2b/g')
-		ADOPTIUM_FOLDER=$VERSION_JAVA_19
-		ADOPTIUM_ARCHIVE_NAME="OpenJDK"$ADOPTIUM_TOP_VERSION"U-jdk_x64_linux_hotspot_"$(echo $ADOPTIUM_FOLDER |tr -d 'jdk-'|tr - _|tr '+' _)".tar.gz"
-		;;
-		20)
-		# https://github.com/adoptium/temurin20-binaries
-		ADOPTIUM_TOP_VERSION=20
-		ADOPTIUM_TAG_VERSION=$(echo $VERSION_JAVA_20 | sed -r 's/\+/%2b/g')
-		ADOPTIUM_FOLDER=$VERSION_JAVA_20
-		ADOPTIUM_ARCHIVE_NAME="OpenJDK"$ADOPTIUM_TOP_VERSION"U-jdk_x64_linux_hotspot_"$(echo $ADOPTIUM_FOLDER |tr -d 'jdk-'|tr - _|tr '+' _)".tar.gz"
-		;;
-		21|*)
+		21)
 		# https://github.com/adoptium/temurin21-binaries
 		ADOPTIUM_TOP_VERSION=21
 		ADOPTIUM_TAG_VERSION=$(echo $VERSION_JAVA_21 | sed -r 's/\+/%2b/g')
 		ADOPTIUM_FOLDER=$VERSION_JAVA_21
+		ADOPTIUM_ARCHIVE_NAME="OpenJDK"$ADOPTIUM_TOP_VERSION"U-jdk_x64_linux_hotspot_"$(echo $ADOPTIUM_FOLDER |tr -d 'jdk-'|tr - _|tr '+' _)".tar.gz"
+		;;
+		23|*)
+		# https://github.com/adoptium/temurin23-binaries
+		ADOPTIUM_TOP_VERSION=23
+		ADOPTIUM_TAG_VERSION=$(echo $VERSION_JAVA_23 | sed -r 's/\+/%2b/g')
+		ADOPTIUM_FOLDER=$VERSION_JAVA_23
 		ADOPTIUM_ARCHIVE_NAME="OpenJDK"$ADOPTIUM_TOP_VERSION"U-jdk_x64_linux_hotspot_"$(echo $ADOPTIUM_FOLDER |tr -d 'jdk-'|tr - _|tr '+' _)".tar.gz"
 		;;
 	esac
@@ -300,20 +264,12 @@ install-jdk17(){
   install-jdk -v 17
 }
 
-install-jdk18(){
-  install-jdk -v 18
-}
-
-install-jdk19(){
-  install-jdk -v 19
-}
-
-install-jdk20(){
-  install-jdk -v 20
-}
-
 install-jdk21(){
   install-jdk -v 21
+}
+
+install-jdk23(){
+  install-jdk -v 23
 }
 
 updateJdkAlternatives() {

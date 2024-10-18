@@ -4,12 +4,12 @@ source ~/.functions
 
 export SOFTWARE_FOLDER="$HOME/software"
 
-export VERSION_ECLIPSE=2024-06-R
+export VERSION_ECLIPSE=2024-09-R
 export VERSION_MAVEN=3.9.9
 export VERSION_MVND=1.0.2
 export VERSION_ANT=1.10.15
 export VERSION_JMETER=5.6.3
-export VERSION_GRADLE=8.5
+export VERSION_GRADLE=8.10.2
 export VERSION_OKD=4.15.0-0.okd-2024-03-10-010116
 export VERSION_CRC=2.41.0
 export VERSION_GRAALVM_JAVA=23
@@ -42,14 +42,11 @@ export KAFKA_HOME="$KAFKA_INSTALL_DIR/kafka_"$VERSION_KAFKA_SCALA"-$VERSION_KAFK
 # JAVA
 export JAVA_FOLDER="/opt/java"
 
-export VERSION_JAVA_8="jdk8u392-b08"
-export VERSION_JAVA_11="jdk-11.0.21+9"
+export VERSION_JAVA_8="jdk8u422-b05"
+export VERSION_JAVA_11="jdk-11.0.25+9"
 export VERSION_JAVA_17="jdk-17.0.9+9"
-export VERSION_JAVA_18="jdk-18.0.2.1+1"
-export VERSION_JAVA_19="jdk-19.0.2+7"
-export VERSION_JAVA_20="jdk-20.0.2+9"
-export VERSION_JAVA_21="jdk-21.0.4+7"
-export VERSION_JAVA_23="jdk-23"
+export VERSION_JAVA_21="jdk-21.0.5+11"
+export VERSION_JAVA_23="jdk-23+37"
 export VERSION_JAVA_NEXT="jdk-next"
 
 export JAVA_NEXT_HOME="$HOME/git/openjdk/jdk/build/linux-x86_64-server-release/jdk"
