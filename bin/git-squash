@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# set -eu
+
+# Check if the current directory is in a Git repository.
+if [ "$(git rev-parse --is-inside-work-tree &>/dev/null; echo "${?}")" == '0' ]; then
+
+    if [ "X" = "X$1" ]; then
+        echo "USE: git-squash <SQUASH_HEAD_COUNT> optional <SQUASH_MESSAGE>"
+		exit 1
+    else
+		SQUASH_HEAD_COUNT=$1
+	fi
+    echo "SQUASH_HEAD_COUNT     : $SQUASH_HEAD_COUNT"
+
+	if [ "X" = "X$2" ]; then
+        SQUASH_MESSAGE="$(git log -1 --pretty=%B)"
+    else
+        SQUASH_MESSAGE="$2"
+	fi
+	echo "SQUASH_MESSAGE        : $SQUASH_MESSAGE"
+
+    git reset --soft HEAD~$SQUASH_HEAD_COUNT
+
+    git commit -m "$SQUASH_MESSAGE"
+
+else
+	echo "Current directory is NOT in a Git repository"
+fi

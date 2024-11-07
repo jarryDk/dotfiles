@@ -25,6 +25,7 @@ alias ~="cd ~" # `cd` is probably faster to type though
 
 # Shortcuts
 alias g="git"
+alias gitS="git-squash"
 alias h="history"
 alias ll="ls -al"
 alias hosts='sudo vi /etc/hosts'

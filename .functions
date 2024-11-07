@@ -80,40 +80,6 @@ banport25(){
 	fi
 }
 
-# Git Squash
-gitS() {
-	# Check if the current directory is in a Git repository.
-	if [ "$(git rev-parse --is-inside-work-tree &>/dev/null; echo "${?}")" == '0' ]; then
-
-		if [ "X" != "X$1" ]; then
-			SQUASH_HEAD_COUNT=$1
-			regex='^[0-9]+$'
-			if ! [[ $SQUASH_HEAD_COUNT =~ $regex ]] ; then
-				echo "Error: <SQUASH_HEAD_COUNT> - Not a number" >&2
-				exit 1
-			fi
-			echo "SQUASH_HEAD_COUNT : $SQUASH_HEAD_COUNT"
-		else
-			echo "USE: gitS <SQUASH_HEAD_COUNT> optional <SQUASH_MESSAGE>"
-			exit 1
-		fi
-		SQUASH_MESSAGE=$(git log -1 --pretty=%B)
-		if [ "X" != "X$2" ]; then
-			SQUASH_MESSAGE=$2
-		fi
-		echo "SQUASH_MESSAGE : $SQUASH_MESSAGE"
-
-		command="git reset --soft HEAD~$SQUASH_HEAD_COUNT"
-		$command
-
-		command="git commit -m $SQUASH_MESSAGE"
-		$command
-
-	else
-		echo "Current directory is NOT in a Git repository"
-	fi
-}
-
 # https://github.com/sfinktah/bash/blob/master/rawurlencode.inc.sh
 # Returns a string in which all non-alphanumeric characters except -_.~ have
 # been replaced with a percent (%) sign followed by two hex digits.
