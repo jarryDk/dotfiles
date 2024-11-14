@@ -9,6 +9,7 @@ if [ -x /usr/bin/dircolors ]; then
 	alias ls='ls --color=auto'
 	alias dir='dir --color=auto'
 	alias vdir='vdir --color=auto'
+	alias list-dir="ls -d */ | cut -f1 -d'/' | sort"
 
 	alias grep='grep --color=auto'
 	alias fgrep='fgrep --color=auto'
