@@ -4,19 +4,31 @@ source ~/.functions
 
 export SOFTWARE_FOLDER="$HOME/software"
 
+# https://www.eclipse.org/downloads/packages/
 export VERSION_ECLIPSE=2024-09-R
+# https://maven.apache.org/download.cgi
 export VERSION_MAVEN=3.9.9
+# https://github.com/apache/maven-mvnd/releases
 export VERSION_MVND=1.0.2
+# https://ant.apache.org/bindownload.cgi
 export VERSION_ANT=1.10.15
+# https://jmeter.apache.org/download_jmeter.cgi
 export VERSION_JMETER=5.6.3
-export VERSION_GRADLE=8.10.2
+# https://gradle.org/releases/
+export VERSION_GRADLE=8.11.1
+# https://github.com/okd-project/okd/releases
 export VERSION_OKD=4.15.0-0.okd-2024-03-10-010116
-export VERSION_CRC=2.41.0
-export VERSION_GRAALVM_JAVA=23
-export VERSION_GRAALVM_JAVA_PLUS=37.1
-export VERSION_KAFKA=3.8.0
+# https://github.com/crc-org/crc/releases
+export VERSION_CRC=2.43.0
+# https://github.com/graalvm/graalvm-ce-builds/releases/
+export VERSION_GRAALVM_JAVA=23.0.1
+export VERSION_GRAALVM_JAVA_PLUS=11.1
+# https://kafka.apache.org/downloads
+export VERSION_KAFKA=3.9.0
 export VERSION_KAFKA_SCALA=2.13
-export VERSION_JBANG=0.117.1
+# https://github.com/jbangdev/jbang/releases
+export VERSION_JBANG=0.121.0
+# https://github.com/hashicorp/envconsul/releases
 export VERSION_HASHICORP_ENVCONSUL=0.13.2
 export VERSION_HASHICORP_CONSUL_TEMPLATE=0.39.1
 export VERSION_STERN=1.30.0
@@ -26,7 +38,7 @@ export VERSION_KCCTL=1.0.0.CR3
 export VERSION_BYTECODE_VIEWER=2.12
 export VERSION_KEYCLOAK=25.0.4
 export VERSION_WILDFLY=33.0.1.Final
-export VERSION_QUARKUS=3.14.1
+export VERSION_QUARKUS=3.17.0
 export VERSION_SONARQUBE=10.6.0.92116
 export VERSION_MINECRAFT_FORGE_SERVER="1.21.1-52.0.9"
 export VERSION_PODMAN_DESKTOP=1.12.0
