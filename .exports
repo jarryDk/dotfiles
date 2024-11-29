@@ -30,19 +30,32 @@ export VERSION_KAFKA_SCALA=2.13
 export VERSION_JBANG=0.121.0
 # https://github.com/hashicorp/envconsul/releases
 export VERSION_HASHICORP_ENVCONSUL=0.13.2
+# https://github.com/hashicorp/consul-template/releases
 export VERSION_HASHICORP_CONSUL_TEMPLATE=0.39.1
-export VERSION_STERN=1.30.0
-export VERSION_PROMETHUES=2.54.1
-export VERSION_ISTIO=1.23.0
-export VERSION_KCCTL=1.0.0.CR3
+# https://github.com/stern/stern/releases
+export VERSION_STERN=1.31.0
+# https://prometheus.io/download/
+export VERSION_PROMETHUES=3.0.1
+# https://istio.io/latest/docs/setup/additional-setup/download-istio-release/
+export VERSION_ISTIO=1.24.1
+https://github.com/kcctl/kcctl/releases
+export VERSION_KCCTL=1.0.0.CR4
+# https://github.com/Konloch/bytecode-viewer/releases
 export VERSION_BYTECODE_VIEWER=2.12
-export VERSION_KEYCLOAK=25.0.4
-export VERSION_WILDFLY=33.0.1.Final
-export VERSION_QUARKUS=3.17.0
-export VERSION_SONARQUBE=10.6.0.92116
-export VERSION_MINECRAFT_FORGE_SERVER="1.21.1-52.0.9"
-export VERSION_PODMAN_DESKTOP=1.12.0
-export VERSION_GROOVY=4.0.22
+# https://www.keycloak.org/downloads
+export VERSION_KEYCLOAK=26.0.6
+# https://www.wildfly.org/downloads/
+export VERSION_WILDFLY=34.0.1.Final
+# https://github.com/quarkusio/quarkus/releases
+export VERSION_QUARKUS=3.17.2
+# https://www.sonarsource.com/products/sonarqube/downloads/success-download-community-edition/
+export VERSION_SONARQUBE=10.7.0.96327
+# https://files.minecraftforge.net/net/minecraftforge/forge/
+export VERSION_MINECRAFT_FORGE_SERVER="1.21.3-53.0.25"
+# https://github.com/podman-desktop/podman-desktop/releases
+export VERSION_PODMAN_DESKTOP=1.14.1
+# https://groovy.apache.org/download.html
+export VERSION_GROOVY=4.0.24
 
 # GraalVM Community
 export GRAALVM_HOME=/opt/graalvm/graalvm-community-openjdk-$VERSION_GRAALVM_JAVA+$VERSION_GRAALVM_JAVA_PLUS
@@ -54,11 +67,16 @@ export KAFKA_HOME="$KAFKA_INSTALL_DIR/kafka_"$VERSION_KAFKA_SCALA"-$VERSION_KAFK
 # JAVA
 export JAVA_FOLDER="/opt/java"
 
-export VERSION_JAVA_8="jdk8u422-b05"
+# https://github.com/adoptium/temurin8-binaries
+export VERSION_JAVA_8="jdk8u432-b06"
+# https://github.com/adoptium/temurin11-binaries
 export VERSION_JAVA_11="jdk-11.0.25+9"
+# https://github.com/adoptium/temurin17-binaries
 export VERSION_JAVA_17="jdk-17.0.9+9"
+# https://github.com/adoptium/temurin21-binaries
 export VERSION_JAVA_21="jdk-21.0.5+11"
-export VERSION_JAVA_23="jdk-23+37"
+# https://github.com/adoptium/temurin23-binaries
+export VERSION_JAVA_23="jdk-23.0.1+11"
 export VERSION_JAVA_NEXT="jdk-next"
 
 export JAVA_NEXT_HOME="$HOME/git/openjdk/jdk/build/linux-x86_64-server-release/jdk"
