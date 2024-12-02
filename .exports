@@ -38,7 +38,7 @@ export VERSION_STERN=1.31.0
 export VERSION_PROMETHUES=3.0.1
 # https://istio.io/latest/docs/setup/additional-setup/download-istio-release/
 export VERSION_ISTIO=1.24.1
-https://github.com/kcctl/kcctl/releases
+# https://github.com/kcctl/kcctl/releases
 export VERSION_KCCTL=1.0.0.CR4
 # https://github.com/Konloch/bytecode-viewer/releases
 export VERSION_BYTECODE_VIEWER=2.12
