@@ -17,7 +17,7 @@ export VERSION_JMETER=5.6.3
 # https://gradle.org/releases/
 export VERSION_GRADLE=8.11.1
 # https://github.com/okd-project/okd/releases
-export VERSION_OKD=4.15.0-0.okd-2024-03-10-010116
+export VERSION_OKD=4.17.0-okd-scos.0
 # https://github.com/crc-org/crc/releases
 export VERSION_CRC=2.43.0
 # https://github.com/graalvm/graalvm-ce-builds/releases/
