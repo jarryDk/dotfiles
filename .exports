@@ -5,7 +5,7 @@ source ~/.functions
 export SOFTWARE_FOLDER="$HOME/software"
 
 # https://www.eclipse.org/downloads/packages/
-export VERSION_ECLIPSE=2024-09-R
+export VERSION_ECLIPSE=2024-12-R
 # https://maven.apache.org/download.cgi
 export VERSION_MAVEN=3.9.9
 # https://github.com/apache/maven-mvnd/releases
@@ -15,7 +15,7 @@ export VERSION_ANT=1.10.15
 # https://jmeter.apache.org/download_jmeter.cgi
 export VERSION_JMETER=5.6.3
 # https://gradle.org/releases/
-export VERSION_GRADLE=8.11.1
+export VERSION_GRADLE=8.12
 # https://github.com/okd-project/okd/releases
 export VERSION_OKD=4.17.0-okd-scos.0
 # https://github.com/crc-org/crc/releases
@@ -43,11 +43,11 @@ export VERSION_KCCTL=1.0.0.CR4
 # https://github.com/Konloch/bytecode-viewer/releases
 export VERSION_BYTECODE_VIEWER=2.12
 # https://www.keycloak.org/downloads
-export VERSION_KEYCLOAK=26.0.6
+export VERSION_KEYCLOAK=26.0.8
 # https://www.wildfly.org/downloads/
-export VERSION_WILDFLY=34.0.1.Final
+export VERSION_WILDFLY=35.0.0.Final
 # https://github.com/quarkusio/quarkus/releases
-export VERSION_QUARKUS=3.17.2
+export VERSION_QUARKUS=3.17.6
 # https://www.sonarsource.com/products/sonarqube/downloads/success-download-community-edition/
 export VERSION_SONARQUBE=10.7.0.96327
 # https://files.minecraftforge.net/net/minecraftforge/forge/
@@ -72,7 +72,7 @@ export VERSION_JAVA_8="jdk8u432-b06"
 # https://github.com/adoptium/temurin11-binaries
 export VERSION_JAVA_11="jdk-11.0.25+9"
 # https://github.com/adoptium/temurin17-binaries
-export VERSION_JAVA_17="jdk-17.0.9+9"
+export VERSION_JAVA_17="jdk-17.0.13+11"
 # https://github.com/adoptium/temurin21-binaries
 export VERSION_JAVA_21="jdk-21.0.5+11"
 # https://github.com/adoptium/temurin23-binaries
