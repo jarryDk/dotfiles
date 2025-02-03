@@ -51,7 +51,7 @@ export VERSION_QUARKUS=3.17.6
 # https://www.sonarsource.com/products/sonarqube/downloads/success-download-community-edition/
 export VERSION_SONARQUBE=10.7.0.96327
 # https://files.minecraftforge.net/net/minecraftforge/forge/
-export VERSION_MINECRAFT_FORGE_SERVER="1.21.3-53.0.25"
+export VERSION_MINECRAFT_FORGE_SERVER="1.21.4-54.0.26"
 # https://github.com/podman-desktop/podman-desktop/releases
 export VERSION_PODMAN_DESKTOP=1.14.1
 # https://groovy.apache.org/download.html
