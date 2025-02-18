@@ -1,0 +1,118 @@
+#!/bin/bash
+
+# https://github.com/helm/helm/releases
+
+VERSION=v3.17.1
+APP_HOME_DIR="/usr/local/bin"
+APP_NAME="helm"
+DRY_RUN=false
+DO_DOWNLOAD=true
+DO_REMOVE=true
+
+commandInput=$@
+if [[ " ${commandInput[*]} " =~ " help " ]]; then
+    echo "Usage:"
+    echo " install-helm [options] [command]"
+    echo ""
+    echo "Available Commands:"
+    echo "  help    Help about any command"
+    echo ""
+    echo "Options:"
+    echo "  -v | --version          Version of software to install (default \"$VERSION\")"
+    echo "  -h | --app-home-dir     Path to the home folder of the software (default \"$APP_HOME_DIR\")"
+    echo "  -s | --software-dir     Path to store the downloaded software (default \"$SOFTWARE_FOLDER\")"
+    echo "  -d | --download         Do download (true|false) (default \"$DOWNLOAD\")"
+    echo "  -r | --remove           Remove downloaded file after installation (true|false) (default \"$REMOVE\")"
+    echo "  --dryrun                Dryrun (true|false) (default \"$DRY_RUN\")"
+    echo ""
+    exit 0
+fi
+
+while [[ $# -gt 1 ]]; do
+    case $1 in
+        -v|--version)
+            VERSION="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -h|--app-home-dir)
+            APP_HOME_DIR="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -s|--software-dir)
+            SOFTWARE_FOLDER="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -d|--download)
+            DO_DOWNLOAD="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -r|--remove)
+            DO_REMOVE="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        --dryrun)
+            DRY_RUN="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -*|--*)
+            echo "Unknown option $1"
+            exit 1
+            ;;
+    esac
+shift # past argument or value
+done
+
+echo "About to install $APP_NAME"
+echo "  Version                     : $VERSION"
+echo "  App Home folder             : $APP_HOME_DIR"
+echo "  Software folder             : $SOFTWARE_FOLDER"
+echo "  Do download                 : $DO_DOWNLOAD"
+echo "  Remove after installation   : $DO_REMOVE"
+echo "  Dryrun                      : $DRY_RUN"
+
+if [ $DRY_RUN = true ]; then
+    echo ""
+    echo "Dryrun - Nothing will be downloaded and nothing will be installed"
+    exit 0
+fi
+
+ARCHIVE_PATH=$SOFTWARE_FOLDER/helm-$VERSION-linux-amd64.tar.gz
+DOWNLOAD_ADDRESS=https://get.helm.sh/helm-$VERSION-linux-amd64.tar.gz
+
+if [ ! -e "$ARCHIVE_PATH" ]; then
+    echo "Downloading: $DOWNLOAD_ADDRESS..."
+    echo "Download location: $ARCHIVE_PATH"
+    wget -P $SOFTWARE_FOLDER $DOWNLOAD_ADDRESS
+    wgetreturn=$?
+    if [ $wgetreturn -ne 0 ]; then
+        echo "Not possible to download $APP_NAME - Exit Status : $wgetreturn"
+        sleep 20
+        exit 1
+    fi
+else
+    echo "$APP_NAME archive already exists."
+fi
+
+if [ -f "$ARCHIVE_PATH" ]; then
+    echo "Do unpack of $ARCHIVE_PATH"
+    mkdir -p $SOFTWARE_FOLDER/helm-$VERSION-linux-amd64
+    tar -xzf $ARCHIVE_PATH -C $SOFTWARE_FOLDER/helm-$VERSION-linux-amd64
+fi
+
+if [ -d "$SOFTWARE_FOLDER/helm-$VERSION-linux-amd64" ]; then
+    sudo install -m 555 $SOFTWARE_FOLDER/helm-$VERSION-linux-amd64/linux-amd64/helm $APP_HOME_DIR/helm
+    if [ $DO_REMOVE = true ]; then
+        rm -rf $SOFTWARE_FOLDER/helm-$VERSION-linux-amd64
+    fi
+fi
+
+echo ""
+printf "\033[32m-----------------------------------------------------\033[39m\n"
+printf "\033[32m$APP_NAME :: installed\033[39m\n"
+printf "\033[32m-----------------------------------------------------\033[39m\n"
