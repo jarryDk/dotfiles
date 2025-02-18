@@ -1,11 +1,10 @@
 #!/bin/bash
 
-# https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
-# https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+# https://github.com/rancher/rke/releases
 
-VERSION=v1.31.0
+VERSION=v1.7.2
 APP_HOME_DIR="/usr/local/bin"
-APP_NAME="Kubectl"
+APP_NAME="rke"
 DRY_RUN=false
 DO_DOWNLOAD=true
 DO_REMOVE=true
@@ -13,7 +12,7 @@ DO_REMOVE=true
 commandInput=$@
 if [[ " ${commandInput[*]} " =~ " help " ]]; then
     echo "Usage:"
-    echo " install-kubectl [options] [command]"
+    echo " install-rke [options] [command]"
     echo ""
     echo "Available Commands:"
     echo "  help    Help about any command"
@@ -83,8 +82,8 @@ if [ $DRY_RUN = true ]; then
     exit 0
 fi
 
-ARCHIVE_PATH=$SOFTWARE_FOLDER/kubectl-linux-amd64
-DOWNLOAD_ADDRESS=https://dl.k8s.io/release/$VERSION/bin/linux/amd64/kubectl
+ARCHIVE_PATH=$SOFTWARE_FOLDER/rke_linux-amd64
+DOWNLOAD_ADDRESS=https://github.com/rancher/rke/releases/download/$VERSION/rke_linux-amd64
 
 if [ $DO_DOWNLOAD = true ]; then
     echo "Downloadning ... $DOWNLOAD_ADDRESS"
@@ -92,7 +91,7 @@ if [ $DO_DOWNLOAD = true ]; then
 fi
 
 if [ -f $DO_ARCHIVE_PATH ]; then
-    sudo install -m 555 $ARCHIVE_PATH $APP_HOME_DIR/kubectl
+    sudo install -m 555 $ARCHIVE_PATH $APP_HOME_DIR/rke
     if [ $DO_REMOVE = true ]; then
         rm $ARCHIVE_PATH
     fi
