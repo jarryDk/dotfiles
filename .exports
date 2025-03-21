@@ -77,6 +77,8 @@ export VERSION_JAVA_17="jdk-17.0.13+11"
 export VERSION_JAVA_21="jdk-21.0.5+11"
 # https://github.com/adoptium/temurin23-binaries
 export VERSION_JAVA_23="jdk-23.0.1+11"
+# https://github.com/adoptium/temurin24-binaries
+export VERSION_JAVA_24="jdk-24+36"
 export VERSION_JAVA_NEXT="jdk-next"
 
 export JAVA_NEXT_HOME="$HOME/git/openjdk/jdk/build/linux-x86_64-server-release/jdk"

@@ -19,8 +19,8 @@ jdk(){
 		21)
 			VERSION_JAVA=$VERSION_JAVA_21
 		;;
-		23|*)
-			VERSION_JAVA=$VERSION_JAVA_23
+		24|*)
+			VERSION_JAVA=$VERSION_JAVA_24
 		;;
 	esac
 
@@ -49,8 +49,8 @@ jdk21(){
 	jdk 21
 }
 
-jdk23(){
-	jdk 23
+jdk24(){
+	jdk 24
 }
 
 jdkNext(){
@@ -189,11 +189,11 @@ install-jdk(){
 		ADOPTIUM_FOLDER=$VERSION_JAVA_21
 		ADOPTIUM_ARCHIVE_NAME="OpenJDK"$ADOPTIUM_TOP_VERSION"U-jdk_x64_linux_hotspot_"$(echo $ADOPTIUM_FOLDER |tr -d 'jdk-'|tr - _|tr '+' _)".tar.gz"
 		;;
-		23|*)
+		24|*)
 		# https://github.com/adoptium/temurin23-binaries
-		ADOPTIUM_TOP_VERSION=23
-		ADOPTIUM_TAG_VERSION=$(echo $VERSION_JAVA_23 | sed -r 's/\+/%2b/g')
-		ADOPTIUM_FOLDER=$VERSION_JAVA_23
+		ADOPTIUM_TOP_VERSION=24
+		ADOPTIUM_TAG_VERSION=$(echo $VERSION_JAVA_24 | sed -r 's/\+/%2b/g')
+		ADOPTIUM_FOLDER=$VERSION_JAVA_24
 		ADOPTIUM_ARCHIVE_NAME="OpenJDK"$ADOPTIUM_TOP_VERSION"U-jdk_x64_linux_hotspot_"$(echo $ADOPTIUM_FOLDER |tr -d 'jdk-'|tr - _|tr '+' _)".tar.gz"
 		;;
 	esac
@@ -268,8 +268,8 @@ install-jdk21(){
   install-jdk -v 21
 }
 
-install-jdk23(){
-  install-jdk -v 23
+install-jdk24(){
+  install-jdk -v 24
 }
 
 updateJdkAlternatives() {
