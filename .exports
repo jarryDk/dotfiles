@@ -24,7 +24,7 @@ export VERSION_CRC=2.43.0
 export VERSION_GRAALVM_JAVA=23.0.1
 export VERSION_GRAALVM_JAVA_PLUS=11.1
 # https://kafka.apache.org/downloads
-export VERSION_KAFKA=3.9.0
+export VERSION_KAFKA=4.0.0
 export VERSION_KAFKA_SCALA=2.13
 # https://github.com/jbangdev/jbang/releases
 export VERSION_JBANG=0.121.0

@@ -2,7 +2,7 @@
 
 # https://kafka.apache.org/downloads
 
-VERSION_KAFKA=${VERSION_KAFKA:=3.8.0}
+VERSION_KAFKA=${VERSION_KAFKA:=4.0.0}
 VERSION_SCALA=${VERSION_SCALA:=2.13}
 APP_HOME_DIR="/opt/apache/kafka"
 APP_NAME="Apache Kafka"
