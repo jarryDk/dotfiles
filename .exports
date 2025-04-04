@@ -15,7 +15,7 @@ export VERSION_ANT=1.10.15
 # https://jmeter.apache.org/download_jmeter.cgi
 export VERSION_JMETER=5.6.3
 # https://gradle.org/releases/
-export VERSION_GRADLE=8.12
+export VERSION_GRADLE=8.13
 # https://github.com/okd-project/okd/releases
 export VERSION_OKD=4.17.0-okd-scos.0
 # https://github.com/crc-org/crc/releases
