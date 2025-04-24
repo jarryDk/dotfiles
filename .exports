@@ -5,7 +5,7 @@ source ~/.functions
 export SOFTWARE_FOLDER="$HOME/software"
 
 # https://www.eclipse.org/downloads/packages/
-export VERSION_ECLIPSE=2024-12-R
+export VERSION_ECLIPSE=2025-03-R
 # https://maven.apache.org/download.cgi
 export VERSION_MAVEN=3.9.9
 # https://github.com/apache/maven-mvnd/releases
@@ -19,25 +19,25 @@ export VERSION_GRADLE=8.13
 # https://github.com/okd-project/okd/releases
 export VERSION_OKD=4.17.0-okd-scos.0
 # https://github.com/crc-org/crc/releases
-export VERSION_CRC=2.43.0
+export VERSION_CRC=2.49.0
 # https://github.com/graalvm/graalvm-ce-builds/releases/
-export VERSION_GRAALVM_JAVA=23.0.1
-export VERSION_GRAALVM_JAVA_PLUS=11.1
+export VERSION_GRAALVM_JAVA=24.0.1
+export VERSION_GRAALVM_JAVA_PLUS=9.1
 # https://kafka.apache.org/downloads
 export VERSION_KAFKA=4.0.0
 export VERSION_KAFKA_SCALA=2.13
 # https://github.com/jbangdev/jbang/releases
-export VERSION_JBANG=0.121.0
+export VERSION_JBANG=0.125.1
 # https://github.com/hashicorp/envconsul/releases
-export VERSION_HASHICORP_ENVCONSUL=0.13.2
+export VERSION_HASHICORP_ENVCONSUL=0.13.3
 # https://github.com/hashicorp/consul-template/releases
-export VERSION_HASHICORP_CONSUL_TEMPLATE=0.39.1
+export VERSION_HASHICORP_CONSUL_TEMPLATE=0.40.0
 # https://github.com/stern/stern/releases
-export VERSION_STERN=1.31.0
+export VERSION_STERN=1.32.0
 # https://prometheus.io/download/
-export VERSION_PROMETHUES=3.0.1
+export VERSION_PROMETHUES=3.3.0
 # https://istio.io/latest/docs/setup/additional-setup/download-istio-release/
-export VERSION_ISTIO=1.24.1
+export VERSION_ISTIO=1.25.2
 # https://github.com/kcctl/kcctl/releases
 export VERSION_KCCTL=1.0.0.CR4
 # https://github.com/Konloch/bytecode-viewer/releases
@@ -45,17 +45,17 @@ export VERSION_BYTECODE_VIEWER=2.12
 # https://www.keycloak.org/downloads
 export VERSION_KEYCLOAK=26.0.8
 # https://www.wildfly.org/downloads/
-export VERSION_WILDFLY=35.0.0.Final
+export VERSION_WILDFLY=36.0.0.Final
 # https://github.com/quarkusio/quarkus/releases
-export VERSION_QUARKUS=3.21.1
+export VERSION_QUARKUS=3.21.4
 # https://www.sonarsource.com/products/sonarqube/downloads/success-download-community-edition/
-export VERSION_SONARQUBE=10.7.0.96327
+export VERSION_SONARQUBE=25.4.0.105899
 # https://files.minecraftforge.net/net/minecraftforge/forge/
-export VERSION_MINECRAFT_FORGE_SERVER="1.21.4-54.0.26"
+export VERSION_MINECRAFT_FORGE_SERVER="1.21.5-55.0.9"
 # https://github.com/podman-desktop/podman-desktop/releases
-export VERSION_PODMAN_DESKTOP=1.17.1
+export VERSION_PODMAN_DESKTOP=1.18.0
 # https://groovy.apache.org/download.html
-export VERSION_GROOVY=4.0.24
+export VERSION_GROOVY=4.0.26
 
 # GraalVM Community
 export GRAALVM_HOME=/opt/graalvm/graalvm-community-openjdk-$VERSION_GRAALVM_JAVA+$VERSION_GRAALVM_JAVA_PLUS
