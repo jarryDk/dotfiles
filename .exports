@@ -6,6 +6,8 @@ export SOFTWARE_FOLDER="$HOME/software"
 
 # https://www.eclipse.org/downloads/packages/
 export VERSION_ECLIPSE=2025-03-R
+# https://netbeans.apache.org/front/main/download/
+export VERSION_NETBEANS=26
 # https://maven.apache.org/download.cgi
 export VERSION_MAVEN=3.9.9
 # https://github.com/apache/maven-mvnd/releases

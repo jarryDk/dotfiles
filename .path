@@ -37,6 +37,9 @@ fi
 # Eclipse IDE
 addToPath /opt/eclipse/eclipse-jee-$VERSION_ECLIPSE
 
+# Apache NetBeans
+addToPath /opt/apache/netbeans/netbeans-$VERSION_NETBEANS/bin
+
 # Apache Maven
 addToPath /opt/apache/maven/apache-maven-$VERSION_MAVEN/bin
 
