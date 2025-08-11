@@ -1,11 +1,12 @@
 [user]
 	name = Michael Bornholdt Nielsen
 	email = michaelbornholdtnielsen@gmail.com
-	signingkey = 7EFAFCE8469E0798
+	signingkey = C8F94B879B60AD8B
 [github]
 	user = jarryDk
 [cola]
 	spellcheck = false
+	startupmode = list
 [commit]
 	gpgsign = true
 [core]
