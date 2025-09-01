@@ -55,7 +55,7 @@ export VERSION_SONARQUBE=25.4.0.105899
 # https://files.minecraftforge.net/net/minecraftforge/forge/
 export VERSION_MINECRAFT_FORGE_SERVER="1.21.5-55.0.9"
 # https://github.com/podman-desktop/podman-desktop/releases
-export VERSION_PODMAN_DESKTOP=1.18.0
+export VERSION_PODMAN_DESKTOP=1.21.0
 # https://groovy.apache.org/download.html
 export VERSION_GROOVY=4.0.26
 
