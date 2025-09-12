@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # https://netbeans.apache.org/front/main/download/
-# 	https://dlcdn.apache.org/netbeans/netbeans/26/netbeans-26-bin.zip
+# 	https://dlcdn.apache.org/netbeans/netbeans/27/netbeans-27-bin.zip
 
-VERSION=${VERSION_NETBEANS:=26}
+VERSION=${VERSION_NETBEANS:=27}
 APP_HOME_DIR="/opt/apache/netbeans"
 APP_NAME="Apache NetBeans"
 DRY_RUN=false

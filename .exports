@@ -5,11 +5,11 @@ source ~/.functions
 export SOFTWARE_FOLDER="$HOME/software"
 
 # https://www.eclipse.org/downloads/packages/
-export VERSION_ECLIPSE=2025-06-R
+export VERSION_ECLIPSE=2025-09-R
 # https://netbeans.apache.org/front/main/download/
-export VERSION_NETBEANS=26
+export VERSION_NETBEANS=27
 # https://maven.apache.org/download.cgi
-export VERSION_MAVEN=3.9.9
+export VERSION_MAVEN=3.9.11
 # https://github.com/apache/maven-mvnd/releases
 export VERSION_MVND=1.0.2
 # https://ant.apache.org/bindownload.cgi
@@ -26,7 +26,7 @@ export VERSION_CRC=2.53.0
 export VERSION_GRAALVM_JAVA=24.0.2
 export VERSION_GRAALVM_JAVA_PLUS=9.1
 # https://kafka.apache.org/downloads
-export VERSION_KAFKA=4.0.0
+export VERSION_KAFKA=4.1.0
 export VERSION_KAFKA_SCALA=2.13
 # https://github.com/jbangdev/jbang/releases
 export VERSION_JBANG=0.129.0
@@ -51,9 +51,9 @@ export VERSION_WILDFLY=36.0.0.Final
 # https://github.com/quarkusio/quarkus/releases
 export VERSION_QUARKUS=3.22.1
 # https://www.sonarsource.com/products/sonarqube/downloads/success-download-community-edition/
-export VERSION_SONARQUBE=25.4.0.105899
+export VERSION_SONARQUBE=25.9.0.112764
 # https://files.minecraftforge.net/net/minecraftforge/forge/
-export VERSION_MINECRAFT_FORGE_SERVER="1.21.5-55.0.9"
+export VERSION_MINECRAFT_FORGE_SERVER="1.21.8-58.1.0"
 # https://github.com/podman-desktop/podman-desktop/releases
 export VERSION_PODMAN_DESKTOP=1.21.0
 # https://groovy.apache.org/download.html
@@ -70,17 +70,17 @@ export KAFKA_HOME="$KAFKA_INSTALL_DIR/kafka_"$VERSION_KAFKA_SCALA"-$VERSION_KAFK
 export JAVA_FOLDER="/opt/java"
 
 # https://github.com/adoptium/temurin8-binaries
-export VERSION_JAVA_8="jdk8u432-b06"
+export VERSION_JAVA_8="jdk8u462-b08"
 # https://github.com/adoptium/temurin11-binaries
-export VERSION_JAVA_11="jdk-11.0.25+9"
+export VERSION_JAVA_11="jdk-11.0.28+6"
 # https://github.com/adoptium/temurin17-binaries
-export VERSION_JAVA_17="jdk-17.0.13+11"
+export VERSION_JAVA_17="jdk-17.0.16+8"
 # https://github.com/adoptium/temurin21-binaries
-export VERSION_JAVA_21="jdk-21.0.5+11"
-# https://github.com/adoptium/temurin23-binaries
-export VERSION_JAVA_23="jdk-23.0.1+11"
+export VERSION_JAVA_21="jdk-21.0.8+9"
 # https://github.com/adoptium/temurin24-binaries
-export VERSION_JAVA_24="jdk-24+36"
+export VERSION_JAVA_24="jdk-24.0.2+12"
+# https://github.com/adoptium/temurin25-binaries
+
 export VERSION_JAVA_NEXT="jdk-next"
 
 export JAVA_NEXT_HOME="$HOME/git/openjdk/jdk/build/linux-x86_64-server-release/jdk"
