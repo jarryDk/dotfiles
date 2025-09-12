@@ -45,11 +45,11 @@ export VERSION_KCCTL=1.0.0.CR4
 # https://github.com/Konloch/bytecode-viewer/releases
 export VERSION_BYTECODE_VIEWER=2.12
 # https://www.keycloak.org/downloads
-export VERSION_KEYCLOAK=26.0.8
+export VERSION_KEYCLOAK=26.3.3
 # https://www.wildfly.org/downloads/
-export VERSION_WILDFLY=36.0.0.Final
+export VERSION_WILDFLY=37.0.1.Final
 # https://github.com/quarkusio/quarkus/releases
-export VERSION_QUARKUS=3.22.1
+export VERSION_QUARKUS=3.26.3
 # https://www.sonarsource.com/products/sonarqube/downloads/success-download-community-edition/
 export VERSION_SONARQUBE=25.9.0.112764
 # https://files.minecraftforge.net/net/minecraftforge/forge/
@@ -57,7 +57,7 @@ export VERSION_MINECRAFT_FORGE_SERVER="1.21.8-58.1.0"
 # https://github.com/podman-desktop/podman-desktop/releases
 export VERSION_PODMAN_DESKTOP=1.21.0
 # https://groovy.apache.org/download.html
-export VERSION_GROOVY=4.0.26
+export VERSION_GROOVY=4.0.28
 
 # GraalVM Community
 export GRAALVM_HOME=/opt/graalvm/graalvm-community-openjdk-$VERSION_GRAALVM_JAVA+$VERSION_GRAALVM_JAVA_PLUS

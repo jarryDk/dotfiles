@@ -109,6 +109,6 @@ printf "\033[32m-----------------------------------------------------\033[39m\n"
 
 echo ""
 echo "---------------------------------------------------"
-$APP_HOME_DIR/$FILENAME/bin/groovy --version
+$APP_HOME_DIR/groovy-$VERSION/bin/groovy --version
 echo "---------------------------------------------------"
 echo ""
