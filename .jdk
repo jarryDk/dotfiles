@@ -19,8 +19,10 @@ jdk(){
 		21)
 			VERSION_JAVA=$VERSION_JAVA_21
 		;;
-		24|*)
+		24)
 			VERSION_JAVA=$VERSION_JAVA_24
+		25|*)
+			VERSION_JAVA=$VERSION_JAVA_25
 		;;
 	esac
 
@@ -51,6 +53,10 @@ jdk21(){
 
 jdk24(){
 	jdk 24
+}
+
+jdk25(){
+	jdk 25
 }
 
 jdkNext(){
