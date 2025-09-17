@@ -21,6 +21,7 @@ jdk(){
 		;;
 		24)
 			VERSION_JAVA=$VERSION_JAVA_24
+		;;
 		25|*)
 			VERSION_JAVA=$VERSION_JAVA_25
 		;;
