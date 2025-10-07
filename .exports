@@ -11,7 +11,7 @@ export VERSION_NETBEANS=27
 # https://maven.apache.org/download.cgi
 export VERSION_MAVEN=3.9.11
 # https://github.com/apache/maven-mvnd/releases
-export VERSION_MVND=1.0.2
+export VERSION_MVND=1.0.3
 # https://ant.apache.org/bindownload.cgi
 export VERSION_ANT=1.10.15
 # https://jmeter.apache.org/download_jmeter.cgi
@@ -19,7 +19,7 @@ export VERSION_JMETER=5.6.3
 # https://gradle.org/releases/
 export VERSION_GRADLE=9.0.0
 # https://github.com/okd-project/okd/releases
-export VERSION_OKD=4.19.0-okd-scos.15
+export VERSION_OKD=4.20.0-okd-scos.3
 # https://github.com/crc-org/crc/releases
 export VERSION_CRC=2.53.0
 # https://github.com/graalvm/graalvm-ce-builds/releases/
@@ -29,7 +29,7 @@ export VERSION_GRAALVM_JAVA_PLUS=9.1
 export VERSION_KAFKA=4.1.0
 export VERSION_KAFKA_SCALA=2.13
 # https://github.com/jbangdev/jbang/releases
-export VERSION_JBANG=0.129.0
+export VERSION_JBANG=0.132.1
 # https://github.com/hashicorp/envconsul/releases
 export VERSION_HASHICORP_ENVCONSUL=0.13.3
 # https://github.com/hashicorp/consul-template/releases
@@ -45,19 +45,19 @@ export VERSION_KCCTL=1.0.0.CR4
 # https://github.com/Konloch/bytecode-viewer/releases
 export VERSION_BYTECODE_VIEWER=2.12
 # https://www.keycloak.org/downloads
-export VERSION_KEYCLOAK=26.3.3
+export VERSION_KEYCLOAK=26.4.0
 # https://www.wildfly.org/downloads/
 export VERSION_WILDFLY=37.0.1.Final
 # https://github.com/quarkusio/quarkus/releases
-export VERSION_QUARKUS=3.26.3
+export VERSION_QUARKUS=3.28.2
 # https://www.sonarsource.com/products/sonarqube/downloads/success-download-community-edition/
 export VERSION_SONARQUBE=25.9.0.112764
 # https://files.minecraftforge.net/net/minecraftforge/forge/
 export VERSION_MINECRAFT_FORGE_SERVER="1.21.8-58.1.0"
 # https://github.com/podman-desktop/podman-desktop/releases
-export VERSION_PODMAN_DESKTOP=1.21.0
+export VERSION_PODMAN_DESKTOP=1.22.0
 # https://groovy.apache.org/download.html
-export VERSION_GROOVY=4.0.28
+export VERSION_GROOVY=5.0.1
 
 # GraalVM Community
 export GRAALVM_HOME=/opt/graalvm/graalvm-community-openjdk-$VERSION_GRAALVM_JAVA+$VERSION_GRAALVM_JAVA_PLUS
