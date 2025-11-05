@@ -117,7 +117,7 @@ install-jdk(){
 	APP_NAME="Eclipse Adoptium Temurin (Jdk)"
 	DRY_RUN=false
 
-	VERSION=23
+	VERSION=25
 
 	commandInput=$@
 	if [[ " ${commandInput[*]} " =~ " help " ]]; then

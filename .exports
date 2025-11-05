@@ -23,8 +23,9 @@ export VERSION_OKD=4.20.0-okd-scos.3
 # https://github.com/crc-org/crc/releases
 export VERSION_CRC=2.53.0
 # https://github.com/graalvm/graalvm-ce-builds/releases/
-export VERSION_GRAALVM_JAVA=24.0.2
-export VERSION_GRAALVM_JAVA_PLUS=9.1
+export VERSION_GRAALVM_COMMUNITY=25.0.0
+export VERSION_GRAALVM_COMMUNITY_JAVA=25
+export VERSION_GRAALVM_COMMUNITY_JAVA_BUILD=37.1
 # https://kafka.apache.org/downloads
 export VERSION_KAFKA=4.1.0
 export VERSION_KAFKA_SCALA=2.13
@@ -60,7 +61,7 @@ export VERSION_PODMAN_DESKTOP=1.22.0
 export VERSION_GROOVY=5.0.1
 
 # GraalVM Community
-export GRAALVM_HOME=/opt/graalvm/graalvm-community-openjdk-$VERSION_GRAALVM_JAVA+$VERSION_GRAALVM_JAVA_PLUS
+export GRAALVM_HOME=/opt/graalvm/graalvm-community-openjdk-$VERSION_GRAALVM_COMMUNITY_JAVA+$VERSION_GRAALVM_COMMUNITY_JAVA_BUILD
 
 # Kafka home
 export KAFKA_INSTALL_DIR="/opt/apache/kafka"
@@ -76,11 +77,11 @@ export VERSION_JAVA_11="jdk-11.0.28+6"
 # https://github.com/adoptium/temurin17-binaries
 export VERSION_JAVA_17="jdk-17.0.16+8"
 # https://github.com/adoptium/temurin21-binaries
-export VERSION_JAVA_21="jdk-21.0.8+9"
+export VERSION_JAVA_21="jdk-21.0.9+10"
 # https://github.com/adoptium/temurin24-binaries
 export VERSION_JAVA_24="jdk-24.0.2+12"
 # https://github.com/adoptium/temurin25-binaries
-export VERSION_JAVA_25="jdk-25+36"
+export VERSION_JAVA_25="jdk-25.0.1+8"
 
 export VERSION_JAVA_NEXT="jdk-next"
 
