@@ -33,6 +33,8 @@ alias ll="ls -al"
 alias hosts='sudo vi /etc/hosts'
 alias vi='vim'
 
+alias showModeCurrentFolder='find . -maxdepth 1 -printf "%m:%f\n"'
+
 alias mci="mvn clean install"
 alias mcp="mvn clean package"
 alias mcp-verbose="mvn clean package -Dmaven.plugin.validation=VERBOSE"
