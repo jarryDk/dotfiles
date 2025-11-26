@@ -7,7 +7,7 @@ export SOFTWARE_FOLDER="$HOME/software"
 # https://www.eclipse.org/downloads/packages/
 export VERSION_ECLIPSE=2025-09-R
 # https://netbeans.apache.org/front/main/download/
-export VERSION_NETBEANS=27
+export VERSION_NETBEANS=28
 # https://maven.apache.org/download.cgi
 export VERSION_MAVEN=3.9.11
 # https://github.com/apache/maven-mvnd/releases
@@ -17,7 +17,7 @@ export VERSION_ANT=1.10.15
 # https://jmeter.apache.org/download_jmeter.cgi
 export VERSION_JMETER=5.6.3
 # https://gradle.org/releases/
-export VERSION_GRADLE=9.0.0
+export VERSION_GRADLE=9.2.1
 # https://github.com/okd-project/okd/releases
 export VERSION_OKD=4.20.0-okd-scos.3
 # https://github.com/crc-org/crc/releases
@@ -46,19 +46,19 @@ export VERSION_KCCTL=1.0.0.CR4
 # https://github.com/Konloch/bytecode-viewer/releases
 export VERSION_BYTECODE_VIEWER=2.12
 # https://www.keycloak.org/downloads
-export VERSION_KEYCLOAK=26.4.0
+export VERSION_KEYCLOAK=26.4.6
 # https://www.wildfly.org/downloads/
-export VERSION_WILDFLY=37.0.1.Final
+export VERSION_WILDFLY=38.0.1.Final
 # https://github.com/quarkusio/quarkus/releases
-export VERSION_QUARKUS=3.28.2
+export VERSION_QUARKUS=3.29.4
 # https://www.sonarsource.com/products/sonarqube/downloads/success-download-community-edition/
 export VERSION_SONARQUBE=25.9.0.112764
 # https://files.minecraftforge.net/net/minecraftforge/forge/
 export VERSION_MINECRAFT_FORGE_SERVER="1.21.8-58.1.0"
 # https://github.com/podman-desktop/podman-desktop/releases
-export VERSION_PODMAN_DESKTOP=1.22.0
+export VERSION_PODMAN_DESKTOP=1.23.1
 # https://groovy.apache.org/download.html
-export VERSION_GROOVY=5.0.1
+export VERSION_GROOVY=5.0.2
 
 # GraalVM Community
 export GRAALVM_HOME=/opt/graalvm/graalvm-community-openjdk-$VERSION_GRAALVM_COMMUNITY_JAVA+$VERSION_GRAALVM_COMMUNITY_JAVA_BUILD
@@ -71,11 +71,11 @@ export KAFKA_HOME="$KAFKA_INSTALL_DIR/kafka_"$VERSION_KAFKA_SCALA"-$VERSION_KAFK
 export JAVA_FOLDER="/opt/java"
 
 # https://github.com/adoptium/temurin8-binaries
-export VERSION_JAVA_8="jdk8u462-b08"
+export VERSION_JAVA_8="jdk8u472-b08"
 # https://github.com/adoptium/temurin11-binaries
-export VERSION_JAVA_11="jdk-11.0.28+6"
+export VERSION_JAVA_11="jdk-11.0.29+7"
 # https://github.com/adoptium/temurin17-binaries
-export VERSION_JAVA_17="jdk-17.0.16+8"
+export VERSION_JAVA_17="jdk-17.0.17+10"
 # https://github.com/adoptium/temurin21-binaries
 export VERSION_JAVA_21="jdk-21.0.9+10"
 # https://github.com/adoptium/temurin24-binaries
