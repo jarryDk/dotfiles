@@ -11,7 +11,16 @@ sudo dnf install python3-pygments
 
 == Structure
 
-- `bin/` contains binaries and will be add via `logical links` to the `/usr/local/bin/` folder
+- link:bin/[bin/] contains binaries and will be add via `logical links` to the `/usr/local/bin/` folder
+- link:.aliases[.aliases] - Shell aliases for common commands (Maven, Git, Kafka, etc.)
+- link:.functions[.functions] - Custom bash functions
+- link:.exports[.exports] - Environment variable exports
+- link:.path[.path] - PATH configuration
+- link:.jdk[.jdk] - JDK version management
+- link:.bash_profile[.bash_profile] - Bash login profile
+- link:.bashrc[.bashrc] - Bash configuration
+- link:.bash_prompt[.bash_prompt] - Custom prompt configuration
+- link:.gitconfig[.gitconfig] - Git configuration
 
 == To install
 
@@ -19,6 +28,8 @@ sudo dnf install python3-pygments
 ----
 make
 ----
+
+This will create symbolic links from the link:bin/[bin/] directory to `/usr/local/bin/` for all utility scripts.
 
 == To customize
 
@@ -63,13 +74,64 @@ Add shomething like this to the bottom of the file
 micbn   ALL=NOPASSWD:/usr/sbin/alternatives
 ----
 
+== Utility Scripts
+
+The link:bin/[bin/] directory contains numerous utility scripts:
+
+=== Git Utilities
+- link:bin/addr[addr] - Display IPv4 addresses for network interfaces
+- link:bin/git-commit-amend[git-commit-amend] - Amend git commits
+- link:bin/git-graph[git-graph] - Display git graph
+- link:bin/git-squash[git-squash] - Squash git commits
+- link:bin/git-stash[git-stash] - Git stash helper
+- link:bin/git-update[git-update] - Update git repositories
+
+=== Java Tooling Installers
+- link:bin/install-apache-maven[install-apache-maven] - Install Apache Maven
+- link:bin/install-apache-maven-mvnd[install-apache-maven-mvnd] - Install Maven Daemon
+- link:bin/install-gradle[install-gradle] - Install Gradle
+- link:bin/install-apache-ant[install-apache-ant] - Install Apache Ant
+- link:bin/install-apache-groovy[install-apache-groovy] - Install Apache Groovy
+- link:bin/install-apache-netbeans[install-apache-netbeans] - Install Apache NetBeans
+- link:bin/install-apache-jmeter[install-apache-jmeter] - Install Apache JMeter
+- link:bin/install-graalvm[install-graalvm] - Install GraalVM
+
+=== Kubernetes & Cloud Tools
+- link:bin/install-kubectl[install-kubectl] - Install kubectl
+- link:bin/install-helm[install-helm] - Install Helm
+- link:bin/install-kind[install-kind] - Install kind (Kubernetes in Docker)
+- link:bin/install-k9s[install-k9s] - Install k9s
+- link:bin/install-cilium[install-cilium] - Install Cilium CLI
+- link:bin/install-hubble[install-hubble] - Install Hubble
+- link:bin/install-argo-cd-cli[install-argo-cd-cli] - Install ArgoCD CLI
+- link:bin/install-crc[install-crc] - Install CodeReady Containers
+
+=== Other Tools
+- link:bin/install-apache-kafka[install-apache-kafka] - Install Apache Kafka
+- link:bin/install-keycloak[install-keycloak] - Install Keycloak
+- link:bin/install-bytecode-viewer[install-bytecode-viewer] - Install Bytecode Viewer
+- link:bin/install-microk8s[install-microk8s] - Install MicroK8s
+- link:bin/install-minecraft-forge-server[install-minecraft-forge-server] - Install Minecraft Forge Server
+
 == Links
 
-- https://github.com/jessfraz/dotfiles[Jess Frazelle - dotfiles - github.com]
-- https://github.com/thoughtbot/dotfiles[thoughtbot, inc - dotfiles - github.com]
-- https://github.com/henrik/dotfiles[Henrik Nyh - dotfiles - github.com]
-- https://github.com/sdaschner/dotfiles[Sebastian Daschner - dotfiles - github.com]
-- https://github.com/thoughtbot/dotfiles[thoughtbot, inc - dotfiles - github.com]
+=== Dotfiles Inspiration
+- https://github.com/jessfraz/dotfiles[Jess Frazelle - dotfiles]
+- https://github.com/thoughtbot/dotfiles[thoughtbot, inc - dotfiles]
+- https://github.com/henrik/dotfiles[Henrik Nyh - dotfiles]
+- https://github.com/sdaschner/dotfiles[Sebastian Daschner - dotfiles]
 
+=== Bash Scripting Resources
 - https://gist.github.com/mohanpedala/1e2ff5661761d3abd0385e8223e16425[set -e, -u, -o, -x pipefail explanation]
 - https://www.gnu.org/software/wget/manual/html_node/Exit-Status.html[wget - Exit Status]
+- https://www.gnu.org/software/bash/manual/[Bash Reference Manual]
+
+=== Tool Documentation
+- https://maven.apache.org/[Apache Maven]
+- https://gradle.org/[Gradle Build Tool]
+- https://kubernetes.io/docs/home/[Kubernetes Documentation]
+- https://helm.sh/docs/[Helm Documentation]
+- https://kind.sigs.k8s.io/[kind Documentation]
+- https://www.graalvm.org/[GraalVM]
+- https://kafka.apache.org/[Apache Kafka]
+- https://www.keycloak.org/[Keycloak]
