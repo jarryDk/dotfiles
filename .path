@@ -94,3 +94,5 @@ addToPath /opt/podman-desktop/podman-desktop-$VERSION_PODMAN_DESKTOP
 # kcctl
 #  export PATH="$PATH:/opt/kcctl/kcctl-$VERSION_KCCTL-linux-x86_64/bin"
 # . /opt/kcctl/kcctl-1.0.0.Beta1-linux-x86_64/./kcctl_completion
+
+export PATH="$HOME/.local/bin:$PATH"
