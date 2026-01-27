@@ -2,11 +2,10 @@
 
 # https://www.sonarsource.com/products/sonarqube/downloads/
 # https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-10.2.1.78527.zip
-10.6.0.92116.zip
 
 VERSION=${VERSION_SONARQUBE:=10.6.0.92116}
 APP_HOME_DIR="/opt/sonarqube"
-APP_NAME="SonerQube"
+APP_NAME="SonarQube"
 
 commandInput=$@
 if [[ " ${commandInput[*]} " =~ " help " ]]; then
@@ -108,7 +107,7 @@ printf "\033[32m$APP_NAME :: $FILENAME :: installed\033[39m\n"
 printf "\033[32m-----------------------------------------------------\033[39m\n"
 
 echo ""
-echo "https://docs.sonarqube.org/9.8/"
+echo "https://docs.sonarqube.org/latest/"
 echo ""
 echo "Start SonarQube with"
 echo "    cd /opt/sonarqube/sonarqube-$VERSION && ./bin/linux-x86-64/sonar.sh start"
