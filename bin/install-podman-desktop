@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # https://podman-desktop.io/downloads
-# https://github.com/containers/podman-desktop/releases/download/v0.15.0/podman-desktop-0.15.0.tar.gz
+# https://github.com/podman-desktop/podman-desktop/releases/download/v1.26.2/podman-desktop-1.26.2-x64.tar.gz
 
-VERSION=${VERSION_PODMAN_DESKTOP:=1.21.0}
+VERSION=${VERSION_PODMAN_DESKTOP:=1.26.2}
 APP_HOME_DIR="/opt/podman-desktop"
 APP_NAME="Podman Desktop"
 DRY_RUN=false
@@ -67,7 +67,7 @@ if [ $DRY_RUN = true ]; then
     exit 0
 fi
 
-FILENAME=podman-desktop-$VERSION
+FILENAME=podman-desktop-$VERSION-x64
 ARCHIVE_NAME=$FILENAME.tar.gz
 ARCHIVE_PATH="$SOFTWARE_FOLDER/$ARCHIVE_NAME"
 DOWNLOAD_ADDRESS="https://github.com/containers/podman-desktop/releases/download/v$VERSION/$ARCHIVE_NAME"
