@@ -3,7 +3,7 @@
 # https://github.com/apache/maven-mvnd/releases
 # https://github.com/apache/maven-mvnd/releases/download/1.0.2/maven-mvnd-1.0.2-linux-amd64.tar.gz
 
-VERSION=${VERSION_MVND:=1.0.2}
+VERSION=${VERSION_MVND:=1.0.5}
 APP_HOME_DIR="/opt/apache/mvnd"
 APP_NAME="Apache Maven Daemon"
 DRY_RUN=false
