@@ -19,8 +19,8 @@ jdk(){
 		21)
 			VERSION_JAVA=$VERSION_JAVA_21
 		;;
-		24)
-			VERSION_JAVA=$VERSION_JAVA_24
+		26)
+			VERSION_JAVA=$VERSION_JAVA_26
 		;;
 		25|*)
 			VERSION_JAVA=$VERSION_JAVA_25
@@ -52,12 +52,12 @@ jdk21(){
 	jdk 21
 }
 
-jdk24(){
-	jdk 24
-}
-
 jdk25(){
 	jdk 25
+}
+
+jdk26(){
+	jdk 26
 }
 
 jdkNext(){
@@ -196,6 +196,13 @@ install-jdk(){
 		ADOPTIUM_FOLDER=$VERSION_JAVA_21
 		ADOPTIUM_ARCHIVE_NAME="OpenJDK"$ADOPTIUM_TOP_VERSION"U-jdk_x64_linux_hotspot_"$(echo $ADOPTIUM_FOLDER |tr -d 'jdk-'|tr - _|tr '+' _)".tar.gz"
 		;;
+		26)
+		# https://github.com/adoptium/temurin26-binaries
+		ADOPTIUM_TOP_VERSION=26
+		ADOPTIUM_TAG_VERSION=$(echo $VERSION_JAVA_26 | sed -r 's/\+/%2b/g')
+		ADOPTIUM_FOLDER=$VERSION_JAVA_26
+		ADOPTIUM_ARCHIVE_NAME="OpenJDK"$ADOPTIUM_TOP_VERSION"U-jdk_x64_linux_hotspot_"$(echo $ADOPTIUM_FOLDER |tr -d 'jdk-'|tr - _|tr '+' _)".tar.gz"
+		;;
 		25|*)
 		# https://github.com/adoptium/temurin25-binaries
 		ADOPTIUM_TOP_VERSION=25
@@ -277,6 +284,10 @@ install-jdk21(){
 
 install-jdk25(){
   install-jdk -v 25
+}
+
+install-jdk26(){
+  install-jdk -v 26
 }
 
 updateJdkAlternatives() {
