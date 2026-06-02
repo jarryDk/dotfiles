@@ -50,7 +50,7 @@ export VERSION_KEYCLOAK=26.6.1
 # https://www.wildfly.org/downloads/
 export VERSION_WILDFLY=39.0.1.Final
 # https://github.com/quarkusio/quarkus/releases
-export VERSION_QUARKUS=3.34.5
+export VERSION_QUARKUS=3.36.0
 # https://www.sonarsource.com/products/sonarqube/downloads/success-download-community-edition/
 export VERSION_SONARQUBE=26.4.0.121862
 # https://files.minecraftforge.net/net/minecraftforge/forge/
