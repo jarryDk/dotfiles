@@ -50,7 +50,7 @@ export VERSION_KEYCLOAK=26.7.1
 # https://www.wildfly.org/downloads/
 export VERSION_WILDFLY=41.0.0.Final
 # https://github.com/quarkusio/quarkus/releases
-export VERSION_QUARKUS=3.38.1
+export VERSION_QUARKUS=3.38.3
 # https://www.sonarsource.com/products/sonarqube/downloads/success-download-community-edition/
 export VERSION_SONARQUBE=26.8.0.126808
 # https://files.minecraftforge.net/net/minecraftforge/forge/
@@ -75,11 +75,11 @@ export VERSION_JAVA_8="jdk8u502-b07"
 # https://github.com/adoptium/temurin11-binaries
 export VERSION_JAVA_11="jdk-11.0.32+9"
 # https://github.com/adoptium/temurin17-binaries
-export VERSION_JAVA_17="jdk-17.0.20+8"
+export VERSION_JAVA_17="jdk-17.0.9+9"
 # https://github.com/adoptium/temurin21-binaries
-export VERSION_JAVA_21="jdk-21.0.12+8"
+export VERSION_JAVA_21="jdk-21.0.12.1+1"
 # https://github.com/adoptium/temurin25-binaries
-export VERSION_JAVA_25="jdk-25.0.4+7"
+export VERSION_JAVA_25="jdk-25.0.4.1+1"
 # https://github.com/adoptium/temurin26-binaries
 export VERSION_JAVA_26="jdk-26.0.2+10"
 
