@@ -44,6 +44,8 @@ alias mversion="mvn versions:display-dependency-updates"
 alias mit="mvn test-compile failsafe:integration-test failsafe:verify"
 alias mdt="mvn dependency:tree"
 
+alias podman-ps="watch -n 1 podman ps"
+
 # Visual Studio Code
 alias cn="code -n ."
 
