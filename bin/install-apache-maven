@@ -75,7 +75,7 @@ DOWNLOAD_ADDRESS=https://dlcdn.apache.org/maven/maven-3/$VERSION/binaries/$ARCHI
 if [ ! -e "$ARCHIVE_PATH" ]; then
     echo "Downloading: $DOWNLOAD_ADDRESS..."
     echo "Download location: $ARCHIVE_PATH"
-    wget -P $SOFTWARE_FOLDER $DOWNLOAD_ADDRESS
+    wget -O $ARCHIVE_PATH $DOWNLOAD_ADDRESS
     wgetreturn=$?
     if [ $wgetreturn -ne 0 ]; then
         echo "Not possible to download $APP_NAME - Exit Status : $wgetreturn"
