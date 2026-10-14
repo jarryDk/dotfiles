@@ -22,6 +22,9 @@ jdk(){
 		26)
 			VERSION_JAVA=$VERSION_JAVA_26
 		;;
+		27)
+			VERSION_JAVA=$VERSION_JAVA_27
+		;;
 		25|*)
 			VERSION_JAVA=$VERSION_JAVA_25
 		;;
@@ -36,28 +39,33 @@ jdk(){
 	printf "\n\e[1;33m☕ Switching to Java $VERSION_JAVA -> $JAVA_HOME\033\e[0m\n"
 }
 
-jdk8(){
-	jdk 8
-}
+alias jdk8="jdk 8"
+alias jdk11="jdk 11"
+alias jdk17="jdk 17"
+alias jdk21="jdk 21"
+alias jdk25="jdk 25"
+alias jdk27="jdk 27"
 
-jdk11(){
-	jdk 11
+install-jdk8(){
+  install-jdk -v 8
 }
-
-jdk17(){
-	jdk 17
+install-jdk11(){
+  install-jdk -v 11
 }
-
-jdk21(){
-	jdk 21
+install-jdk17(){
+  install-jdk -v 17
 }
-
-jdk25(){
-	jdk 25
+install-jdk21(){
+  install-jdk -v 21
 }
-
-jdk26(){
-	jdk 26
+install-jdk25(){
+  install-jdk -v 25
+}
+install-jdk26(){
+  install-jdk -v 26
+}
+install-jdk27(){
+  install-jdk -v 27
 }
 
 jdkNext(){
@@ -203,6 +211,13 @@ install-jdk(){
 		ADOPTIUM_FOLDER=$VERSION_JAVA_26
 		ADOPTIUM_ARCHIVE_NAME="OpenJDK"$ADOPTIUM_TOP_VERSION"U-jdk_x64_linux_hotspot_"$(echo $ADOPTIUM_FOLDER |tr -d 'jdk-'|tr - _|tr '+' _)".tar.gz"
 		;;
+		27)
+		# https://github.com/adoptium/temurin27-binaries
+		ADOPTIUM_TOP_VERSION=27
+		ADOPTIUM_TAG_VERSION=$(echo $VERSION_JAVA_27 | sed -r 's/\+/%2b/g')
+		ADOPTIUM_FOLDER=$VERSION_JAVA_27
+		ADOPTIUM_ARCHIVE_NAME="OpenJDK"$ADOPTIUM_TOP_VERSION"U-jdk_x64_linux_hotspot_"$(echo $ADOPTIUM_FOLDER |tr -d 'jdk-'|tr - _|tr '+' _)".tar.gz"
+		;;
 		25|*)
 		# https://github.com/adoptium/temurin25-binaries
 		ADOPTIUM_TOP_VERSION=25
@@ -232,7 +247,7 @@ install-jdk(){
 	if [ ! -f "$ARCHIVE_PATH" ]; then
 		echo "Downloading: $DOWNLOAD_ADDRESS..."
 		echo "Download location: $ARCHIVE_PATH"
-		wget -P $SOFTWARE_FOLDER $DOWNLOAD_ADDRESS
+		wget -O $ARCHIVE_PATH $DOWNLOAD_ADDRESS
 		wgetreturn=$?
 		if [ $wgetreturn -ne 0 ]; then
 			echo "Not possible to download $APP_NAME - Exit Status : $wgetreturn"
@@ -264,30 +279,6 @@ install-jdk(){
 	printf "\033[32m$APP_NAME :: $ADOPTIUM_ARCHIVE_NAME :: installed\033[39m\n"
 	printf "\033[32m-----------------------------------------------------\033[39m\n"
 
-}
-
-install-jdk8(){
-  install-jdk -v 8
-}
-
-install-jdk11(){
-  install-jdk -v 11
-}
-
-install-jdk17(){
-  install-jdk -v 17
-}
-
-install-jdk21(){
-  install-jdk -v 21
-}
-
-install-jdk25(){
-  install-jdk -v 25
-}
-
-install-jdk26(){
-  install-jdk -v 26
 }
 
 updateJdkAlternatives() {

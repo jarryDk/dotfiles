@@ -82,6 +82,8 @@ export VERSION_JAVA_21="jdk-21.0.12.1+1"
 export VERSION_JAVA_25="jdk-25.0.4.1+1"
 # https://github.com/adoptium/temurin26-binaries
 export VERSION_JAVA_26="jdk-26.0.2.1+1"
+# https://github.com/adoptium/temurin27-binaries
+export VERSION_JAVA_27="jdk-27+35"
 
 export VERSION_JAVA_NEXT="jdk-next"
 
